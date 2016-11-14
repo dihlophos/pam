@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Болезни
+		Болезнь
 
 	Поля:
 		Название

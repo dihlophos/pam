@@ -6,22 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид болезни
+		Единица учета
 
 	Поля:
 		Название
 */
-class DiseaseType extends Model
+class Measure extends Model
 {
-    /**
+   /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function diseases()
-  {
-    return $this->hasMany(Disease::class);
-  }
 }
