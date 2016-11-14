@@ -6,22 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Виды болезней
+		Болезни
 
 	Поля:
 		Название
+		Вид болезни
 */
-class DiseaseType extends Model
+class Disease extends Model
 {
-    /**
+     /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
 
-  public function diseases()
+  public function diseaseType()
   {
-    return $this->hasMany(Disease::class);
+    return $this->belongsTo(DiseaseType::class);
   }
+
 }
