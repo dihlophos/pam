@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Болезни
+		Вид услуги
 
 	Поля:
 		Название
-		Вид болезни
 */
-class Disease extends Model
+class ServiceCategory extends Model
 {
    /**
    * Массово присваиваемые атрибуты.
@@ -20,10 +19,4 @@ class Disease extends Model
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function diseaseType()
-  {
-    return $this->belongsTo(DiseaseType::class);
-  }
-
 }
