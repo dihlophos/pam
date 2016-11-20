@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Категория исполнителя
+		Исполнитель
 
 	Поля:
 		Название
+		Категория исполнителя
 */
-class ExecutorCategory extends Model
+class Executor extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -20,8 +21,8 @@ class ExecutorCategory extends Model
    */
   protected $fillable = ['name'];
 
-  public function executors()
+  public function executorCategory()
   {
-    return $this->hasMany(Executor::class);
+    return $this->belongsTo(ExecutorCategory::class);
   }
 }
