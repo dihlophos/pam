@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Подведомственность лаборатории
+		Лаборатория
 
 	Поля:
 		Название
+		Подведомственность лаборатории
 */
-class LabJurisdiction extends Model
+class Lab extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -20,8 +21,8 @@ class LabJurisdiction extends Model
    */
   protected $fillable = ['name'];
 
-  public function labs()
+  public function labJurisdiction()
   {
-    return $this->hasMany(Lab::class);
+    return $this->belongsTo(LabJurisdiction::class);
   }
 }
