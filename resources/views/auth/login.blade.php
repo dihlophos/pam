@@ -14,7 +14,7 @@
                             <label for="login" class="col-md-4 control-label">Имя пользователя</label>
 
                             <div class="col-md-6">
-                                <input id="login" type="login" class="form-control" name="email" value="{{ old('login') }}" required autofocus>
+                                <input id="login" type="text" class="form-control" name="email" value="{{ old('login') }}" required autofocus>
 
                                 @if ($errors->has('login'))
                                     <span class="help-block">
