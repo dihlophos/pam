@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Группа животных
+		Тип животных
 
 	Поля:
 		Название
+		Группа животных
 */
-class AnimalCategory extends Model
+class AnimalType extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -20,8 +21,8 @@ class AnimalCategory extends Model
    */
   protected $fillable = ['name'];
 
-  public function animalTypes()
+  public function animalCategory()
   {
-    return $this->hasMany(AnimalType::class);
+    return $this->belongsTo(AnimalCategory::class);
   }
 }
