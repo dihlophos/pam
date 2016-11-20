@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 	Поля:
 		Название
 		Вид болезни
+    Тип животных
 */
 class Disease extends Model
 {
@@ -24,6 +25,11 @@ class Disease extends Model
   public function diseaseType()
   {
     return $this->belongsTo(DiseaseType::class);
+  }
+
+  public function animalTypes()
+  {
+    return $this->belongsToMany(AnimalType::class);
   }
 
 }
