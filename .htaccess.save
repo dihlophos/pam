@@ -1,0 +1,38 @@
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors off
+php_flag log_errors on
+php_flag ignore_repeated_errors off
+php_flag ignore_repeated_source off
+php_flag report_memleaks on
+php_flag track_errors on
+php_value docref_root 0
+php_value docref_ext 0
+php_value error_log /home/a/abuyanl7/pem1.lvse.ru/public_html/PHP_errors.log
+php_value error_reporting 2047
+php_value log_errors_max_len 0
+php_value error_reporting "E_ALL"
+
+<Files PHP_errors.log>
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+	#default cake setup
+	RewriteRule    public    [L]
+	RewriteRule    (.*) public/$1 [L]
+	
+	# redirect all subdomains
+    #RewriteCond %{HTTP_HOST} !^lvse\.(.*)$ [NC]
+    #RewriteCond %{HTTPS} on
+    #RewriteRule ^(.*)$ /%{HTTP_HOST}/$1 [NC,L,NS]
+
+    #RewriteCond %{HTTP_HOST} ^lvse\.(.*)$ [NC]
+    #RewriteRule ^$ app/webroot/    [L]
+    #RewriteCond %{HTTP_HOST} ^lvse\.(.*)$ [NC]
+    #RewriteRule (.*) app/webroot/$1 [L]
+	
+</IfModule>
