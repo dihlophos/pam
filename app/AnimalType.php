@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Тип животных
+		Вид животных
 
 	Поля:
 		Название
