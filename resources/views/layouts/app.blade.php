@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ URL::asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -76,8 +77,9 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container">
         @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->
