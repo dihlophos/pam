@@ -8,7 +8,7 @@
     <form action="/disease_type" class="form-inline text-right" id="DiseaseTypeAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
-            <input name="name" id="disease_type-name" class="form-control" placeholder="Название..." maxlength="255" type="text">
+            <input name="name" id="disease_type-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
@@ -24,6 +24,7 @@
       </div>
 
       <div class="panel-body">
+        {{$disease_types->links()}}
         <table class="table table-striped task-table">
 
           <thead>
@@ -63,6 +64,7 @@
             @endforeach
           </tbody>
         </table>
+        {{$disease_types->links()}}
       </div>
     </div>
    @endif

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\DiseaseType;
 use App\Http\Requests\StoreDiseaseType;
 
-
 class DiseaseTypeController extends Controller
 {
     /**
@@ -16,7 +15,8 @@ class DiseaseTypeController extends Controller
      */
     public function index()
     {
-        $disease_types = DiseaseType::all();
+        $disease_types = DiseaseType::paginate(50);
+
         return view('disease_types.index', [
             'disease_types' => $disease_types,
         ]);
