@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Категория исследований
+		Единица измерения СО
 
 	Поля:
 		Название
 */
-class ResearchCategory extends Model
+class SOMeasure extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -19,9 +19,4 @@ class ResearchCategory extends Model
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function researchTypes()
-  {
-    return $this->belongsTo(ResearchType::class);
-  }
 }

@@ -1,17 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид болезни
+		Вид исследований
 
 	Поля:
 		Название
+		Категория исследований
 */
-class DiseaseType extends Model
+class ResearchType extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -20,8 +21,8 @@ class DiseaseType extends Model
    */
   protected $fillable = ['name'];
 
-  public function diseases()
+  public function researchCategory()
   {
-    return $this->hasMany(Disease::class);
+    return $this->belongsTo(ResearchCategory::class);
   }
 }

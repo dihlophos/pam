@@ -1,22 +1,27 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Елиница измерения ветеринарного препарата
+		Вид услуги
 
 	Поля:
 		Название
 */
-class PreparationMeasure extends Model
+class ServiceCategory extends Model
 {
-    /**
+   /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
+
+  public function services()
+  {
+    return $this->hasMany(Service::class);
+  }
 }

@@ -1,18 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Исполнитель
+		Лаборатория
 
 	Поля:
 		Название
-		Категория исполнителя
+		Подведомственность лаборатории
 */
-class Executor extends Model
+class Lab extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -21,8 +21,8 @@ class Executor extends Model
    */
   protected $fillable = ['name'];
 
-  public function executorCategory()
+  public function labJurisdiction()
   {
-    return $this->belongsTo(ExecutorCategory::class);
+    return $this->belongsTo(LabJurisdiction::class);
   }
 }

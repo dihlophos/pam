@@ -1,18 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Лаборатория
+		Вид материала
 
 	Поля:
 		Название
-		Подведомственность лаборатории
 */
-class Lab extends Model
+class MaterialType extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -20,9 +19,4 @@ class Lab extends Model
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function labJurisdiction()
-  {
-    return $this->belongsTo(LabJurisdiction::class);
-  }
 }

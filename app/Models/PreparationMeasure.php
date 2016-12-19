@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид материала
+		Елиница измерения ветеринарного препарата
 
 	Поля:
 		Название
 */
-class MaterialType extends Model
+class PreparationMeasure extends Model
 {
     /**
    * Массово присваиваемые атрибуты.

@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Препарат
+		Вид болезни
 
 	Поля:
 		Название
 */
-class Preparation extends Model
+class DiseaseType extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -19,4 +19,9 @@ class Preparation extends Model
    * @var array
    */
   protected $fillable = ['name'];
+
+  public function diseases()
+  {
+    return $this->hasMany(Disease::class);
+  }
 }

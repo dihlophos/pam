@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид работ
+		Первичный документ
 
 	Поля:
 		Название
 */
-class WorkType extends Model
+class BasicDocument extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
