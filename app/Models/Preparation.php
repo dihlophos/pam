@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Группа животных
+		Препарат
 
 	Поля:
 		Название
 */
-class AnimalCategory extends Model
+class Preparation extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -19,9 +19,4 @@ class AnimalCategory extends Model
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function animalTypes()
-  {
-    return $this->hasMany(AnimalType::class);
-  }
 }

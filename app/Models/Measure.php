@@ -1,22 +1,27 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Единица измерения СО
+		Единица учета
 
 	Поля:
 		Название
 */
-class SOMeasure extends Model
+class Measure extends Model
 {
-    /**
+   /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
+
+  public function services()
+  {
+    return $this->hasMany(Service::class);
+  }
 }

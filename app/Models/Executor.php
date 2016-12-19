@@ -1,17 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Первичный документ
+		Исполнитель
 
 	Поля:
 		Название
+		Категория исполнителя
 */
-class BasicDocument extends Model
+class Executor extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -19,4 +20,9 @@ class BasicDocument extends Model
    * @var array
    */
   protected $fillable = ['name'];
+
+  public function executorCategory()
+  {
+    return $this->belongsTo(ExecutorCategory::class);
+  }
 }

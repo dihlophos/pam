@@ -1,18 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид исследований
+		Категория исследований
 
 	Поля:
 		Название
-		Категория исследований
 */
-class ResearchType extends Model
+class ResearchCategory extends Model
 {
     /**
    * Массово присваиваемые атрибуты.
@@ -21,8 +20,8 @@ class ResearchType extends Model
    */
   protected $fillable = ['name'];
 
-  public function researchCategory()
+  public function researchTypes()
   {
-    return $this->belongsTo(ResearchCategory::class);
+    return $this->belongsTo(ResearchType::class);
   }
 }

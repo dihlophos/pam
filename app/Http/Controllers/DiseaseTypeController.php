@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\DiseaseType;
+use App\Models\DiseaseType;
 use App\Http\Requests\StoreDiseaseType;
 
 class DiseaseTypeController extends Controller

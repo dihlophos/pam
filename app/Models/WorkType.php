@@ -1,27 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Вид услуги
+		Вид работ
 
 	Поля:
 		Название
 */
-class ServiceCategory extends Model
+class WorkType extends Model
 {
-   /**
+    /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
-
-  public function services()
-  {
-    return $this->hasMany(Service::class);
-  }
 }

@@ -1,35 +1,27 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /*
 	Тип:
-		Болезнь
+		Группа животных
 
 	Поля:
 		Название
-		Вид болезни
-    Тип животных
 */
-class Disease extends Model
+class AnimalCategory extends Model
 {
-   /**
+    /**
    * Массово присваиваемые атрибуты.
    *
    * @var array
    */
   protected $fillable = ['name'];
 
-  public function diseaseType()
-  {
-    return $this->belongsTo(DiseaseType::class);
-  }
-
   public function animalTypes()
   {
-    return $this->belongsToMany(AnimalType::class);
+    return $this->hasMany(AnimalType::class);
   }
-
 }
