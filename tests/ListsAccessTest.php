@@ -15,7 +15,7 @@ class ListsAccessTest extends TestCase
     public function testAdminAccess()
     {
     	$this->seed('UsersTableSeeder');
-        $admin = User::where('username', '=', 'admin')->first();
+        $admin = User::ByUserName('admin');
 
         $this->actingAs($admin)
             ->get(URL::route('lists-index'))
@@ -34,26 +34,11 @@ class ListsAccessTest extends TestCase
     public function testAdminListsLinkVisibility()
     {
     	$this->seed('UsersTableSeeder');
-        $admin = User::where('username', '=', 'admin')->first();
+        $admin = User::ByUserName('admin');
 
         $this->actingAs($admin)
         	->visit(URL::route('home'))
         	->see('Справочники');
-    }
-
-    /**
-     * User can't see lists link in navbar.
-     *
-     * @return void
-     */
-    public function testUserListsLinkVisibility()
-    {
-    	$this->seed('UsersTableSeeder');
-        $user = User::where('username', '=', 'user')->first();
-
-        $this->actingAs($user)
-        	->visit(URL::route('home'))
-        	->dontsee('Справочники');
     }
 
     /**
@@ -65,7 +50,7 @@ class ListsAccessTest extends TestCase
     public function testUserAccess()
 	{
 		$this->seed('UsersTableSeeder');
-	    $user = User::where('username', '=', 'user')->first();
+	    $user = User::ByUserName('user');
 
 	    $this->actingAs($user)
 	        ->get(URL::route('lists-index'))
@@ -75,4 +60,19 @@ class ListsAccessTest extends TestCase
             ->get(URL::action('DiseaseTypeController@index'))
             ->assertResponseStatus(403);
 	}
+
+    /**
+     * User can't see lists link in navbar.
+     *
+     * @return void
+     */
+    public function testUserListsLinkVisibility()
+    {
+    	$this->seed('UsersTableSeeder');
+        $user = User::ByUserName('user');
+
+        $this->actingAs($user)
+        	->visit(URL::route('home'))
+        	->dontsee('Справочники');
+    }
 }

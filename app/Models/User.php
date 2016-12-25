@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return ($this->role->name === "Администратор");
     }
+
+    public function scopeByUserName($query, $username)
+    {
+        return $query->where('username', '=', $username)->first();
+    }
 }
