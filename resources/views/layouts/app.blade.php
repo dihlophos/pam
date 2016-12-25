@@ -36,7 +36,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/home') }}">
+                    <a class="navbar-brand" href="{{ url::route('home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -44,7 +44,11 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li>
+                            @can('access-lists')
+                                <a href="{{ url::route('lists-index') }}">Справочники</a>
+                            @endcan
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -60,9 +64,6 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        @can('access-lists')
-                                            <a href="{{ url::route('lists-index') }}">Справочники</a>
-                                        @endcan
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

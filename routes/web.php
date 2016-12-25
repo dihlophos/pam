@@ -20,7 +20,11 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index');
+    
+    Route::get('/home', 
+        ['as' => 'home',
+        'uses' => 'HomeController@index']);
+
     Route::group(
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],
@@ -32,4 +36,5 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::resource('/disease', 'DiseaseController');
     	}
     );
+    
 });
