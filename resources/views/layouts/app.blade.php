@@ -36,7 +36,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -60,6 +60,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        @can('access-lists')
+                                            <a href="{{ url::route('lists-index') }}">Справочники</a>
+                                        @endcan
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

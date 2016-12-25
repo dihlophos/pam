@@ -25,6 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],
     	function () {
+    		Route::get('/',
+    			['as' => 'lists-index',
+    			'uses' => function() { return view('lists/lists'); }]);
     		Route::resource('/disease_type', 'DiseaseTypeController');
 			Route::resource('/disease', 'DiseaseController');
     	}

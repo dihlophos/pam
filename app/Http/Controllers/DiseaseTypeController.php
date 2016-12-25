@@ -17,7 +17,7 @@ class DiseaseTypeController extends Controller
     {
         $disease_types = DiseaseType::paginate(50);
 
-        return view('disease_types.index', [
+        return view('lists.disease_types.index', [
             'disease_types' => $disease_types,
         ]);
     }
