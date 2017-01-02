@@ -20,7 +20,7 @@ class AnimalType extends Model
    *
    * @var array
    */
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'animal_category_id'];
 
   public function animalCategory()
   {
@@ -31,5 +31,5 @@ class AnimalType extends Model
   {
     return $this->belongsToMany(Disease::class);
   }
-  
+
 }
