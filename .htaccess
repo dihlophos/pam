@@ -8,7 +8,7 @@ php_flag report_memleaks on
 php_flag track_errors on
 php_value docref_root 0
 php_value docref_ext 0
-php_value error_log /home/a/abuyanl7/pem1.lvse.ru/pem1.lvse.ru.error.log
+php_value error_log /home/a/abuyanl7/pem2.lvse.ru/pem2.lvse.ru.error.log
 php_value error_reporting 2047
 php_value log_errors_max_len 0
 php_value error_reporting "E_ALL"
@@ -26,5 +26,5 @@ php_value error_reporting "E_ALL"
 
     RewriteCond %{REQUEST_URI} !^/public/.*$
     RewriteRule ^(.*)$ /public/$1 [QSA,L]
-    
+
 </IfModule>

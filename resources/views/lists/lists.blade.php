@@ -8,5 +8,6 @@
     <ul>
        <li><a href="{{ URL::action('DiseaseTypeController@index') }}">Виды болезней</a></li>
        <li><a href="{{ URL::action('DiseaseController@index') }}">Болезни</a></li>
+       <li><a href="{{ URL::action('AnimalCategoryController@index') }}">Категории животных</a></li>
     </ul>
 @endsection

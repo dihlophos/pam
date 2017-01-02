@@ -20,8 +20,8 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
-    
-    Route::get('/home', 
+
+    Route::get('/home',
         ['as' => 'home',
         'uses' => 'HomeController@index']);
 
@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     			'uses' => function() { return view('lists/lists'); }]);
     		Route::resource('/disease_type', 'DiseaseTypeController');
 			Route::resource('/disease', 'DiseaseController');
+            Route::resource('/animal_category', 'AnimalCategoryController');
     	}
     );
-    
+
 });

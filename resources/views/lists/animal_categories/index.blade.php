@@ -5,10 +5,10 @@
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/disease_type" class="form-inline text-right" id="DiseaseTypeAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/animal_category" class="form-inline text-right" id="AnimalCategoryAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
-            <input name="name" id="disease_type-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+            <input name="name" id="animal_category-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
@@ -17,14 +17,14 @@
         </div>
     </form>
     <br/>
-  @if (count($disease_types) > 0)
+  @if (count($animal_categories) > 0)
     <div class="panel panel-default">
       <div class="panel-heading">
-        Виды болезней
+        Категории животных
       </div>
 
       <div class="panel-body">
-        {{$disease_types->links()}}
+        {{$animal_categories->links()}}
         <table class="table table-striped task-table">
 
           <thead>
@@ -33,14 +33,14 @@
           </thead>
 
           <tbody>
-            @foreach ($disease_types as $disease_type)
+            @foreach ($animal_categories as $animal_category)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/disease_type/{{ $disease_type->id }}" method="POST">
+                    <form class="form-inline" action="/lists/animal_category/{{ $animal_category->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $disease_type->name }}" maxlength="255" type="text" style="width:800px">
+                            <input name="name" class="form-control" value="{{ $animal_category->name }}" maxlength="255" type="text" style="width:800px">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
@@ -50,7 +50,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="/lists/disease_type/{{ $disease_type->id }}" method="POST">
+                    <form action="/lists/animal_category/{{ $animal_category->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
 
@@ -64,7 +64,7 @@
             @endforeach
           </tbody>
         </table>
-        {{$disease_types->links()}}
+        {{$animal_categories->links()}}
       </div>
     </div>
    @endif
