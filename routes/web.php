@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::resource('/disease', 'DiseaseController');
             Route::resource('/animal_category', 'AnimalCategoryController');
             Route::resource('/animal_type', 'AnimalTypeController');
+            Route::resource('/service_category', 'ServiceCategoryController');
     	}
     );
 
