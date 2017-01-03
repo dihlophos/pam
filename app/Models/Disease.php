@@ -20,7 +20,7 @@ class Disease extends Model
    *
    * @var array
    */
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'disease_type_id'];
 
   public function diseaseType()
   {

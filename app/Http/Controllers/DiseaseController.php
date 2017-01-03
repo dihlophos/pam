@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Disease;
+use App\Models\AnimalType;
+use App\Models\DiseaseType;
+use App\Http\Requests\StoreDisease;
 
 class DiseaseController extends Controller
 {
@@ -13,7 +17,13 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        //
+        $diseases = Disease::with(['diseaseType','animalTypes'])->paginate(50);
+        $animal_types = AnimalType::pluck('name', 'id');
+        $disease_types = DiseaseType::pluck('name', 'id');
+        return view(
+                    'lists.diseases.index',
+                    compact([ 'diseases', 'disease_types', 'animal_types'])
+                );
     }
 
     /**
@@ -32,9 +42,12 @@ class DiseaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDisease $request)
     {
-        //
+        $disease = Disease::create($request->all());
+        $disease->animalTypes()->attach($request->animal_types);
+        $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+        return redirect()->route('disease.index');
     }
 
     /**
@@ -66,9 +79,12 @@ class DiseaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreDisease $request, Disease $disease)
     {
-        //
+        $disease->fill($request->all())->save();
+        $disease->animalTypes()->sync($request->animal_types);
+        $request->session()->flash('alert-success', 'Запись успешно обновлена!');
+        return redirect()->route('disease.index');
     }
 
     /**
@@ -77,8 +93,10 @@ class DiseaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Disease $disease)
     {
-        //
+        $disease->delete();
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('disease.index');
     }
 }

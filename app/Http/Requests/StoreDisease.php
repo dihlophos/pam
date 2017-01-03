@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class StoreDisease extends FormRequest
 {
     /**
@@ -13,7 +13,7 @@ class StoreDisease extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreDisease extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:diseases|max:255',
+            'name' => 'required|max:255|unique:diseases,name,' . $this->disease->id,
             'disease_type_id' => 'required',
         ];
     }
