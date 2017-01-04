@@ -11,5 +11,6 @@
        <li><a href="{{ URL::action('AnimalCategoryController@index') }}">Категории животных</a></li>
        <li><a href="{{ URL::action('AnimalTypeController@index') }}">Виды животных</a></li>
        <li><a href="{{ URL::action('ServiceCategoryController@index') }}">Категории услуг</a></li>
+       <li><a href="{{ URL::action('MeasureController@index') }}">Единицы учета</a></li>
     </ul>
 @endsection

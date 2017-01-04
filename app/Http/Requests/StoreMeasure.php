@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-class StoreDisease extends FormRequest
+
+class StoreMeasure extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class StoreDisease extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:diseases,name,' . ($this->disease?$this->disease->id:0),
-            'disease_type_id' => 'required',
+             'name' => 'required|max:255|unique:measures,name,' . ($this->measure?$this->measure->id:0),
         ];
     }
 

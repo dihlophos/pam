@@ -5,10 +5,10 @@
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/service_category" class="form-inline text-right" id="ServiceCategoryAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/measure" class="form-inline text-right" id="MeasureAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
-            <input name="name" id="service_category-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+            <input name="name" id="measure-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
@@ -17,14 +17,14 @@
         </div>
     </form>
     <br/>
-  @if (count($service_categories) > 0)
+  @if (count($measures) > 0)
     <div class="panel panel-default">
       <div class="panel-heading">
-        Категории услуг
+        Единицы учета
       </div>
 
       <div class="panel-body">
-        {{$service_categories->links()}}
+        {{$measures->links()}}
         <table class="table table-striped task-table">
 
           <thead>
@@ -33,14 +33,14 @@
           </thead>
 
           <tbody>
-            @foreach ($service_categories as $service_category)
+            @foreach ($measures as $measure)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/service_category/{{ $service_category->id }}" method="POST">
+                    <form class="form-inline" action="/lists/measure/{{ $measure->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $service_category->name }}" maxlength="255" type="text" style="width:800px">
+                            <input name="name" class="form-control" value="{{ $measure->name }}" maxlength="255" type="text" style="width:800px">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
@@ -50,7 +50,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="/lists/service_category/{{ $service_category->id }}" method="POST">
+                    <form action="/lists/measure/{{ $measure->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
 
@@ -64,7 +64,7 @@
             @endforeach
           </tbody>
         </table>
-        {{$service_categories->links()}}
+        {{$measures->links()}}
       </div>
     </div>
    @endif

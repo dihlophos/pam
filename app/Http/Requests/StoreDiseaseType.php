@@ -24,7 +24,7 @@ class StoreDiseaseType extends FormRequest
     public function rules()
     {
         return [
-             'name' => 'required|max:255|unique:disease_types,name,' . $this->disease_type->id,
+             'name' => 'required|max:255|unique:disease_types,name,' . ($this->disease_type?$this->disease_type->id:0),
         ];
     }
 

@@ -24,7 +24,14 @@ class StoreServiceCategory extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:service_categories,name,' . $this->service_category->id
+            'name' => 'required|max:255|unique:service_categories,name,' . ($this->service_category?$this->service_category->id:0)
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Не указано название',
         ];
     }
 }

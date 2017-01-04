@@ -24,7 +24,7 @@ class StoreAnimalCategory extends FormRequest
     public function rules()
     {
         return [
-             'name' => 'required|max:255|unique:animal_categories,name,'.$this->animal_category->id,
+             'name' => 'required|max:255|unique:animal_categories,name,'.($this->animal_category?$this->animal_category->id:0),
         ];
     }
 

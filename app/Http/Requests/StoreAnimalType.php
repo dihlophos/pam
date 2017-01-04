@@ -24,7 +24,14 @@ class StoreAnimalType extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:animal_types,name,' . $this->animal_type->id
+            'name' => 'required|max:255|unique:animal_types,name,' . ($this->animal_type?$this->animal_type->id:0)
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Не указано название',
         ];
     }
 }
