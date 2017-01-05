@@ -19,4 +19,6 @@ class SOMeasure extends Model
    * @var array
    */
   protected $fillable = ['name'];
+
+  protected $table = 'so_measures';
 }
