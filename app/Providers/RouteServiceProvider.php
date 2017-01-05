@@ -33,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('measure', App\Models\Measure::class);
         Route::model('basic_document', App\Models\BasicDocument::class);
         Route::model('lab_jurisdiction', App\Models\LabJurisdiction::class);
+        Route::model('executor_category', App\Models\ExecutorCategory::class);
     }
 
     /**
