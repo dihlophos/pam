@@ -5,10 +5,10 @@
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/executor_category" class="form-inline text-right" id="ExecutorCategoryAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/material_type" class="form-inline text-right" id="MaterialTypeAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
-            <input name="name" id="executor_category-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+            <input name="name" id="material_type-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
@@ -17,14 +17,14 @@
         </div>
     </form>
     <br/>
-  @if (count($executor_categories) > 0)
+  @if (count($material_types) > 0)
     <div class="panel panel-default">
       <div class="panel-heading">
-        Категория исполнителя
+        Виды материала
       </div>
 
       <div class="panel-body">
-        {{$executor_categories->links()}}
+        {{$material_types->links()}}
         <table class="table table-striped task-table">
 
           <thead>
@@ -33,14 +33,14 @@
           </thead>
 
           <tbody>
-            @foreach ($executor_categories as $executor_category)
+            @foreach ($material_types as $material_type)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/executor_category/{{ $executor_category->id }}" method="POST">
+                    <form class="form-inline" action="/lists/material_type/{{ $material_type->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $executor_category->name }}" maxlength="255" type="text" style="width:800px">
+                            <input name="name" class="form-control" value="{{ $material_type->name }}" maxlength="255" type="text" style="width:800px">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
@@ -50,7 +50,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="/lists/executor_category/{{ $executor_category->id }}" method="POST">
+                    <form action="/lists/material_type/{{ $material_type->id }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
 
@@ -64,7 +64,7 @@
             @endforeach
           </tbody>
         </table>
-        {{$executor_categories->links()}}
+        {{$material_types->links()}}
       </div>
     </div>
    @endif
