@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/material_type', 'MaterialTypeController');
             Route::resource('/research_category', 'ResearchCategoryController');
             Route::resource('/so_measure', 'SOMeasureController');
+            Route::resource('/work_type', 'WorkTypeController');
     	}
     );
 

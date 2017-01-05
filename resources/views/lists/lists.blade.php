@@ -18,5 +18,6 @@
        <li><a href="{{ URL::action('MaterialTypeController@index') }}">Виды материала</a></li>
        <li><a href="{{ URL::action('ResearchCategoryController@index') }}">Категории исследований</a></li>
        <li><a href="{{ URL::action('SOMeasureController@index') }}">Единица измерения СО</a></li>
+       <li><a href="{{ URL::action('WorkTypeController@index') }}">Виды работ</a></li>
     </ul>
 @endsection
