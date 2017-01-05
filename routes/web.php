@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/animal_type', 'AnimalTypeController');
             Route::resource('/service_category', 'ServiceCategoryController');
             Route::resource('/measure', 'MeasureController');
+            Route::resource('/basic_document', 'BasicDocumentController');
     	}
     );
 
