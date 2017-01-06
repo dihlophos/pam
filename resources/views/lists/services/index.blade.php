@@ -1,31 +1,36 @@
 @extends('layouts.app')
 
+@section('styles')
+<link href="{{ URL::asset('/css/selectize.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/service" class="form-inline text-right" id="ServiceAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/service" class="form-inline" id="ServiceAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
             <input name="name" id="service-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:400px">
         </div>
         <div class="form-group required">
-            <select name="service_category_id" id="service-service_category_id" class="form-control">
+            <select name="service_category_id" id="service-service_category_id" class="form-control" style="width:200px">
                 @foreach ($service_categories as $id => $category)
                     <option value="{{$id}}">{{$category}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group required">
-            <select name="measure_id" id="service-measure_id" class="form-control">
+            <select name="measure_id" id="service-measure_id" class="form-control" style="width:197px">
                 @foreach ($measures as $id => $measure)
                     <option value="{{$id}}">{{$measure}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group required">
-            <select name="tab_index" id="service-tab_index" class="form-control">
+            <select name="tab_index" id="service-tab_index" class="form-control" style="width:141px">
                 @foreach ($tabs as $idx => $tab_name)
                     <option value="{{$idx}}">{{$tab_name}}</option>
                 @endforeach
@@ -108,4 +113,17 @@
       </div>
     </div>
    @endif
+@endsection
+
+@section('scripts')
+<script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
+<script type="text/javascript">
+$(function () {
+	$('select').selectize({
+		create: false,
+		persist: false,
+		selectOnTab: true,
+	});
+});
+</script>
 @endsection
