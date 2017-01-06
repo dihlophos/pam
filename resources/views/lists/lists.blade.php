@@ -16,6 +16,7 @@
        <li><a href="{{ URL::action('BasicDocumentController@index') }}">Первичный документ</a></li>
        <li><a href="{{ URL::action('LabJurisdictionController@index') }}">Подведомственность лаборатории</a></li>
        <li><a href="{{ URL::action('ExecutorCategoryController@index') }}">Категория исполнителя</a></li>
+       <li><a href="{{ URL::action('ExecutorController@index') }}">Исполнители</a></li>
        <li><a href="{{ URL::action('MaterialTypeController@index') }}">Виды материала</a></li>
        <li><a href="{{ URL::action('ResearchCategoryController@index') }}">Категории исследований</a></li>
        <li><a href="{{ URL::action('SOMeasureController@index') }}">Единица измерения СО</a></li>

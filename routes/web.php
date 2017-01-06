@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/measure', 'MeasureController');
             Route::resource('/basic_document', 'BasicDocumentController');
             Route::resource('/lab_jurisdiction', 'LabJurisdictionController');
+            Route::resource('/executor', 'ExecutorController');
             Route::resource('/executor_category', 'ExecutorCategoryController');
             Route::resource('/material_type', 'MaterialTypeController');
             Route::resource('/research_category', 'ResearchCategoryController');

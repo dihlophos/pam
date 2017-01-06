@@ -19,7 +19,7 @@ class Executor extends Model
    *
    * @var array
    */
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'executor_category_id'];
 
   public function executorCategory()
   {
