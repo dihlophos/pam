@@ -19,5 +19,6 @@
        <li><a href="{{ URL::action('ResearchCategoryController@index') }}">Категории исследований</a></li>
        <li><a href="{{ URL::action('SOMeasureController@index') }}">Единица измерения СО</a></li>
        <li><a href="{{ URL::action('WorkTypeController@index') }}">Виды работ</a></li>
+       <li><a href="{{ URL::action('ServiceController@index') }}">Услуги</a></li>       
     </ul>
 @endsection

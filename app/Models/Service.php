@@ -15,20 +15,29 @@ use Illuminate\Database\Eloquent\Model;
 */
 class Service extends Model
 {
-   /**
-   * Массово присваиваемые атрибуты.
-   *
-   * @var array
-   */
-  protected $fillable = ['name'];
+    /**
+    * Массово присваиваемые атрибуты.
+    *
+    * @var array
+    */
+    protected $fillable = ['name', 'measure_id', 'tab_index', 'service_category_id'];
 
-  public function serviceCategory()
-  {
-    return $this->belongsTo(ServiceCategory::class);
-  }
+    public function serviceCategory()
+    {
+        return $this->belongsTo(ServiceCategory::class);
+    }
 
-  public function measure()
-  {
-    return $this->belongsTo(Measure::class);
-  }
+    public function measure()
+    {
+        return $this->belongsTo(Measure::class);
+    }
+
+    public static function tabs()
+    {
+        return collect([
+            1=>'обработки',
+            2=>'исследования',
+            3=>'ВС работы'
+        ]);
+    }
 }

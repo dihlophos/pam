@@ -38,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('research_category', App\Models\ResearchCategory::class);
         Route::model('so_measure', App\Models\SOMeasure::class);
         Route::model('work_type', App\Models\WorkType::class);
+        Route::model('service', App\Models\Service::class);
     }
 
     /**

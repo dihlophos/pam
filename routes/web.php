@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/research_category', 'ResearchCategoryController');
             Route::resource('/so_measure', 'SOMeasureController');
             Route::resource('/work_type', 'WorkTypeController');
+            Route::resource('/service', 'ServiceController');
     	}
     );
 
