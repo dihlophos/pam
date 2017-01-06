@@ -15,7 +15,7 @@ class LabJurisdictionController extends Controller
      */
     public function index()
     {
-        $lab_jurisdictions = LabJurisdiction::paginate(50);
+        $lab_jurisdictions = LabJurisdiction::orderBy('name')->paginate(50);
 
         return view('lists.lab_jurisdictions.index', [
             'lab_jurisdictions' => $lab_jurisdictions,

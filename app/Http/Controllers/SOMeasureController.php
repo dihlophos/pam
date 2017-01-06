@@ -16,7 +16,7 @@ class SOMeasureController extends Controller
      */
     public function index()
     {
-        $so_measures = SOMeasure::paginate(50);
+        $so_measures = SOMeasure::orderBy('name')->paginate(50);
 
         return view('lists.so_measures.index', [
             'so_measures' => $so_measures,

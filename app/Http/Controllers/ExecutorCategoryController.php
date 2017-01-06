@@ -15,7 +15,7 @@ class ExecutorCategoryController extends Controller
      */
     public function index()
     {
-        $executor_categories = ExecutorCategory::paginate(50);
+        $executor_categories = ExecutorCategory::orderBy('name')->paginate(50);
 
         return view('lists.executor_categories.index', [
             'executor_categories' => $executor_categories,

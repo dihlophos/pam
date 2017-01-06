@@ -15,7 +15,7 @@ class MaterialTypeController extends Controller
      */
     public function index()
     {
-        $material_types = MaterialType::paginate(50);
+        $material_types = MaterialType::orderBy('name')->paginate(50);
 
         return view('lists.material_types.index', [
             'material_types' => $material_types,

@@ -15,7 +15,7 @@ class MeasureController extends Controller
      */
     public function index()
     {
-        $measures = Measure::paginate(50);
+        $measures = Measure::orderBy('name')->paginate(50);
 
         return view('lists.measures.index', [
             'measures' => $measures,

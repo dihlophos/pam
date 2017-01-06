@@ -15,7 +15,7 @@ class DiseaseTypeController extends Controller
      */
     public function index()
     {
-        $disease_types = DiseaseType::paginate(50);
+        $disease_types = DiseaseType::orderBy('name')->paginate(50);
 
         return view('lists.disease_types.index', [
             'disease_types' => $disease_types,

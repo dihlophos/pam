@@ -15,7 +15,7 @@ class ResearchCategoryController extends Controller
      */
     public function index()
     {
-        $research_categories = ResearchCategory::paginate(50);
+        $research_categories = ResearchCategory::orderBy('name')->paginate(50);
 
         return view('lists.research_categories.index', [
             'research_categories' => $research_categories,

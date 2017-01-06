@@ -15,7 +15,7 @@ class WorkTypeController extends Controller
      */
     public function index()
     {
-        $work_types = WorkType::paginate(50);
+        $work_types = WorkType::orderBy('name')->paginate(50);
 
         return view('lists.work_types.index', [
             'work_types' => $work_types,

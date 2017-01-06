@@ -15,7 +15,7 @@ class BasicDocumentController extends Controller
      */
     public function index()
     {
-        $basic_documents = BasicDocument::paginate(50);
+        $basic_documents = BasicDocument::orderBy('name')->paginate(50);
 
         return view('lists.basic_documents.index', [
             'basic_documents' => $basic_documents,

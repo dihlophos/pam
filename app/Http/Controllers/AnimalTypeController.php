@@ -16,8 +16,8 @@ class AnimalTypeController extends Controller
      */
     public function index()
     {
-        $animal_types = AnimalType::paginate(50);
-        $animal_categories = AnimalCategory::pluck('name', 'id');
+        $animal_types = AnimalType::orderBy('name')->paginate(50);
+        $animal_categories = AnimalCategory::orderBy('name')->pluck('name', 'id');
         return view(
                     'lists.animal_types.index',
                     compact([ 'animal_types', 'animal_categories'])

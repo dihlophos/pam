@@ -15,7 +15,7 @@ class AnimalCategoryController extends Controller
      */
     public function index()
     {
-        $animal_categories = AnimalCategory::paginate(50);
+        $animal_categories = AnimalCategory::orderBy('name')->paginate(50);
 
         return view('lists.animal_categories.index', [
             'animal_categories' => $animal_categories,

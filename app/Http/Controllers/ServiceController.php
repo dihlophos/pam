@@ -17,9 +17,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::paginate(50);
-        $measures = Measure::pluck('name', 'id');
-        $service_categories = ServiceCategory::pluck('name', 'id');
+        $services = Service::orderBy('name')->paginate(50);
+        $measures = Measure::orderBy('name')->pluck('name', 'id');
+        $service_categories = ServiceCategory::orderBy('name')->pluck('name', 'id');
         $tabs = Service::tabs();
         return view(
                     'lists.services.index',

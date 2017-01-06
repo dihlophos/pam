@@ -18,9 +18,9 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::with(['diseaseType','animalTypes', 'services'])->paginate(50);
-        $animal_types = AnimalType::pluck('name', 'id');
-        $disease_types = DiseaseType::pluck('name', 'id');
+        $diseases = Disease::with(['diseaseType','animalTypes', 'services'])->orderBy('name')->paginate(50);
+        $animal_types = AnimalType::orderBy('name')->pluck('name', 'id');
+        $disease_types = DiseaseType::orderBy('name')->pluck('name', 'id');
         return view(
                     'lists.diseases.index',
                     compact([ 'diseases', 'disease_types', 'animal_types'])
@@ -71,8 +71,8 @@ class DiseaseController extends Controller
     public function edit(Disease $disease)
     {
         $disease->load('diseaseType','animalTypes', 'services');
-        $animal_types = AnimalType::pluck('name', 'id');
-        $disease_types = DiseaseType::pluck('name', 'id');
+        $animal_types = AnimalType::orderBy('name')->pluck('name', 'id');
+        $disease_types = DiseaseType::orderBy('name')->pluck('name', 'id');
         $services = Service::pluck('name', 'id');
         return view(
                     'lists.diseases.edit',

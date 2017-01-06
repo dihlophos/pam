@@ -15,7 +15,7 @@ class ServiceCategoryController extends Controller
      */
     public function index()
     {
-        $service_categories = ServiceCategory::paginate(50);
+        $service_categories = ServiceCategory::orderBy('name')->paginate(50);
 
         return view('lists.service_categories.index', [
             'service_categories' => $service_categories,
