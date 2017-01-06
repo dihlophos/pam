@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Disease;
 use App\Models\AnimalType;
 use App\Models\DiseaseType;
+use App\Models\Service;
 use App\Http\Requests\StoreDisease;
 
 class DiseaseController extends Controller
@@ -17,7 +18,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::with(['diseaseType','animalTypes'])->paginate(50);
+        $diseases = Disease::with(['diseaseType','animalTypes', 'services'])->paginate(50);
         $animal_types = AnimalType::pluck('name', 'id');
         $disease_types = DiseaseType::pluck('name', 'id');
         return view(
@@ -67,9 +68,16 @@ class DiseaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Disease $disease)
     {
-        //
+        $disease->load('diseaseType','animalTypes', 'services');
+        $animal_types = AnimalType::pluck('name', 'id');
+        $disease_types = DiseaseType::pluck('name', 'id');
+        $services = Service::pluck('name', 'id');
+        return view(
+                    'lists.diseases.edit',
+                    compact([ 'disease', 'disease_types', 'animal_types', 'services'])
+                );
     }
 
     /**
@@ -98,5 +106,21 @@ class DiseaseController extends Controller
         $disease->delete();
         $request->session()->flash('alert-success', 'Запись успешно удалена!');
         return redirect()->route('disease.index');
+    }
+
+    public function add_service($id, Request $request)
+    {
+        $disease = Disease::find($id);
+        $disease->services()->attach($request->service_id, array('year_multiplicity' => $request->year_multiplicity));
+        $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+        return redirect()->route('disease.edit', $id);
+    }
+
+    public function destroy_service($id, $service_id, Request $request)
+    {
+        $disease = Disease::find($id);
+        $disease->services()->detach($service_id);
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('disease.edit', $id);
     }
 }

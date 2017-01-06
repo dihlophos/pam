@@ -1,17 +1,22 @@
 @extends('layouts.app')
 
+@section('styles')
+<link href="{{ URL::asset('/css/selectize.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/disease" class="form-inline text-right" id="DiseaseAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/disease" class="form-inline" id="DiseaseAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
             <input name="name" id="disease-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:600px">
         </div>
         <div class="form-group required">
-            <select name="disease_type_id" id="disease-disease_type_id" class="form-control">
+            <select name="disease_type_id" id="disease-disease_type_id" class="form-control"  style="min-width:200px">
                 @foreach ($disease_types as $id => $disease_type)
                     <option value="{{$id}}">{{$disease_type}}</option>
                 @endforeach
@@ -38,42 +43,31 @@
       <div class="panel-body">
         {{$diseases->links()}}
         <table class="table table-striped task-table">
-
             <thead>
                 <th>Название</th>
+                <th>Вид болезни</th>
+                <th>Виды животных</th>
+                <th style="width:250px">Услуги : кратность</th>
                 <th>Удалить</th>
             </thead>
-
           <tbody>
             @foreach ($diseases as $disease)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/disease/{{ $disease->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $disease->name }}" maxlength="255" type="text" style="width:580px">
-                        </div>
-                        <div class="form-group required">
-                            <select name="disease_type_id" class="form-control">
-                                @foreach ($disease_types as $id => $disease_type)
-                                    <option value="{{$id}}" {{$disease->disease_type_id == $id ? 'selected' : ''}}>{{$disease_type}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <select name="animal_types[]" id="disease-animal_type_id" class="form-control" multiple>
-                                @foreach ($animal_types as $id => $animal_type)
-                                    <option value="{{$id}}" {{$disease->animalTypes->pluck('id')->contains($id) ? 'selected' : ''}}>{{$animal_type}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i> Сохранить
-                            </button>
-                        </div>
-                    </form>
+                    <a href="/lists/disease/{{ $disease->id }}/edit">{{ $disease->name }}</a>
+                </td>
+                <td class="table-text">
+                    {{$disease->diseaseType->name}}
+                </td>
+                <td class="table-text">
+                    @foreach ($disease->animalTypes as $animalType)
+                        {{$animalType->name}}{{$animalType!=$disease->animalTypes->last()?',':''}}
+                    @endforeach
+                </td>
+                <td class="table-text">
+                    @foreach ($disease->services as $service)
+                        {{$service->name}}: {{$service->pivot->year_multiplicity}}<br/>
+                    @endforeach
                 </td>
                 <td>
                     <form action="/lists/disease/{{ $disease->id }}" method="POST">
@@ -94,4 +88,18 @@
       </div>
     </div>
    @endif
+@endsection
+
+@section('scripts')
+<script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
+<script type="text/javascript">
+$(function () {
+	$('select[name="animal_types[]"]').selectize({
+		create: false,
+		persist: false,
+		selectOnTab: true,
+        placeholder: 'вид животного'
+	});
+});
+</script>
 @endsection

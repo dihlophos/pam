@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     			'uses' => function() { return view('lists/lists'); }]);
     		Route::resource('/disease_type', 'DiseaseTypeController');
 			Route::resource('/disease', 'DiseaseController');
+            Route::post('/disease/{id}/add_service', 'DiseaseController@add_service');
+            Route::delete('/disease/{id}/destroy_service/{service_id}', 'DiseaseController@destroy_service');
             Route::resource('/animal_category', 'AnimalCategoryController');
             Route::resource('/animal_type', 'AnimalTypeController');
             Route::resource('/service_category', 'ServiceCategoryController');
