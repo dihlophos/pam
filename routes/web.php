@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+Route::post('/github', 'GitHubController@post');
+Route::get('/github', 'GitHubController@get');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -34,8 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
     			'uses' => function() { return view('lists/lists'); }]);
     		Route::resource('/disease_type', 'DiseaseTypeController');
 			Route::resource('/disease', 'DiseaseController');
-            Route::post('/disease/{id}/add_service', 'DiseaseController@add_service');
-            Route::delete('/disease/{id}/destroy_service/{service_id}', 'DiseaseController@destroy_service');
+            Route::post('/disease/{id}/add_service', 'DiseaseController@add_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
+            Route::delete('/disease/{id}/destroy_service/{service_id}', 'DiseaseController@destroy_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
             Route::resource('/animal_category', 'AnimalCategoryController');
             Route::resource('/animal_type', 'AnimalTypeController');
             Route::resource('/service_category', 'ServiceCategoryController');
