@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/github', 'GitHubController@post');
+Route::post('/github',
+    ['middleware' => 'github.secret.token',
+    'uses' => 'GitHubController@post']);
 Route::get('/github', 'GitHubController@get');
 
 Route::group(['middleware' => 'auth'], function () {

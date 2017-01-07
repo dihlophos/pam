@@ -4,6 +4,7 @@
 /public/buildresults.html
 /public/testresults.html
 /config/seeding.php
+/config/github.php
 /vendor
 /.idea
 Homestead.json
