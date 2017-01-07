@@ -3,6 +3,7 @@
 /storage/*.key
 /public/buildresults.html
 /public/testresults.html
+/config/seeding.php
 /vendor
 /.idea
 Homestead.json

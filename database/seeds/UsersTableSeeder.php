@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $admin = User::firstOrNew(['username' => 'admin']);
         $admin->displayname = 'Admin';
         $admin->email = 'admin@pam.ru';
-        $admin->password = bcrypt('pamadminpamadmin');
+        $admin->password = bcrypt(config('seeding.userpasswords.admin'));
         $adminrole = Role::where('name','=','Администратор')->first();
         $admin->role()->associate($adminrole);
         $admin->save();
@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
         $user = User::firstOrNew(['username' => 'user']);
         $user->displayname = 'User';
         $user->email = 'user@pam.ru';
-        $user->password = bcrypt('pamuserpamuser');
+        $user->password = bcrypt(config('seeding.userpasswords.user'));
         $userrole = Role::where('name','=','Сотрудник')->first();
         $user->role()->associate($userrole);
         $user->save();
