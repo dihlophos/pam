@@ -1,7 +1,5 @@
 /node_modules
 /public/storage
-/public/builresults.html
-/public/testresults.html
 /storage/*.key
 /public/buildresults.html
 /public/testresults.html
