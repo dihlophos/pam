@@ -1,5 +1,7 @@
 /node_modules
 /public/storage
+/public/builresults.html
+/public/testresults.html
 /storage/*.key
 /vendor
 /.idea
