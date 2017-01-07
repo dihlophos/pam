@@ -1,5 +1,7 @@
 cd "$(dirname "$0")"
-echo "Github pull:"
+echo "Build time: "
+echo $(date '+%Y-%m-%d %T')
+echo "<br/>Github pull:"
 git pull
 echo "<br/>DB migrate:"
 php artisan migrate
