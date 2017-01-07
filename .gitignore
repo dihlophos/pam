@@ -1,6 +1,8 @@
 /node_modules
 /public/storage
 /storage/*.key
+/public/buildresults.html
+/public/testresults.html
 /vendor
 /.idea
 Homestead.json
