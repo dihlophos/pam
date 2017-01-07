@@ -24,8 +24,6 @@ class GitHubController extends Controller
      */
     public function get()
     {
-    	$commands = base_path()."/build.sh > ".base_path()."/public/buildresults.html 2>&1";
-        shell_exec($commands);
     	return redirect('/buildresults.html');
     }
 }
