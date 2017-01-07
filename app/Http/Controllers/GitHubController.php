@@ -11,10 +11,10 @@ class GitHubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function post()
+    public function post(Request $request)
     {
-        $commands = base_path()."/build.sh > ".base_path()."/public/buildresults.html 2>&1";
-        shell_exec($commands);
+        $command = base_path()."/build.sh '".$request->input("head_commit.message")."' > ".base_path()."/public/buildresults.html 2>&1";
+        shell_exec($command);
     }
 
     /**

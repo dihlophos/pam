@@ -1,5 +1,7 @@
 cd "$(dirname "$0")"
-echo "Build time: "
+echo "Commit:"
+echo $1
+echo "<br/>Build time: "
 echo $(date '+%Y-%m-%d %T')
 echo "<br/>Github pull:"
 git pull
