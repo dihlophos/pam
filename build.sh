@@ -1,5 +1,5 @@
 cd "$(dirname "$0")"
-echo "Commit:"
+echo "Last commit:"
 echo $1
 echo "<br/>Build time: "
 echo $(date '+%Y-%m-%d %T')
