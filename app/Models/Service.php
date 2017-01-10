@@ -32,6 +32,12 @@ class Service extends Model
         return $this->belongsTo(Measure::class);
     }
 
+    public function preparations()
+    {
+        return $this->belongsToMany(Preparation::class);
+    }
+
+
     public static function tabs()
     {
         return collect([
