@@ -32,9 +32,14 @@ class Disease extends Model
     return $this->belongsToMany(AnimalType::class);
   }
 
-  public function Services()
+  public function services()
   {
     return $this->belongsToMany(Service::class)->withPivot('year_multiplicity');
+  }
+
+  public function preparations()
+  {
+    return $this->belongsToMany(Preparation::class);
   }
 
 }

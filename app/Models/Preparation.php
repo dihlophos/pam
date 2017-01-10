@@ -13,10 +13,15 @@ use Illuminate\Database\Eloquent\Model;
 */
 class Preparation extends Model
 {
-    /**
-   * Массово присваиваемые атрибуты.
-   *
-   * @var array
-   */
-  protected $fillable = ['name'];
+	/**
+	* Массово присваиваемые атрибуты.
+	*
+	* @var array
+	*/
+  	protected $fillable = ['name'];
+
+	public function diseases()
+	{
+	    return $this->belongsToMany(Disease::class);
+	}
 }
