@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/work_type', 'WorkTypeController');
             Route::resource('/service', 'ServiceController');
             Route::resource('/application_method', 'ApplicationMethodController');
+            Route::resource('/preparations', 'PreparationController');
     	}
     );
 

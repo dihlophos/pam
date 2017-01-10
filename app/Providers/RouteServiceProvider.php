@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('work_type', App\Models\WorkType::class);
         Route::model('service', App\Models\Service::class);
         Route::model('application_method', App\Models\ApplicationMethod::class);
+        Route::model('preparation', App\Models\Preparation::class);
     }
 
     /**
