@@ -29,4 +29,9 @@ class Preparation extends Model
 	{
 	    return $this->belongsToMany(Service::class);
 	}
+
+	public function applicationMethods()
+	{
+	    return $this->belongsToMany(ApplicationMethod::class);
+	}
 }

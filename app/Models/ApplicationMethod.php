@@ -19,4 +19,9 @@ class ApplicationMethod extends Model
    * @var array
    */
     protected $fillable = ['name'];
+
+    public function preparations()
+    {
+        return $this->belongsToMany(Preparation::class);
+    }
 }
