@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/animal_type', 'AnimalTypeController');
             Route::resource('/service_category', 'ServiceCategoryController');
             Route::resource('/measure', 'MeasureController');
+            Route::resource('/preparation_measure', 'PreparationMeasureController');
             Route::resource('/basic_document', 'BasicDocumentController');
             Route::resource('/lab_jurisdiction', 'LabJurisdictionController');
             Route::resource('/executor', 'ExecutorController');
