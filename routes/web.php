@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/so_measure', 'SOMeasureController');
             Route::resource('/work_type', 'WorkTypeController');
             Route::resource('/service', 'ServiceController');
+            Route::resource('/application_method', 'ApplicationMethodController');
     	}
     );
 
