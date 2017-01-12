@@ -18,7 +18,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::with(['diseaseType','animalTypes', 'services'])->orderBy('name')->paginate(50);
+        $diseases = Disease::with(['diseaseType', 'animalTypes', 'services'])->orderBy('name')->paginate(50);
         $animal_types = AnimalType::orderBy('name')->pluck('name', 'id');
         $disease_types = DiseaseType::orderBy('name')->pluck('name', 'id');
         return view(
@@ -103,6 +103,7 @@ class DiseaseController extends Controller
      */
     public function destroy(Request $request, Disease $disease)
     {
+        $disease->animalTypes()->detach();
         $disease->delete();
         $request->session()->flash('alert-success', 'Запись успешно удалена!');
         return redirect()->route('disease.index');

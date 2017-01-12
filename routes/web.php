@@ -35,26 +35,60 @@ Route::group(['middleware' => 'auth'], function () {
     		Route::get('/',
     			['as' => 'lists-index',
     			'uses' => function() { return view('lists/lists'); }]);
-    		Route::resource('/disease_type', 'DiseaseTypeController');
-			Route::resource('/disease', 'DiseaseController');
+    		Route::resource('/disease_type', 'DiseaseTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+			Route::resource('/disease', 'DiseaseController', ['except' => [
+                'create', 'show'
+            ]]);
             Route::post('/disease/{id}/add_service', 'DiseaseController@add_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
             Route::delete('/disease/{id}/destroy_service/{service_id}', 'DiseaseController@destroy_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
-            Route::resource('/animal_category', 'AnimalCategoryController');
-            Route::resource('/animal_type', 'AnimalTypeController');
-            Route::resource('/service_category', 'ServiceCategoryController');
+            Route::resource('/animal_category', 'AnimalCategoryController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/animal_type', 'AnimalTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/service_category', 'ServiceCategoryController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
             Route::resource('/measure', 'MeasureController');
-            Route::resource('/preparation_measure', 'PreparationMeasureController');
-            Route::resource('/basic_document', 'BasicDocumentController');
-            Route::resource('/lab_jurisdiction', 'LabJurisdictionController');
-            Route::resource('/executor', 'ExecutorController');
-            Route::resource('/executor_category', 'ExecutorCategoryController');
-            Route::resource('/material_type', 'MaterialTypeController');
-            Route::resource('/research_category', 'ResearchCategoryController');
-            Route::resource('/so_measure', 'SOMeasureController');
-            Route::resource('/work_type', 'WorkTypeController');
-            Route::resource('/service', 'ServiceController');
-            Route::resource('/application_method', 'ApplicationMethodController');
-            Route::resource('/preparations', 'PreparationController');
+            Route::resource('/preparation_measure', 'PreparationMeasureController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/basic_document', 'BasicDocumentController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/lab_jurisdiction', 'LabJurisdictionController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/executor', 'ExecutorController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/executor_category', 'ExecutorCategoryController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/material_type', 'MaterialTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/research_category', 'ResearchCategoryController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/so_measure', 'SOMeasureController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/work_type', 'WorkTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/service', 'ServiceController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/application_method', 'ApplicationMethodController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/preparation', 'PreparationController', ['except' => [
+                'create', 'show'
+            ]]);
     	}
     );
 
