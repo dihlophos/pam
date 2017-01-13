@@ -89,6 +89,18 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/preparation', 'PreparationController', ['except' => [
                 'create', 'show'
             ]]);
+            Route::resource('/region', 'RegionController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/district', 'DistrictController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/municipality', 'MunicipalityController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
+            Route::resource('/city', 'CityController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
     	}
     );
 
