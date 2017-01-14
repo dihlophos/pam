@@ -3,6 +3,7 @@
 /storage/*.key
 /public/buildresults.html
 /public/testresults.html
+/public/robots.txt
 /config/seeding.php
 /config/github.php
 /vendor
