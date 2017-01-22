@@ -62,9 +62,13 @@ class RegionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Region $region)
     {
-        //
+        $districts = $region->districts()->orderBy('name')->paginate(50);
+        return view(
+                    'lists.regions.edit',
+                    compact(['region', 'districts'])
+                );
     }
 
     /**
@@ -89,6 +93,7 @@ class RegionController extends Controller
      */
     public function destroy(Request $request, Region $region)
     {
+        $region->districts()->delete();
         $region->delete();
         $request->session()->flash('alert-success', 'Запись успешно удалена!');
         return redirect()->route('region.index');

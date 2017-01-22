@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Municipality;
+use App\Http\Requests\StoreMunicipality;
 
 class MunicipalityController extends Controller
 {
@@ -13,7 +15,11 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        //
+        $municipalities = Municipality::orderBy('name')->paginate(50);
+
+        return view('lists.municipalities.index', [
+            'municipalities' => $municipalities,
+        ]);
     }
 
     /**
@@ -32,9 +38,11 @@ class MunicipalityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMunicipality $request)
     {
-        //
+        $municipality = Municipality::create($request->all());
+        $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+        return redirect()->route('district.edit', $municipality->district_id);
     }
 
     /**
@@ -54,9 +62,13 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Municipality $municipality)
     {
-        //
+        $cities = $municipality->cities()->orderBy('name')->paginate(50);
+        return view(
+                    'lists.municipalities.edit',
+                    compact(['cities', 'municipality'])
+                );
     }
 
     /**
@@ -66,9 +78,11 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreMunicipality $request, Municipality $municipality)
     {
-        //
+        $municipality->fill($request->all())->save();
+        $request->session()->flash('alert-success', 'Запись успешно обновлена!');
+        return redirect()->route('district.edit', $municipality->district_id);
     }
 
     /**
@@ -77,8 +91,11 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Municipality $municipality)
     {
-        //
+        $municipality->cities()->delete();
+        $municipality->delete();
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('district.edit', $municipality->district_id);
     }
 }

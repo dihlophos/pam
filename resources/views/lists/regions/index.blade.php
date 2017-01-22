@@ -20,7 +20,7 @@
   @if (count($regions) > 0)
     <div class="panel panel-default">
       <div class="panel-heading">
-        Единицы учета
+        Регионы
       </div>
 
       <div class="panel-body">
@@ -36,18 +36,7 @@
             @foreach ($regions as $region)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/region/{{ $region->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $region->name }}" maxlength="255" type="text" style="width:800px">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i> Сохранить
-                            </button>
-                        </div>
-                    </form>
+                    <a href="/lists/region/{{ $region->id }}/edit">{{ $region->name }}</a>
                 </td>
                 <td>
                     <form action="/lists/region/{{ $region->id }}" method="POST">

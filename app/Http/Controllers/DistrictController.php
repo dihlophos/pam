@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\District;
+use App\Http\Requests\StoreDistrict;
 
 class DistrictController extends Controller
 {
@@ -13,7 +15,11 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        //
+        $districts = District::orderBy('name')->paginate(50);
+
+        return view('lists.districts.index', [
+            'districts' => $districts,
+        ]);
     }
 
     /**
@@ -32,9 +38,11 @@ class DistrictController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDistrict $request)
     {
-        //
+        $district = District::create($request->all());
+        $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+        return redirect()->route('region.edit', $district->region_id);
     }
 
     /**
@@ -54,9 +62,13 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(District $district)
     {
-        //
+        $municipalities = $district->municipalities()->orderBy('name')->paginate(50);
+        return view(
+                    'lists.districts.edit',
+                    compact(['municipalities', 'district'])
+                );
     }
 
     /**
@@ -66,9 +78,11 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreDistrict $request, District $district)
     {
-        //
+        $district->fill($request->all())->save();
+        $request->session()->flash('alert-success', 'Запись успешно обновлена!');
+        return redirect()->route('region.edit', $district->region_id);
     }
 
     /**
@@ -77,8 +91,11 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, District $district)
     {
-        //
+        $district->municipalities()->delete();
+        $district->delete();
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('region.edit', $district->region_id);
     }
 }

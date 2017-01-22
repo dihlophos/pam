@@ -5,14 +5,15 @@
     @include('common.errors')
     @include('common.flash')
 
-<form action="/lists/region/{{ $region->id }}" class="well" id="RegionEditForm" method="post" accept-charset="utf-8">
+<form action="/lists/district/{{ $district->id }}" class="well" id="DistrictEditForm" method="post" accept-charset="utf-8">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
     <fieldset>
-		<legend>Редактирование региона</legend>
+		<legend>Редактирование района</legend>
+        <input name="region_id" type="hidden" id="DistrictRegionId" required="required" value="{{ $district->region_id }}">
 		<div class="form-group required">
-            <label for="RegionName">Название</label>
-            <input name="name" class="form-control" maxlength="50" type="text" id="RegionName" required="required" value="{{ $region->name }}">
+            <label for="DistrictName">Название</label>
+            <input name="name" class="form-control" maxlength="50" type="text" id="DistrictName" required="required" value="{{ $district->name }}">
         </div>
         <div class="form-group">
             <input class="btn btn-default" type="submit" value="Сохранить">
@@ -20,11 +21,11 @@
     </fieldset>
 </form>
 
-<form action="/lists/district" class="form-inline text-right" id="DistrictAddForm" method="POST" accept-charset="utf-8">
+<form action="/lists/municipality" class="form-inline text-right" id="MunicipalityAddForm" method="POST" accept-charset="utf-8">
     {{ csrf_field() }}
     <div class="form-group required">
-        <input name="region_id" type="hidden" id="district-region_id" value="{{$region->id}}">
-        <input name="name" id="district-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+        <input name="district_id" type="hidden" id="district-district_id" value="{{$district->id}}">
+        <input name="name" id="municipality-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
@@ -33,14 +34,14 @@
     </div>
 </form>
 <br/>
-@if (count($districts) > 0)
+@if (count($municipalities) > 0)
 <div class="panel panel-default">
   <div class="panel-heading">
-    Районы
+      Муниципальные образования
   </div>
 
   <div class="panel-body">
-    {{$districts->links()}}
+    {{$municipalities->links()}}
     <table class="table table-striped task-table">
 
       <thead>
@@ -49,13 +50,13 @@
       </thead>
 
       <tbody>
-        @foreach ($districts as $district)
+        @foreach ($municipalities as $municipality)
           <tr>
             <td class="table-text">
-                <a href="/lists/district/{{ $district->id }}/edit">{{ $district->name }}</a>
+                <a href="/lists/municipality/{{ $municipality->id }}/edit">{{ $municipality->name }}</a>
             </td>
             <td>
-                <form action="/lists/district/{{ $district->id }}" method="POST">
+                <form action="/lists/municipality/{{ $municipality->id }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
 
@@ -69,7 +70,7 @@
         @endforeach
       </tbody>
     </table>
-    {{$districts->links()}}
+    {{$municipalities->links()}}
   </div>
 </div>
 @endif

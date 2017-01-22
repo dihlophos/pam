@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\City;
+use App\Http\Requests\StoreCity;
 
 class CityController extends Controller
 {
@@ -32,10 +34,12 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function store(StoreCity $request)
+     {
+         $city = City::create($request->all());
+         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+         return redirect()->route('municipality.edit', $city->municipality_id);
+     }
 
     /**
      * Display the specified resource.
@@ -66,9 +70,11 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCity $request, City $city)
     {
-        //
+        $city->fill($request->all())->save();
+        $request->session()->flash('alert-success', 'Запись успешно обновлена!');
+        return redirect()->route('municipality.edit', $city->municipality_id);
     }
 
     /**
@@ -77,8 +83,10 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function destroy(Request $request, City $city)
     {
-        //
+        $city->delete();
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('municipality.edit', $city->municipality_id);
     }
 }
