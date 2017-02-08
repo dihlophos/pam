@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
                 'create', 'show'
             ]]);
             Route::post('/disease/{id}/add_service', 'DiseaseController@add_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
+                                                                                      //из-за одного лишь добавления/удаления записей многие ко многим создавать контрллер с 2мя методами
+                                                                                      //показалось старнным. Кстати почему из поздних инструкций убрали эту секцию?) 
             Route::delete('/disease/{id}/destroy_service/{service_id}', 'DiseaseController@destroy_service');//Че так не рестфул? https://laravel.com/docs/5.1/controllers#restful-nested-resources
             Route::resource('/animal_category', 'AnimalCategoryController', ['except' => [
                 'create', 'show', 'edit'
