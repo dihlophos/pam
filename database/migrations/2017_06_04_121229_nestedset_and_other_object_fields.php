@@ -28,6 +28,7 @@ class NestedSetAndOtherObjectFields extends Migration
             $table->string('phone', 50)->nullable();
             $table->float('land_area', 8, 2)->nullable();
             $table->float('processing_area', 8, 2)->nullable();
+            $table->string('type', '20')->nullable();
             NestedSet::columns($table);
         });
 
@@ -73,6 +74,7 @@ class NestedSetAndOtherObjectFields extends Migration
             $table->dropColumn('phone');
             $table->dropColumn('land_area');
             $table->dropColumn('processing_area');
+            $table->dropColumn('type');
             NestedSet::dropColumns($table);
         });
     }
