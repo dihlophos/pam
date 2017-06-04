@@ -19,7 +19,7 @@ class AddCityToObject extends Migration
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::table('objects', function($table) {
-            $table->foreign('city_id')->references('id')->on('objects');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
