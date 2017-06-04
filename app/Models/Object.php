@@ -11,7 +11,7 @@ use Kalnoy\Nestedset\NodeTrait;
 
 	Поля:
 		Название, адрес, телефон, площадь территории, площадь обработки помещений,
-        тип (Орган/учреждение/подразделение/объект)
+        тип (Орган/учреждение/подразделение/объект), ИД родителя
     Внешние ключи:
         регион, район, муниципальное образование, населенный пункт
 */
@@ -24,7 +24,7 @@ class Object extends Model
     * @var array
     */
     protected $fillable = ['name', 'address', 'phone', 'land_area',
-                          'processing_area', 'type', 'region_id',
+                          'processing_area', 'type', 'parent_id', 'region_id',
                           'district_id', 'municipality_id', 'city_id'];
 
     public function city()

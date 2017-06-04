@@ -23,7 +23,7 @@ class NestedSetAndOtherObjectFields extends Migration
             $table->integer('region_id')->unsigned()->nullable();
             $table->integer('district_id')->unsigned()->nullable();
             $table->integer('municipality_id')->unsigned()->nullable();
-            $table->integer('city_id')->unsigned()->nullable()->change();
+            $table->integer('city_id')->unsigned()->default(null)->nullable()->change();
             $table->string('address', 250)->nullable();
             $table->string('phone', 50)->nullable();
             $table->float('land_area', 8, 2)->nullable();
