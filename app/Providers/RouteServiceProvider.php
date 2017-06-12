@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('district', App\Models\District::class);
         Route::model('municipality', App\Models\Municipality::class);
         Route::model('city', App\Models\City::class);
+        Route::model('organ', App\Models\Organ::class);
+        Route::model('institution', App\Models\Institution::class);
+        Route::model('subdivision', App\Models\Subdivision::class);
+        Route::model('object', App\Models\Object::class);
     }
 
     /**

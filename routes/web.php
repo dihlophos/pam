@@ -103,6 +103,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/city', 'CityController', ['except' => [
                 'create', 'show', 'edit', 'index'
             ]]);
+            Route::resource('/organ', 'OrganController', ['except' => [
+                'create', 'show'
+            ]]);
     	}
     );
 
