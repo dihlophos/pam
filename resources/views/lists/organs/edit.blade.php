@@ -20,7 +20,7 @@
             <input name="name" class="form-control" maxlength="50" type="text" id="OrganName" required="required" value="{{ $organ->name }}">
         </div>
         <div class="form-group">
-            <label for="organ-region_id">Ркгион</label>
+            <label for="organ-region_id">Регион</label>
             <select name="region_id" id="organ-region_id" class="form-control">
                 @foreach ($regions as $id => $region)
                     <option value="{{$id}}" {{$organ->region_id == $id ? 'selected' : ''}}>{{$region}}</option>
@@ -92,7 +92,7 @@
 <script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
 <script type="text/javascript">
 $(function () {
-	$('select[name="regions[]"]').selectize({
+	$('select[name="region_id"]').selectize({
 		create: false,
 		persist: false,
 		selectOnTab: true,

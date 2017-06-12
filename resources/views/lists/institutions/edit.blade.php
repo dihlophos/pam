@@ -34,11 +34,11 @@
     </fieldset>
 </form>
 
-<form action="/lists/municipality" class="form-inline text-right" id="MunicipalityAddForm" method="POST" accept-charset="utf-8">
+<form action="/lists/subdivision" class="form-inline text-right" id="SubdivisionAddForm" method="POST" accept-charset="utf-8">
     {{ csrf_field() }}
     <div class="form-group required">
         <input name="institution_id" type="hidden" id="institution-institution_id" value="{{$institution->id}}">
-        <input name="name" id="municipality-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+        <input name="name" id="subdivision-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
@@ -66,10 +66,10 @@
         @foreach ($subdivisions as $subdivision)
           <tr>
             <td class="table-text">
-                <a href="/lists/municipality/{{ $subdivision->id }}/edit">{{ $subdivision->name }}</a>
+                <a href="/lists/subdivision/{{ $subdivision->id }}/edit">{{ $subdivision->name }}</a>
             </td>
             <td>
-                <form action="/lists/municipality/{{ $subdivision->id }}" method="POST">
+                <form action="/lists/subdivision/{{ $subdivision->id }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
 

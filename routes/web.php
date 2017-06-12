@@ -109,6 +109,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/institution', 'InstitutionController', ['except' => [
                 'create', 'show', 'index'
             ]]);
+            Route::resource('/subdivision', 'SubdivisionController', ['except' => [
+                'create', 'show', 'index'
+            ]]);
     	}
     );
 

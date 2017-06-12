@@ -400,7 +400,7 @@
 }
 .form-control.selectize-control {
   padding: 0;
-  height: 36px;
+  height: auto; /*36px;*/
   border: none;
   background: none;
   -webkit-box-shadow: none;
