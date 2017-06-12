@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +105,9 @@ Route::group(['middleware' => 'auth'], function () {
             ]]);
             Route::resource('/organ', 'OrganController', ['except' => [
                 'create', 'show'
+            ]]);
+            Route::resource('/institution', 'InstitutionController', ['except' => [
+                'create', 'show', 'index'
             ]]);
     	}
     );

@@ -10,20 +10,21 @@
     @include('common.errors')
     @include('common.flash')
 
-<form action="/lists/organ/{{ $organ->id }}" class="well" id="OrganEditForm" method="post" accept-charset="utf-8">
+<form action="/lists/institution/{{ $institution->id }}" class="well" id="InstitutionEditForm" method="post" accept-charset="utf-8">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
     <fieldset>
-		<legend>Редактирование органа</legend>
+		<legend>Редактирование учреждения</legend>
+        <input name="organ_id" type="hidden" id="InstitutionOrganId" required="required" value="{{ $institution->organ_id }}">
 		<div class="form-group required">
-            <label for="OrganName">Название</label>
-            <input name="name" class="form-control" maxlength="50" type="text" id="OrganName" required="required" value="{{ $organ->name }}">
+            <label for="InstitutionName">Название</label>
+            <input name="name" class="form-control" maxlength="50" type="text" id="InstitutionName" required="required" value="{{ $institution->name }}">
         </div>
         <div class="form-group">
-            <label for="organ-region_id">Ркгион</label>
-            <select name="region_id" id="organ-region_id" class="form-control">
-                @foreach ($regions as $id => $region)
-                    <option value="{{$id}}" {{$organ->region_id == $id ? 'selected' : ''}}>{{$region}}</option>
+            <label for="institution-district_id">Районы</label>
+            <select name="districts[]" id="institution-district_id" class="form-control" multiple>
+                @foreach ($districts as $id => $district)
+                    <option value="{{$id}}" {{$institution->districts->pluck('id')->contains($id) ? 'selected' : ''}}>{{$district}}</option>
                 @endforeach
             </select>
         </div>
@@ -33,11 +34,11 @@
     </fieldset>
 </form>
 
-<form action="/lists/institution" class="form-inline text-right" id="InstitutionAddForm" method="POST" accept-charset="utf-8">
+<form action="/lists/municipality" class="form-inline text-right" id="MunicipalityAddForm" method="POST" accept-charset="utf-8">
     {{ csrf_field() }}
     <div class="form-group required">
-        <input name="organ_id" type="hidden" id="institution-organ_id" value="{{$organ->id}}">
-        <input name="name" id="institution-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+        <input name="institution_id" type="hidden" id="institution-institution_id" value="{{$institution->id}}">
+        <input name="name" id="municipality-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
@@ -46,14 +47,14 @@
     </div>
 </form>
 <br/>
-@if (count($institutions) > 0)
+@if (count($subdivisions) > 0)
 <div class="panel panel-default">
   <div class="panel-heading">
-    Учреждения
+      Подразделения
   </div>
 
   <div class="panel-body">
-    {{$institutions->links()}}
+    {{$subdivisions->links()}}
     <table class="table table-striped task-table">
 
       <thead>
@@ -62,13 +63,13 @@
       </thead>
 
       <tbody>
-        @foreach ($institutions as $institution)
+        @foreach ($subdivisions as $subdivision)
           <tr>
             <td class="table-text">
-                <a href="/lists/institution/{{ $institution->id }}/edit">{{ $institution->name }}</a>
+                <a href="/lists/municipality/{{ $subdivision->id }}/edit">{{ $subdivision->name }}</a>
             </td>
             <td>
-                <form action="/lists/institution/{{ $institution->id }}" method="POST">
+                <form action="/lists/municipality/{{ $subdivision->id }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
 
@@ -82,7 +83,7 @@
         @endforeach
       </tbody>
     </table>
-    {{$institutions->links()}}
+    {{$subdivisions->links()}}
   </div>
 </div>
 @endif
@@ -92,11 +93,11 @@
 <script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
 <script type="text/javascript">
 $(function () {
-	$('select[name="regions[]"]').selectize({
+	$('select[name="districts[]"]').selectize({
 		create: false,
 		persist: false,
 		selectOnTab: true,
-        placeholder: 'регион'
+        placeholder: 'районы'
 	});
 });
 </script>
