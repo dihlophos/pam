@@ -24,9 +24,12 @@ Route::get('/github', 'GitHubController@get');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/home',
-        ['as' => 'home',
-        'uses' => 'HomeController@index']);
+    Route::get('/home', [
+        'as' => 'home',
+        'uses' => 'HomeController@index'
+    ]);
+
+    Route::resource('/object', 'ObjectController');
 
     Route::group(
     	['middleware' => 'can:access-lists',
