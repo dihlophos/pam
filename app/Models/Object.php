@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 
 	Поля:
 		Название, адрес, телефон, площадь территории, площадь обработки помещений,
-        тип (Орган/учреждение/подразделение/объект), ИД родителя
     Внешние ключи:
         регион, район, муниципальное образование, населенный пункт,
         орган, учреждение, подразделение
@@ -22,9 +21,8 @@ class Object extends Model
    *
    * @var array
    */
-   protected $fillable = ['name', 'address', 'phone', 'land_area',
-                          'processing_area', 'type', 'parent_id', 'region_id',
-                          'district_id', 'municipality_id', 'city_id',
+   protected $fillable = ['name', 'address', 'phone', 'land_area', 'processing_area',
+                          'region_id', 'district_id', 'municipality_id', 'city_id',
                           'organ_id', 'institution_id', 'subdivision_id'];
 
    public function city()

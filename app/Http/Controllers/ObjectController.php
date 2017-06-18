@@ -38,10 +38,10 @@ class ObjectController extends Controller
         //$institution = $subdivision->institution();
         //$organ = $institution->organ();
 
-        $municipalities = $subdivision->municipalities()->pluck('name', 'id');
-        return view('objects.edit', [
+        $municipalities = $subdivision->municipalities()->pluck('name', 'municipalities.id');
+        return view('objects.create',
             compact(['subdivision', 'municipalities'])
-        ]);
+        );
     }
 
     /**
