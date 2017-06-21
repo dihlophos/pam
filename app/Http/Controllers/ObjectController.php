@@ -19,8 +19,11 @@ class ObjectController extends Controller
      */
     public function index()
     {
-        $objects = Object::orderBy('name')->paginate(50);
-
+        $objects = Object::with('subdivision', 'institution', 'organ')
+                            ->orderBy('organ_id')
+                            ->orderBy('institution_id')
+                            ->orderBy('subdivision_id')
+                            ->orderBy('name')->paginate(50);
         return view('objects.index', [
             'objects' => $objects,
         ]);
