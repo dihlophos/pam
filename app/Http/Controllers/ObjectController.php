@@ -7,6 +7,7 @@ use App\Models\Object;
 use App\Models\Subdivision;
 use App\Models\Institution;
 use App\Models\Organ;
+use App\Models\Municipality;
 use App\Http\Requests\StoreObject;
 
 class ObjectController extends Controller
@@ -40,22 +41,31 @@ class ObjectController extends Controller
 
         $municipalities = $subdivision->municipalities()->pluck('name', 'municipalities.id');
         return view('objects.create',
-            compact(['subdivision', 'municipalities'])
+            compact(['subdivision_id', 'subdivision', 'municipalities'])
         );
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-     public function store(StoreObject $request)
-     {
-         $object = Object::create($request->all());
-         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
-         return redirect()->route('object.index');
-     }
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(StoreObject $request)
+    {
+        $data = $request->all();
+        $subdivision = Subdivision::find($data['subdivision_id']);
+        $municipality = Municipality::find($data['municipality_id']);
+        $institution = $subdivision->institution;
+        $organ = $institution->organ;
+        $data['institution_id'] = $institution->id;
+        $data['organ_id'] = $organ->id;
+        $data['district_id'] = $municipality->district_id;
+        $data['region_id'] = $organ->region_id;
+        $object = Object::create($data);
+        $request->session()->flash('alert-success', 'Запись успешно добавлена!');
+        return redirect()->route('object.index');
+    }
 
     /**
      * Display the specified resource.

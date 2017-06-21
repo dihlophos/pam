@@ -15,6 +15,7 @@
     {{ method_field('POST') }}
     <fieldset>
 		<legend>Общие данные</legend>
+        <input name="subdivision_id" type="hidden" id="ObjectObjectId" required="required" value="{{ $subdivision_id }}">
         <input name="object_id" type="hidden" id="ObjectObjectId" required="required" value="{{ old('id') }}">
 		<div class="form-group required">
             <label for="ObjectName">Название объекта / ФИО владельца</label>
