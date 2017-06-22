@@ -23,9 +23,32 @@ class ObjectController extends Controller
                             ->orderBy('organ_id')
                             ->orderBy('institution_id')
                             ->orderBy('subdivision_id')
-                            ->orderBy('name')->paginate(50);
+                            ->orderBy('name');
+        //TODO: Add auth filters depending on user role
+        //Example:
+        //$objects = $objects->where('subdivision_id', $user->subdivision_id);
+        $objects = $objects->paginate(50);
+        //transforming flat objects into tree structure
+        $grouped_objects = $objects->groupBy('organ.name')->transform(function($item, $k) {
+            return [
+                'id' => $item[0]->organ_id,
+                'institutions' => $item->groupBy('institution.name')->transform(function($item, $k) {
+                    return [
+                        'id' => $item[0]->institution_id,
+                        'subdivisions' => $item->groupBy('subdivision.name')->transform(function($item, $k) {
+                            return [
+                                'id' => $item[0]->subdivision_id,
+                                'objects' => $item
+                            ];
+                        })
+                    ];
+                })
+            ];
+        });
+
         return view('objects.index', [
-            'objects' => $objects,
+            'organs' => $grouped_objects,
+            'objects' => $objects
         ]);
     }
 

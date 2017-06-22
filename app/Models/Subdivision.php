@@ -25,6 +25,11 @@ class Subdivision extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    public function objects()
+    {
+        return $this->hasMany(Objects::class);
+    }
+
     public function municipalities()
 	{
 	    return $this->belongsToMany(Municipality::class);
