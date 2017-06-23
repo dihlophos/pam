@@ -7,22 +7,22 @@
 
 {{$objects->links()}}
 @foreach ($organs as $name => $organ)
-    <ul style="width:80%">
+    <ul class="pem-tree">
         <li>
-            {{$name}} ({{$organ['id']}})<span style="float:right">Препараты | Факт | План | Сведения о животных | Отчеты</span>
+            <p><span>{{$name}} ({{$organ['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
             <ul>
             @foreach ($organ['institutions'] as $name => $institution)
                 <li>
-                    {{$name}} ({{$institution['id']}})<span style="float:right">Препараты | Факт | План | Сведения о животных | Отчеты</span>
+                    <p><span>{{$name}} ({{$institution['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
                     <ul>
                     @foreach ($institution['subdivisions'] as $name => $subdivision)
                         <li>
-                            {{$name}} ({{$subdivision['id']}})<span style="float:right">Препараты | Факт | План | Сведения о животных | Отчеты</span>
+                            <p><span>{{$name}} ({{$subdivision['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
                             <ul>
                                 <li><a href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
                             @foreach ($subdivision['objects'] as $object)
                                 <li>
-                                    {{$object->name}} ({{$object->id}})<span style="float:right">Препараты | Факт | План | Сведения о животных | Отчеты</span>
+                                    <p><span>{{$object->name}} ({{$object->id}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
                                 </li>
                             @endforeach
                             </ul>
