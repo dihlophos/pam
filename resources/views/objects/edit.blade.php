@@ -10,23 +10,23 @@
     @include('common.errors')
     @include('common.flash')
 
-<form action="/object" class="well" id="ObjectCreateForm" method="post" accept-charset="utf-8">
+<form action="/object/{{ $object->id }}" class="well" id="ObjectEditForm" method="post" accept-charset="utf-8">
     {{ csrf_field() }}
-    {{ method_field('POST') }}
+    {{ method_field('PUT') }}
     <fieldset>
 		<legend>Общие данные</legend>
-        <input name="subdivision_id" type="hidden" id="ObjectObjectId" required="required" value="{{ $subdivision_id }}">
+        <input name="subdivision_id" type="hidden" id="ObjectObjectId" required="required" value="{{ $object->subdivision_id }}">
 		<div class="form-group required">
             <label for="ObjectName">Название объекта / ФИО владельца</label>
-            <input name="name" class="form-control" maxlength="255" type="text" id="ObjectName" required="required" value="{{ old('name') }}">
+            <input name="name" class="form-control" maxlength="255" type="text" id="ObjectName" required="required" value="{{ $object->name }}">
         </div>
         <div class="form-group">
             <label for="ObjectAddress">Адрес</label>
-            <input name="address" class="form-control" maxlength="250" type="text" id="ObjectAddress" required="required" value="{{ old('address') }}">
+            <input name="address" class="form-control" maxlength="250" type="text" id="ObjectAddress" required="required" value="{{ $object->address }}">
         </div>
         <div class="form-group">
             <label for="ObjectPhone">Телефон</label>
-            <input name="phone" class="form-control" maxlength="50" type="text" id="ObjectPhone" required="required" value="{{ old('phone') }}">
+            <input name="phone" class="form-control" maxlength="50" type="text" id="ObjectPhone" required="required" value="{{ $object->phone }}">
         </div>
     </fieldset>
     <fieldset>
@@ -36,14 +36,16 @@
             <label for="ObjectMunicipalityId">Муниципальное образование</label>
             <select name="municipality_id" id="ObjectMunicipalityId" class="form-control">
                 @foreach ($municipalities as $id => $municipality)
-                    <option value="{{$id}}" {{ old('municipality_id') == $id ? 'selected' : '' }}>{{ $municipality }}</option>
+                    <option value="{{$id}}" {{ $object->municipality_id == $id ? 'selected' : '' }}>{{ $municipality }}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
             <label for="ObjectCityId">Населенный пункт</label>
             <select name="city_id" id="ObjectCityId" class="form-control">
-                <option value="" selected="selected"></option>
+                @foreach ($cities as $id => $city)
+                    <option value="{{$id}}" {{ $object->city_id == $id ? 'selected' : '' }}>{{ $city }}</option>
+                @endforeach
             </select>
         </div>
     </fieldset>
@@ -51,11 +53,11 @@
 		<legend>Характеристики объекта</legend>
         <div class="form-group">
             <label for="ObjectLandArea">Площадь территории (кв. м.)</label>
-            <input name="land_area" class="form-control" step="0.1" type="number" id="ObjectLandArea" value="{{ old('land_area') }}">
+            <input name="land_area" class="form-control" step="0.1" type="number" id="ObjectLandArea" value="{{ $object->land_area }}">
         </div>
         <div class="form-group">
             <label for="ObjectProcessingArea">Площадь обработки помещений (кв. м.)</label>
-            <input name="processing_area" class="form-control" step="0.1" type="number" id="ObjectProcessingArea" value="{{ old('processing_area') }}">
+            <input name="processing_area" class="form-control" step="0.1" type="number" id="ObjectProcessingArea" value="{{ $object->processing_area }}">
         </div>
     </fieldset>
     <div class="form-group">
@@ -123,7 +125,7 @@ $(function () {
 
 	select_city  = $select_city[0].selectize;
 	select_municipality = $select_municipality[0].selectize;
-	@if((old('city_id'))==null)
+	@if(null==($object->city_id))
 	select_city.disable();
 	@endif
 });

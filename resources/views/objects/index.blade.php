@@ -22,7 +22,7 @@
                                 <li><a href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
                             @foreach ($subdivision['objects'] as $object)
                                 <li>
-                                    <p><span>{{$object->name}} ({{$object->id}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
+                                    <p><span><a href="/object/{{$object->id}}/edit">{{$object->name}}</a></span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
                                 </li>
                             @endforeach
                             </ul>

@@ -62,9 +62,6 @@ class ObjectController extends Controller
     {
         $subdivision_id = intval($request->subdivision);
         $subdivision = Subdivision::find($subdivision_id);
-        //$institution = $subdivision->institution();
-        //$organ = $institution->organ();
-
         $municipalities = $subdivision->municipalities()->pluck('name', 'municipalities.id');
         return view('objects.create',
             compact(['subdivision_id', 'subdivision', 'municipalities'])
@@ -110,9 +107,13 @@ class ObjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Object $object)
     {
-        //
+        $municipalities = $object->subdivision->municipalities()->pluck('name', 'municipalities.id');
+        $cities = $object->municipality->cities()->pluck('name', 'cities.id');
+        return view('objects.edit',
+            compact(['object', 'municipalities', 'cities'])
+        );
     }
 
     /**
