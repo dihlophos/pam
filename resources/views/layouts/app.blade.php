@@ -50,6 +50,9 @@
                                 <a href="{{ url::route('lists-index') }}">Справочники</a>
                             @endcan
                         </li>
+                        <li>
+                            <a href="{{ url::route('object.index') }}">Объекты</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

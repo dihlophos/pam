@@ -17,7 +17,7 @@
                     <ul>
                     @foreach ($institution['subdivisions'] as $name => $subdivision)
                         <li>
-                            <p><span>{{$name}} ({{$subdivision['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
+                            <p><span>{{$name}} ({{$subdivision['id']}})</span><font><a href="subdivision/{{$subdivision['id']}}/preparation_receipt">Препараты</a> | Факт | План | Сведения о животных | Отчеты</font></p>
                             <ul>
                                 <li><a href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
                             @foreach ($subdivision['objects'] as $object)
