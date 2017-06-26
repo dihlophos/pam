@@ -31,6 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/object', 'ObjectController');
 
+    Route::resource('subdivision.preparation_receipt', 'PreparationReceiptController', ['except' => [
+        'show'
+    ]]);
+
     Route::group(
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],

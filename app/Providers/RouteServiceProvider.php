@@ -51,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('institution', App\Models\Institution::class);
         Route::model('subdivision', App\Models\Subdivision::class);
         Route::model('object', App\Models\Object::class);
+        Route::model('preparation_receipt', App\Models\PreparationReceipt::class);
     }
 
     /**

@@ -52,7 +52,7 @@
                     <a href="/lists/organ/{{ $organ->id }}/edit">{{ $organ->name }}</a>
                 </td>
                 <td class="table-text">
-                    {{ $organ->region->name }}
+                    {{ $organ->region?$organ->region->name:'' }}
                 </td>
                 <td>
                     <form action="/lists/organ/{{ $organ->id }}" method="POST">

@@ -35,8 +35,8 @@ class Subdivision extends Model
 	    return $this->belongsToMany(Municipality::class)->withTimestamps();
 	}
 
-    public function preparations()
+    public function preparation_receipts()
 	{
-	    return $this->belongsToMany(Preparation::class)->withTimestamps();
+	    return $this->hasMany(PreparationReceipt::class);
 	}
 }

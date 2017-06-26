@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePreparationSubdivisionTable extends Migration
+class CreatePreparationReceiptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePreparationSubdivisionTable extends Migration
      */
     public function up()
     {
-        Schema::create('preparation_subdivision', function (Blueprint $table) {
+        Schema::create('preparation_receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('preparation_id')->index()->unsigned();
             $table->integer('subdivision_id')->index()->unsigned();
@@ -32,9 +32,9 @@ class CreatePreparationSubdivisionTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('preparation_subdivision', function($table) {
-            $table->foreign('preparation_id')->references('id')->on('preparations')->onDelete('cascade');
-            $table->foreign('subdivision_id')->references('id')->on('subdivisions')->onDelete('cascade');
+        Schema::table('preparation_receipts', function($table) {
+            $table->foreign('preparation_id')->references('id')->on('preparations');
+            $table->foreign('subdivision_id')->references('id')->on('subdivisions');
             $table->foreign('basic_document_id')->references('id')->on('basic_documents');
         });
     }
@@ -46,6 +46,6 @@ class CreatePreparationSubdivisionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('preparation_subdivision');
+        Schema::dropIfExists('preparation_receipts');
     }
 }
