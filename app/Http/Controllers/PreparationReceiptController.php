@@ -35,10 +35,17 @@ class PreparationReceiptController extends Controller
 
     public function edit(Subdivision $subdivision, PreparationReceipt $preparationReceipt)
     {
-
+        $preparations = Preparation::orderBy('name')->get()->pluck('name', 'id');
+        $basicDocuments = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
+        return view('preparation_receipts.edit',
+            compact(['preparations', 'basicDocuments', 'subdivision', 'preparationReceipt'])
+        );
     }
 
-    public function update(Subdivision $subdivision, StorePreparationReceipt $request, PreparationReceipt $preparationReceipt)
+    public function update(Subdivision $subdivision, PreparationReceipt $preparationReceipt, StorePreparationReceipt $request)
     {
+        $preparationReceipt->fill($request->all())->save();
+        $request->session()->flash('alert-success', 'Запись успешно обновлена!');
+        return redirect()->route('subdivision.preparation_receipt.index', $subdivision);
     }
 }
