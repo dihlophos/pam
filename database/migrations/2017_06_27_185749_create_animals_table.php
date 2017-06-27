@@ -18,7 +18,7 @@ class CreateAnimalsTable extends Migration
             $table->integer('object_id')->index()->unsigned();
             $table->integer('animal_type_id')->index()->unsigned();
             $table->smallInteger('age')->unsigned();
-            $table->smallInteger('count')->unsigned();
+            $table->smallInteger('count')->unsigned()->default(1);
             $table->string('regnum', 45)->nullable();
             $table->string('name', 45)->nullable();
             $table->date('birthday')->nullable();
