@@ -28,7 +28,7 @@ class CreateAnimalsTable extends Migration
         });
 
         Schema::table('animals', function($table) {
-            $table->foreign('object_id')->references('id')->on('objects');
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
             $table->foreign('animal_type_id')->references('id')->on('animal_types');
         });
     }
