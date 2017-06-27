@@ -59,4 +59,9 @@ class Object extends Model
     {
         return $this->belongsTo(Subdivision::class);
     }
+
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
 }

@@ -35,6 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
         'show'
     ]]);
 
+    Route::resource('object.animal', 'AnimalController', ['except' => [
+        'show'
+    ]]);
+
     Route::group(
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],
