@@ -15,6 +15,7 @@ class CreateFactsTable extends Migration
     {
         Schema::create('facts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('object_id')->index()->unsigned();
             $table->integer('basic_document_id')->index()->unsigned();
             $table->integer('animal_id')->index()->unsigned();
             $table->integer('service_id')->index()->unsigned();
@@ -23,6 +24,7 @@ class CreateFactsTable extends Migration
         });
 
         Schema::table('facts', function($table) {
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');;
             $table->foreign('basic_document_id')->references('id')->on('basic_documents');
             $table->foreign('animal_id')->references('id')->on('animals');
             $table->foreign('service_id')->references('id')->on('services');
