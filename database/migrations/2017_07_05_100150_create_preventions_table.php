@@ -27,9 +27,9 @@ class CreatePreventionsTable extends Migration
             $table->integer('count_ill')->unsigned();
             $table->integer('count_rip')->unsigned();
             $table->string('comment', 255)->nullable();
-            $table->integer('preparation_used_doses')->unsigned();
+            $table->integer('preparation_used_doses')->unsigned()->default(0);
             $table->float('preparation_used_containers', 8, 2)->default(0);
-            $table->integer('preparation_destroyed_doses')->unsigned();
+            $table->integer('preparation_destroyed_doses')->unsigned()->default(0);
             $table->timestamps();
         });
 
