@@ -19,6 +19,7 @@ class CreateDiagnosticTestsTable extends Migration
             $table->integer('fact_id')->index()->unsigned();
             $table->integer('research_type_id')->index()->unsigned();
             $table->integer('executor_id')->index()->unsigned();
+            $table->integer('preparation_receipt_id')->index()->unsigned();
             $table->enum('year_multiplicity', ['первый раз', 'второй раз'])->default('первый раз');
             $table->enum('service_characteristics', ['первично', 'вторично'])->default('первично');
             $table->integer('count')->unsigned();
@@ -31,6 +32,14 @@ class CreateDiagnosticTestsTable extends Migration
             $table->integer('preparation_destroyed_doses')->unsigned()->default(0);
 
             $table->timestamps();
+        });
+
+        Schema::table('diagnostic_tests', function($table) {
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');;
+            $table->foreign('fact_id')->references('id')->on('facts')->onDelete('cascade');;
+            $table->foreign('executor_id')->references('id')->on('executors');
+            $table->foreign('preparation_receipt_id')->references('id')->on('preparation_receipts');
+            $table->foreign('research_type_id')->references('id')->on('research_types');
         });
     }
 
