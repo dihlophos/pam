@@ -18,6 +18,7 @@
                     <th>Вид</th>
                     <th>Возраст</th>
                     <th>Количество</th>
+                    <th>Удалить</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,17 @@
                     </td>
                     <td>
                         {{ $animal->count }}
+                    </td>
+                    <td>
+                        <form action="/object/{{ $animal->object_id }}/animal/{{ $animal->id }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+
+                            <button class="btn btn-primary">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                Удалить
+                            </button>
+                        </form>
                     </td>
                 </tr>
         @endforeach

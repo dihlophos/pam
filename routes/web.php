@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
         'show'
     ]]);
 
+    Route::resource('object.fact', 'FactController');
+
     Route::group(
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],

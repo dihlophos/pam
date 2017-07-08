@@ -20,7 +20,11 @@
                             <p>
                                 <span>{{$name}} ({{$subdivision['id']}})</span>
                                 <font>
-                                    <a href="subdivision/{{ $subdivision['id'] }}/preparation_receipt">Препараты</a> | Факт | План | Сведения о животных | Отчеты
+                                    <a href="subdivision/{{ $subdivision['id'] }}/preparation_receipt">Препараты</a>
+                                    | Факт
+                                    | План
+                                    | Сведения о животных
+                                    | Отчеты
                                 </font>
                                 </p>
                             <ul>
@@ -32,7 +36,10 @@
                                             <a href="/object/{{ $object->id }}/edit">{{$object->name}}</a>
                                         </span>
                                         <font>
-                                            Факт | План | <a href="object/{{ $object->id }}/animal">Сведения о животных</a> | Отчеты
+                                            <a href="object/{{ $object->id }}/fact">Факт</a> 
+                                            | План
+                                            | <a href="object/{{ $object->id }}/animal">Сведения о животных</a>
+                                            | Отчеты
                                         </font>
                                     </p>
                                 </li>

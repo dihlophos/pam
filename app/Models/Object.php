@@ -64,4 +64,9 @@ class Object extends Model
     {
         return $this->hasMany(Animal::class);
     }
+
+    public function facts()
+    {
+        return $this->hasMany(Fact::class);
+    }
 }

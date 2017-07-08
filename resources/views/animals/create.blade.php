@@ -33,6 +33,7 @@
             <label for="AnimalCount">Количество</label>
             <input name="count" class="form-control" type="number" id="AnimalCount" value="{{ old('count') }}" min="0" max="99999">
         </div>
+    </fieldset>
     <fieldset>
 		<legend>Индивидуальные данные</legend>
         <div class="form-group">

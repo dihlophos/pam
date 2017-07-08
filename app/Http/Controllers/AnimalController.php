@@ -50,4 +50,11 @@ class AnimalController extends Controller
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('object.animal.index', $object);
     }
+
+    public function destroy(Request $request, Animal $animal)
+    {
+        $animal->delete();
+        $request->session()->flash('alert-success', 'Запись успешно удалена!');
+        return redirect()->route('fact.index');
+    }
 }
