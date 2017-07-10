@@ -20,3 +20,7 @@ Route::get('/user', function (Request $request) {
 Route::resource('municipalities.cities', 'Api\CityController',  ['only' => [
     	'index', 'show'
 ]]);
+
+Route::resource('preparation.application_methods', 'Api\ApplicationMethodController',  ['only' => [
+    	'index', 'show'
+]]);

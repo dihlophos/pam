@@ -9,6 +9,7 @@ use App\Models\BasicDocument;
 use App\Models\Animal;
 use App\Models\Service;
 use App\Models\Executor;
+use App\Models\PreparationReceipt;
 use App\Http\Requests\StoreFact;
 
 class FactController extends Controller
@@ -37,8 +38,9 @@ class FactController extends Controller
         $animals = $object->animals()->with('animalType')->get();
         $services = Service::orderBy('name')->get();
         $executors = Executor::orderBy('name')->get()->pluck('name', 'id');
+        $preparation_receipts = $object->subdivision->preparation_receipts()->with('preparation')->get();
         return view('facts.create',
-            compact(['object', 'basic_documents', 'animals', 'services', 'executors'])
+            compact(['object', 'basic_documents', 'animals', 'services', 'executors', 'preparation_receipts'])
         );
     }
 
