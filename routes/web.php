@@ -89,6 +89,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/research_category', 'ResearchCategoryController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
+            Route::resource('/research_type', 'ResearchTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
             Route::resource('/so_measure', 'SOMeasureController', ['except' => [
                 'create', 'show', 'edit'
             ]]);

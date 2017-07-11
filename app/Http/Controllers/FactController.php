@@ -70,6 +70,7 @@ class FactController extends Controller
                 $prevention = Prevention::create($data);
                 break;
             case 2:
+                $diagnostic_test = DiagnosticTest::create($data);
                 break;
             case 3:
                 break;
@@ -112,8 +113,9 @@ class FactController extends Controller
     */
     public function update(Object $object, StoreFact $request, Fact $fact)
     {
-        //array_filter setting empty field to null
-        $data = array_filter($request->all(), 'strlen');
+        //array_filter setting empty field to null; for strings only
+        //$data = array_filter($request->all(), 'strlen');
+        $data = $request->all();
         $fact->fill($data)->save();
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('object.fact.index', $object);

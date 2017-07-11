@@ -19,7 +19,7 @@ class ResearchType extends Model
    *
    * @var array
    */
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'research_category_id'];
 
   public function researchCategory()
   {
