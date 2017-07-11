@@ -32,17 +32,17 @@ class Fact extends Model
 
     public function basic_document()
     {
-        return $this->belongTo(BasicDocument::class);
+        return $this->belongsTo(BasicDocument::class);
     }
 
     public function animal()
     {
-        return $this->belongTo(Animal::class);
+        return $this->belongsTo(Animal::class);
     }
 
     public function service()
     {
-        return $this->belongTo(Service::class);
+        return $this->belongsTo(Service::class);
     }
 
     public function diseases()

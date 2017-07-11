@@ -35,8 +35,8 @@ class CreateDiagnosticTestsTable extends Migration
         });
 
         Schema::table('diagnostic_tests', function($table) {
-            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');;
-            $table->foreign('fact_id')->references('id')->on('facts')->onDelete('cascade');;
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
+            $table->foreign('fact_id')->references('id')->on('facts')->onDelete('cascade');
             $table->foreign('executor_id')->references('id')->on('executors');
             $table->foreign('preparation_receipt_id')->references('id')->on('preparation_receipts');
             $table->foreign('research_type_id')->references('id')->on('research_types');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fact;
+use App\Models\Prevention;
+use App\Models\DiagnosticTest;
 use App\Models\Object;
 use App\Models\BasicDocument;
 use App\Models\Animal;
@@ -57,6 +59,21 @@ class FactController extends Controller
         $data = $request->all();
         //TODO:
         $fact = Fact::create($data);
+        if (isset($data['diseases']))
+        {
+            $fact->diseases()->attach($data['diseases']);
+        }
+        $data['fact_id'] = $fact->id;
+        switch ($fact->service->tab_index)
+        {
+            case 1:
+                $prevention = Prevention::create($data);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
         return redirect()->route('object.fact.index', $object);
     }
@@ -99,7 +116,7 @@ class FactController extends Controller
         $data = array_filter($request->all(), 'strlen');
         $fact->fill($data)->save();
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
-        return redirect()->route('fact.index');
+        return redirect()->route('object.fact.index', $object);
     }
 
     /**
@@ -108,10 +125,10 @@ class FactController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function destroy(Request $request, Fact $fact)
+    public function destroy(Object $object, Request $request, Fact $fact)
     {
         $fact->delete();
         $request->session()->flash('alert-success', 'Запись успешно удалена!');
-        return redirect()->route('fact.index');
+        return redirect()->route('object.fact.index', $object);
     }
 }

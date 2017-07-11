@@ -15,9 +15,14 @@ class CreateDiseaseFactTable extends Migration
     {
         Schema::create('disease_fact', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('disease_id')->index();
-            $table->integer('fact_id')->index();
+            $table->integer('disease_id')->index()->unsigned();
+            $table->integer('fact_id')->index()->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('disease_fact', function($table) {
+            $table->foreign('disease_id')->references('id')->on('diseases');
+            $table->foreign('fact_id')->references('id')->on('facts')->onDelete('cascade');
         });
     }
 
