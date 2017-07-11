@@ -24,3 +24,7 @@ Route::resource('municipalities.cities', 'Api\CityController',  ['only' => [
 Route::resource('preparation.application_methods', 'Api\ApplicationMethodController',  ['only' => [
     	'index', 'show'
 ]]);
+
+Route::resource('preparation.diseases', 'Api\DiseaseController',  ['only' => [
+    	'index', 'show'
+]]);

@@ -52,8 +52,9 @@ class FactController extends Controller
     */
     public function store(Object $object, StoreFact $request)
     {
-        //array_filter setting empty field to null
-        $data = array_filter($request->all(), 'strlen');
+        //array_filter setting empty field to null; for strings only
+        //$data = array_filter($request->all(), 'strlen');
+        $data = $request->all();
         //TODO:
         $fact = Fact::create($data);
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');

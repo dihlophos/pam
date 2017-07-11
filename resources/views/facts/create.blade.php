@@ -130,7 +130,7 @@
         </div>
         <div class="form-group preventions_only">
             <label for="PreventionDiseases">Болезни</label>
-            <select name="diseases" class="form-control" multiple="multiple" id="PreventionDiseases">
+            <select name="diseases[]" class="form-control" multiple="multiple" id="PreventionDiseases">
                 <option value=""></option>
             </select>
         </div>
@@ -159,10 +159,21 @@ $(function () {
     var services = {!!(string)$services!!};
     var receipts = {!!(string)$preparation_receipts!!};
 
-    var xhr;
+    var xhr_method, xhr_diseases;
 	var select_receipts, $select_receipt;
     var select_method, $select_method;
 	var select_diseases, $select_diseases;
+
+    $select_diseases = $('#PreventionDiseases').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите болезни'
+    });
 
     $select_method = $('#PreventionApplicationMethodId').selectize({
         valueField: 'id',
@@ -175,7 +186,8 @@ $(function () {
         placeholder: 'Укажите порядок применения'
     });
 
-    select_method  = $select_method[0].selectize;
+    select_method = $select_method[0].selectize;
+    select_diseases = $select_diseases[0].selectize;
 
     $select_receipt = $('#PreparationReceiptId').selectize({
         create: false,
@@ -183,7 +195,10 @@ $(function () {
 		selectOnTab: true,
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите препарат',
-        onInitialize: function() {this.selected_value = this.getValue(); this.trigger( "change" );},
+        onInitialize: function() {
+            this.selected_value = this.getValue();
+            this.trigger( "change" );
+        },
 		onDropdownClose: function($dropdown) {
 			if(this.getValue()==0) {
 				this.setValue(this.selected_value );
@@ -194,11 +209,11 @@ $(function () {
 			if (!value.length) return;
             var selected_preparation_receipt = $.grep(receipts, function(e) { return e['id'] == value; })[0];
             var preparation_id = selected_preparation_receipt?selected_preparation_receipt['preparation']['id']:0;
-			select_method.disable();
+            select_method.disable();
 			select_method.clearOptions();
 			select_method.load(function(callback) {
-				xhr && xhr.abort();
-				xhr = $.ajax({
+				xhr_method && xhr_method.abort();
+				xhr_method = $.ajax({
 					type: 'get',
 					url: '/api/preparation/' + preparation_id + '/application_methods',
 					success: function(results) {
@@ -210,11 +225,36 @@ $(function () {
 					}
 				})
 			});
+
+            select_diseases.disable();
+            select_diseases.clearOptions();
+            select_diseases.load(function(callback) {
+                xhr_diseases && xhr_diseases.abort();
+                xhr_diseases = $.ajax({
+                    type: 'get',
+                    url: '/api/preparation/' + preparation_id + '/diseases',
+                    success: function(results) {
+                        select_diseases.enable();
+                        callback(results);
+                    },
+                    error: function() {
+                        callback();
+                    }
+                })
+            });
 		}
     });
 
     @if(null==(old('application_method_id')))
 	select_method.disable();
+    @else
+    select_method.setValue({{old('application_method_id')}});
+	@endif
+
+    @if(null==(old('diseases')))
+	select_diseases.disable();
+    @else
+    select_diseases.setValue({{old('diseases')}});
 	@endif
 
 	$('#FactServiceId').selectize({
