@@ -67,6 +67,23 @@
                     </option>
             </select>
         </div>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestResearchType">Вид исследований</label>
+            <select name="research_type_id" id="DiagnosticTestResearchType" class="form-control">
+                <option value="">Укажите вид исследований</option>
+            @foreach ($research_types as $id => $research_type)
+                <option value="{{$id}}" {{ old('research_type_id') == $id ? 'selected' : '' }}>
+                    {{ $research_type }}
+                </option>
+            @endforeach
+            </select>
+        </div>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestDiseases">Болезни</label>
+            <select name="diseases[]" class="form-control" multiple="multiple" id="DiagnosticTestDiseases">
+                <option value=""></option>
+            </select>
+        </div>
     </fieldset>
     <fieldset>
         <legend>Количество</legend>
@@ -97,9 +114,6 @@
                 <option value="{{$id}}" {{ old('executor_id') == $id ? 'selected' : '' }}>{{ $executor }}</option>
                 @endforeach
             </select>
-        </div>
-        <div class="preventions_only" style="color:red">
-            профилактика: покачто форма не доделана
         </div>
 
         <div class="diagnostic_tests_only" style="color:red">
