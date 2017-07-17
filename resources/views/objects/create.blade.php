@@ -21,6 +21,7 @@
         <div class="form-group">
             <label for="ObjectSubdivisionId">Подразделение</label>
             <select name="subdivision_id" id="ObjectSubdivisionId" class="form-control">
+                <option value="" ></option>
                 @foreach ($subdivisions as $subdivision)
                     <option value="{{$subdivision->id}}" {{ ($subdivision_id?$subdivision_id:old('subdivision_id')) == $subdivision->id ? 'selected' : '' }}>{{ $subdivision->name }}</option>
                 @endforeach
