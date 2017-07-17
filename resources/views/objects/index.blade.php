@@ -5,6 +5,7 @@
     @include('common.errors')
     @include('common.flash')
 
+<a class="btn btn-primary" href="/object/create">Добавить объект</a>
 {{$objects->links()}}
 @foreach ($organs as $name => $organ)
     <ul class="pem-tree">
@@ -28,7 +29,7 @@
                                 </font>
                                 </p>
                             <ul>
-                                <li><a href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
+                                <li><a class="btn btn-primary btn-xs" href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
                             @foreach ($subdivision['objects'] as $object)
                                 <li>
                                     <p>
@@ -36,7 +37,7 @@
                                             <a href="/object/{{ $object->id }}/edit">{{$object->name}}</a>
                                         </span>
                                         <font>
-                                            <a href="object/{{ $object->id }}/fact">Факт</a> 
+                                            <a href="object/{{ $object->id }}/fact">Факт</a>
                                             | План
                                             | <a href="object/{{ $object->id }}/animal">Сведения о животных</a>
                                             | Отчеты

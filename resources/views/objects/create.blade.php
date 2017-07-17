@@ -15,7 +15,18 @@
     {{ method_field('POST') }}
     <fieldset>
 		<legend>Общие данные</legend>
-        <input name="subdivision_id" type="hidden" id="ObjectObjectId" required="required" value="{{ $subdivision_id }}">
+        @if($subdivision && count($subdivisions)==0)
+        <input name="subdivision_id" type="hidden" id="ObjectSubdivisionId" required="required" value="{{ $subdivision_id }}">
+        @else
+        <div class="form-group">
+            <label for="ObjectSubdivisionId">Подразделение</label>
+            <select name="subdivision_id" id="ObjectSubdivisionId" class="form-control">
+                @foreach ($subdivisions as $subdivision)
+                    <option value="{{$subdivision->id}}" {{ ($subdivision_id?$subdivision_id:old('subdivision_id')) == $subdivision->id ? 'selected' : '' }}>{{ $subdivision->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        @endif
 		<div class="form-group required">
             <label for="ObjectName">Название объекта / ФИО владельца</label>
             <input name="name" class="form-control" maxlength="255" type="text" id="ObjectName" required="required" value="{{ old('name') }}">
@@ -70,10 +81,46 @@
 $(function () {
 
 	var xhr;
+    var select_subdivision, $select_subdivision;
 	var select_municipality, $select_municipality;
 	var select_city, $select_city;
 
+    $select_subdivision = $('#ObjectSubdivisionId').selectize({
+		plugins: ['restore_on_backspace'],
+		create: false,
+		selectOnTab: true,
+		onInitialize: function() {this.selected_value = this.getValue();},
+		onDropdownClose: function($dropdown) {
+			if(this.getValue()==0) {
+				this.setValue(this.selected_value );
+			}
+		},
+		onChange: function(value) {
+			value=(!value || value==0)?this.selected_value:value;this.selected_value=value;
+			if (!value.length) return;
+			select_municipality.disable();
+			select_municipality.clearOptions();
+			select_municipality.load(function(callback) {
+				xhr && xhr.abort();
+				xhr = $.ajax({
+					type: 'get',
+					url: '/api/subdivisions/'+select_subdivision.selected_value+'/municipalities',
+					success: function(results) {
+						select_municipality.enable();
+						callback(results);
+					},
+					error: function() {
+						callback();
+					}
+				})
+			});
+		}
+	});
+
 	$select_municipality = $('#ObjectMunicipalityId').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
 		plugins: ['restore_on_backspace'],
 		create: false,
 		selectOnTab: true,
@@ -123,6 +170,7 @@ $(function () {
 
 	select_city  = $select_city[0].selectize;
 	select_municipality = $select_municipality[0].selectize;
+    select_subdivision = $select_subdivision[0].selectize;
 	@if((old('city_id'))==null)
 	select_city.disable();
 	@endif

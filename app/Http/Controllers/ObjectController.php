@@ -60,11 +60,21 @@ class ObjectController extends Controller
      */
     public function create(Request $request)
     {
+        //TODO: probably we could get subdivision_id from authenticated user
         $subdivision_id = intval($request->subdivision);
         $subdivision = Subdivision::find($subdivision_id);
-        $municipalities = $subdivision->municipalities()->pluck('name', 'municipalities.id');
+        $subdivisions = [];
+        $municipalities = [];
+        if ($subdivision) {
+            $municipalities = $subdivision->municipalities()->pluck('name', 'municipalities.id');
+        }
+        //TODO: other roles able to manage multiple subdivisions?
+        if ($request->user()->isAdmin()) {
+            $subdivisions = Subdivision::all();
+        }
+
         return view('objects.create',
-            compact(['subdivision_id', 'subdivision', 'municipalities'])
+            compact(['subdivision_id', 'subdivision', 'municipalities', 'subdivisions'])
         );
     }
 

@@ -28,3 +28,8 @@ Route::resource('preparation.application_methods', 'Api\ApplicationMethodControl
 Route::resource('preparation.diseases', 'Api\DiseaseController',  ['only' => [
     	'index', 'show'
 ]]);
+
+
+Route::resource('subdivisions.municipalities', 'Api\MunicipalityController',  ['only' => [
+    	'index', 'show'
+]]);
