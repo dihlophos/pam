@@ -25,11 +25,15 @@ Route::resource('preparation.application_methods', 'Api\ApplicationMethodControl
     	'index', 'show'
 ]]);
 
-Route::resource('preparation.diseases', 'Api\DiseaseController',  ['only' => [
+Route::resource('diseases', 'Api\DiseaseController',  ['only' => [
     	'index', 'show'
 ]]);
 
 
 Route::resource('subdivisions.municipalities', 'Api\MunicipalityController',  ['only' => [
     	'index', 'show'
+]]);
+
+Route::resource('subdivisions.preparation_receipts', 'Api\PreparationReceiptController',  ['only' => [
+    	'index'
 ]]);

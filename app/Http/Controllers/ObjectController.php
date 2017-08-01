@@ -45,7 +45,7 @@ class ObjectController extends Controller
                 })
             ];
         });
-
+        
         return view('objects.index', [
             'organs' => $grouped_objects,
             'objects' => $objects

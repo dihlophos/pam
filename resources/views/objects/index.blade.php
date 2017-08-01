@@ -27,7 +27,7 @@
                                     | Сведения о животных
                                     | Отчеты
                                 </font>
-                                </p>
+                            </p>
                             <ul>
                                 <li><a class="btn btn-primary btn-xs" href="/object/create?subdivision={{ $subdivision['id'] }}">Добавить объект</a></li>
                             @foreach ($subdivision['objects'] as $object)
@@ -51,7 +51,7 @@
                     </ul>
                 </li>
             @endforeach
-            <ul>
+            </ul>
         </li>
     </ul>
 @endforeach

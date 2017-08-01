@@ -84,16 +84,30 @@
                 <option value=""></option>
             </select>
         </div>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestYearMultiplicity">Кратность услуги в текущем году</label>
+            <select name="year_multiplicity" class="form-control" id="DiagnosticTestYearMultiplicity">
+                <option value="первый раз">первый раз</option>
+                <option value="второй раз">второй раз</option>
+            </select>
+        </div>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestServiceCharacteristics">Характеристика услуги</label>
+            <select name="service_characteristics" class="form-control" id="DiagnosticTestServiceCharacteristics">
+                <option value="первично">первично</option>
+                <option value="вторично">вторично</option>
+            </select>
+        </div>
     </fieldset>
     <fieldset>
         <legend>Количество</legend>
-        <div class="form-group preventions_only">
-            <label for="PreventionCount">Всего</label>
-            <input name="count" class="form-control" type="number" id="PreventionCount" value="{{ old('count')?old('count'):0 }}">
+        <div class="form-group preventions_only diagnostic_tests_only">
+            <label for="Count">Всего</label>
+            <input name="count" class="form-control" type="number" id="Count" value="{{ old('count')?old('count'):0 }}">
         </div>
-        <div class="form-group preventions_only">
-            <label for="PreventionCountGz">По ГЗ</label>
-            <input name="count_gz" class="form-control" type="number" id="PreventionCountGz" value="{{ old('count_gz')?old('count_gz'):0 }}">
+        <div class="form-group preventions_only diagnostic_tests_only">
+            <label for="CountGz">По ГЗ</label>
+            <input name="count_gz" class="form-control" type="number" id="CountGz" value="{{ old('count_gz')?old('count_gz'):0 }}">
         </div>
         <div class="form-group preventions_only">
             <label for="PreventionCountFinal">Окончательных обработок</label>
@@ -107,6 +121,10 @@
             <label for="PreventionCountRip">Пало, вынуж./убит</label>
             <input name="count_rip" class="form-control" type="number" id="PreventionCountRip" value="{{ old('count_rip')?old('count_rip'):0 }}">
         </div>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestCountPositive">Положительно</label>
+            <input name="count_positive" class="form-control" type="number" id="DiagnosticTestCountPositive" value="{{ old('count_positive')?old('count_positive'):0 }}">
+        </div>
         <div class="form-group">
             <label for="PreventionExecutorId">Исполнитель</label>
             <select name="executor_id" class="form-control" id="PreventionExecutorId">
@@ -116,24 +134,25 @@
             </select>
         </div>
 
-        <div class="diagnostic_tests_only" style="color:red">
-            исследования: покачто нет формы
-        </div>
-
         <div class="sanitary_works_only" style="color:red">
             вет.сан. работы: покачто нет формы
         </div>
     </fieldset>
     <fieldset class="preventions_only diagnostic_tests_only">
         <legend>Сведения об использованиии препаратов</legend>
+        <div class="form-group diagnostic_tests_only">
+            <label for="DiagnosticTestConclusionNum">Дата, номер заключения</label>
+            <input name="conslusion_num" class="form-control" maxlength="255" type="text"
+                   value="{{ old('conslusion_num')?old('conslusion_num'):'' }}" id="DiagnosticTestConclusionNum">
+        </div>
         <div class="form-group">
             <label for="PreparationReceiptId">Код записи препарата</label>
             <select name="preparation_receipt_id" id="PreparationReceiptId" class="form-control">
-                @foreach ($preparation_receipts as $preparation_receipt)
+                <!--@foreach ($preparation_receipts as $preparation_receipt)
                     <option value="{{$preparation_receipt->id}}" {{ old('preparation_receipt_id') == $preparation_receipt->id ? 'selected' : '' }}>
                         {{ $preparation_receipt->id }}-{{ $preparation_receipt->preparation->name }} (серия: {{ $preparation_receipt->series }})
                     </option>
-                @endforeach
+                @endforeach-->
             </select>
         </div>
         <div class="form-group required preventions_only">
@@ -171,19 +190,33 @@
 <script type="text/javascript">
 $(function () {
     var services = {!!(string)$services!!};
-    var receipts = {!!(string)$preparation_receipts!!};
+    var animals = {!!(string)$animals!!};
+    
+    var tab_index;
 
-    var xhr_method, xhr_diseases;
-	var select_receipts, $select_receipt;
+    var xhr_method, xhr_diseases, xhr_receipts;
+	var select_receipts, $select_receipts;
     var select_method, $select_method;
-	var select_diseases, $select_diseases;
+	var select_diseases, $select_prev_diseases, $select_test_diseases;
+	var select_service, $select_service
 
-    $select_diseases = $('#PreventionDiseases').selectize({
+    $select_prev_diseases = $('#PreventionDiseases').selectize({
         valueField: 'id',
 		labelField: 'name',
 		searchField: ['name'],
         create: false,
-		persist: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите болезни'
+    });
+    
+    $select_test_diseases = $('#DiagnosticTestDiseases').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		//persist: false,
 		selectOnTab: true,
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите болезни'
@@ -194,21 +227,36 @@ $(function () {
 		labelField: 'name',
 		searchField: ['name'],
         create: false,
-		persist: false,
+		//persist: false,
 		selectOnTab: true,
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите порядок применения'
     });
-
+    
     select_method = $select_method[0].selectize;
-    select_diseases = $select_diseases[0].selectize;
 
-    $select_receipt = $('#PreparationReceiptId').selectize({
+    $select_receipts = $('#PreparationReceiptId').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['id', 'name', 'series'],
         create: false,
-		persist: false,
+		//persist: false,
 		selectOnTab: true,
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите препарат',
+        render: {
+            item: function(item, escape) {
+                return '<div>' +
+                    '<span>' + item.id + ' - ' + escape(item.name) + '(серия: ' + item.series + ')</span>' +
+                '</div>';
+            },
+            option: function(item, escape) {
+                var label = item.id + ' - ' + escape(item.name) + '(серия: ' + item.series + ')';
+                return '<div>' +
+                    '<span>' + escape(label) + '</span>' +
+                '</div>';
+            }
+        },
         onInitialize: function() {
             this.selected_value = this.getValue();
             this.trigger( "change" );
@@ -221,72 +269,53 @@ $(function () {
 		onChange: function(value) {
 			value=(!value || value==0)?this.selected_value:value;this.selected_value=value;
 			if (!value.length) return;
-            var selected_preparation_receipt = $.grep(receipts, function(e) { return e['id'] == value; })[0];
-            var preparation_id = selected_preparation_receipt?selected_preparation_receipt['preparation']['id']:0;
-            select_method.disable();
-			select_method.clearOptions();
-			select_method.load(function(callback) {
-				xhr_method && xhr_method.abort();
-				xhr_method = $.ajax({
-					type: 'get',
-					url: '/api/preparation/' + preparation_id + '/application_methods',
-					success: function(results) {
-						select_method.enable();
-						callback(results);
-					},
-					error: function() {
-						callback();
-					}
-				})
-			});
-
-            select_diseases.disable();
-            select_diseases.clearOptions();
-            select_diseases.load(function(callback) {
-                xhr_diseases && xhr_diseases.abort();
-                xhr_diseases = $.ajax({
-                    type: 'get',
-                    url: '/api/preparation/' + preparation_id + '/diseases',
-                    success: function(results) {
-                        select_diseases.enable();
-                        callback(results);
-                    },
-                    error: function() {
-                        callback();
-                    }
-                })
-            });
+			if (!this.options[value]) return;
+            var preparation_id = this.options[value].preparation_id;
+            
+            switch (tab_index)
+            {
+                case 1:
+                    LoadMethods(preparation_id, function(value) {});
+                    LoadPreventionDiseases(preparation_id, function(value) {});
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+            
 		}
     });
 
-    @if(null==(old('application_method_id')))
-	select_method.disable();
-    @else
-    select_method.setValue({{old('application_method_id')}});
-	@endif
+    select_receipts = $select_receipts[0].selectize;
 
-    @if(null==(old('diseases')))
-	select_diseases.disable();
-    @else
-    select_diseases.setValue({{old('diseases')}});
-	@endif
-
-	$('#FactServiceId').selectize({
+	$select_service = $('#FactServiceId').selectize({
         create: false,
-		persist: false,
+		//persist: false,
 		selectOnTab: true,
         placeholder: 'Укажите услугу',
-        onChange: function(event) {
+        onChange: function(value) {
+            value=(!value || value==0)?this.selected_value:value;this.selected_value=value;
+			if (!value.length) return;
             $('.preventions_only, .diagnostic_tests_only, .sanitary_works_only').hide();
-            var selected_service = $.grep(services, function(e) { return e['id'] == event; })[0];
-            var tab_index = selected_service?selected_service['tab_index']:0;
+            var selected_service = $.grep(services, function(e) { return e['id'] == value; })[0];
+            tab_index = selected_service?selected_service['tab_index']:0;
+            console.log(tab_index);
             switch (tab_index)
             {
                 case 1:
                     $('.preventions_only').show();
+                    select_diseases = $select_prev_diseases[0].selectize;
+                    SetOrDisableMethod();
+                    SetOrDisableDiseases();
+                    LoadReceipts(function(value) {});
                     break;
                 case 2:
                     $('.diagnostic_tests_only').show();
+                    select_diseases = $select_test_diseases[0].selectize;
+                    SetOrDisableDiseases();
+                    LoadDiagnosticTestDiseases(select_service.selected_value, function(value) {});
+                    LoadReceipts(function(value) {});
                     break;
                 case 3:
                     $('.sanitary_works_only').show();
@@ -294,6 +323,112 @@ $(function () {
             }
         }
 	});
+	
+	
+// 	$('#PreparationUsedDoses').change(function(event){
+// 	    LoadReceipts(function(value) {});
+// 	});
+	
+	select_service =  $select_service[0].selectize;
+	
+	var SetOrDisableMethod = function() {
+    	@if(null==(old('application_method_id')))
+    	select_method.disable();
+        @else
+        select_method.setValue({{old('application_method_id')}});
+    	@endif
+	}
+
+    var SetOrDisableDiseases = function() {
+        @if(null==(old('diseases')))
+    	select_diseases.disable();
+        @else
+        select_diseases.setValue({{old('diseases')}});
+    	@endif
+    }
+	
+	var LoadPreventionDiseases = function(preparation_id, success) {
+	    select_diseases.disable();
+        select_diseases.clearOptions();
+        select_diseases.load(function(callback) {
+            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimalId').val(); })[0];
+            console.log('animal_type_id:' + selected_animal.animal_type_id);
+            xhr_diseases && xhr_diseases.abort();
+            xhr_diseases = $.ajax({
+                type: 'get',
+                url: '/api/diseases?animal_type_id=' + selected_animal.animal_type_id + '&preparation_id=' + preparation_id,
+                success: function(results) {
+                    select_diseases.enable();
+					success(results);
+                    callback(results);
+                },
+                error: function() {
+                    callback();
+                }
+            })
+        });
+	}
+	
+	var LoadDiagnosticTestDiseases = function(service_id, success) {
+	    select_diseases.disable();
+        select_diseases.clearOptions();
+        select_diseases.load(function(callback) {
+            xhr_diseases && xhr_diseases.abort();
+            xhr_diseases = $.ajax({
+                type: 'get',
+                url: '/api/diseases?service_id=' + service_id,
+                success: function(results) {
+                    select_diseases.enable();
+					success(results);
+                    callback(results);
+                },
+                error: function() {
+                    callback();
+                }
+            })
+        });
+	}
+	
+	var LoadMethods = function(preparation_id, success) {
+	    select_method.disable();
+		select_method.clearOptions();
+		select_method.load(function(callback) {
+			xhr_method && xhr_method.abort();
+			xhr_method = $.ajax({
+				type: 'get',
+				url: '/api/preparation/' + preparation_id + '/application_methods',
+				success: function(results) {
+					select_method.enable();
+					success(results);
+					callback(results);
+				},
+				error: function() {
+					callback();
+				}
+			})
+		});
+	}
+
+	var LoadReceipts = function(success) {
+			select_receipts.disable();
+			select_receipts.clearOptions();
+			var preparation_used_doses = $('#PreparationUsedDoses').val();
+			select_receipts.load(function(callback) {
+				xhr_receipts && xhr_receipts.abort();
+				xhr_receipts = $.ajax({
+				    type: 'get',
+					url: '/api/subdivisions/' + {{$object->subdivision_id}} + '/preparation_receipts?service_id=' + select_service.selected_value + '&preparation_used_doses=' + preparation_used_doses,
+					success: function(results) {
+					    select_receipts.enable();
+						success(results);
+						callback(results);
+					},
+					error: function() {
+						callback();
+					}
+				})
+			});
+		}
 
 });
 
