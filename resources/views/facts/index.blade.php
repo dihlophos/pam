@@ -9,7 +9,7 @@
   <div class="panel panel-default">
       <div class="panel-heading clearfix">
           <h1 class="panel-title pull-left" style="padding-top: 7.5px;">Факт по объекту: {{ $object->name }}</h1>
-          <a href="/object/{{ $object->id }}/fact/create" class="btn btn-default pull-right ">Добавить</a>
+          <a href="{{route('object.fact.create', [$object->id])}}" class="btn btn-default pull-right ">Добавить</a>
       </div>
       <div class="panel-body">
       @if (count($facts) > 0)
@@ -30,13 +30,13 @@
                     {{ $fact->date }}
                 </td>
                 <td class="table-text">
-                    {{ $fact->animal->id }}
+                    {{ $fact->animal->id }} - {{ $fact->animal->animalType->name }}{{$fact->animal->name?' | '.$fact->animal->name:''}} (возраст: {{$fact->animal->age}})
                 </td>
                 <td class="table-text">
                     {{ $fact->service->name }}
                 </td>
                 <td>
-                    <form action="/object/{{ $fact->object_id }}/fact/{{ $fact->id }}" method="POST">
+                    <form action="{{route('object.fact.destroy', [$fact->object_id, $fact->id])}}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
 

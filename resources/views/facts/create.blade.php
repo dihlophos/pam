@@ -155,9 +155,9 @@
                 @endforeach-->
             </select>
         </div>
-        <div class="form-group required preventions_only">
+        <div class="form-group preventions_only">
             <label for="PreventionApplicationMethodId">Порядок применения</label>
-            <select name="application_method_id" class="form-control" id="PreventionApplicationMethodId" required="required">
+            <select name="application_method_id" class="form-control" id="PreventionApplicationMethodId">
                 <option value=""></option>
             </select>
         </div>
@@ -167,16 +167,16 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group required preventions_only diagnostic_tests_only">
+        <div class="form-group preventions_only diagnostic_tests_only">
             <label for="PreparationUsedDoses">Израсходовано доз (мл)</label>
             <input name="preparation_used_doses" class="form-control" type="number"
                    value="{{ old('preparation_used_doses')?old('preparation_used_doses'):0 }}"
-                   id="PreparationUsedDoses" required="required">
+                   id="PreparationUsedDoses">
         </div>
         <div class="form-group preventions_only diagnostic_tests_only">
             <label for="Comment">Примечание</label>
             <input name="comment" class="form-control" maxlength="255" type="text"
-                   value="{{ old('comment')?old('comment'):0 }}" id="Comment">
+                   value="{{ old('comment')?old('comment'):'' }}" id="Comment">
         </div>
     </fieldset>
     <div class="form-group">

@@ -20,7 +20,9 @@ class PreparationReceiptController extends Controller
         $service_id = intval($request->service_id);
         $used_doses = intval($request->preparation_used_doses);
     	//$preparation_receipts = $subdivision->preparation_receipts()->with('preparation')->get();
-    	$preparation_receipts = PreparationReceipt::join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')->whereSubdivisionId($subdivision->id);
+    	$preparation_receipts = PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
+                                                  ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
+                                                  ->whereSubdivisionId($subdivision->id);
     	if ($service_id) {
     	    $preparation_receipts = $preparation_receipts->whereRaw('preparation_receipts.preparation_id IN (SELECT preparation_id FROM preparation_service WHERE service_id = '.$service_id.')');
     	}

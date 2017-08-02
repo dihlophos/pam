@@ -24,8 +24,7 @@ class FactController extends Controller
     */
     public function index(Object $object)
     {
-        $facts = $object->facts()->with('service')->orderBy('date', 'DESC')->paginate(50);
-
+        $facts = $object->facts()->with(['service', 'animal', 'animal.animalType'])->orderBy('created_at', 'DESC')->paginate(50);
         return view('facts.index', compact(['facts', 'object']));
     }
 
