@@ -15,11 +15,11 @@ class CreateDiagnosticTestsTable extends Migration
     {
         Schema::create('diagnostic_tests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('object_id')->index()->unsigned();
-            $table->integer('fact_id')->index()->unsigned();
-            $table->integer('research_type_id')->index()->unsigned();
-            $table->integer('executor_id')->index()->unsigned();
-            $table->integer('preparation_receipt_id')->index()->unsigned();
+            $table->integer('object_id')->unsigned();
+            $table->integer('fact_id')->unsigned();
+            $table->integer('research_type_id')->unsigned();
+            $table->integer('executor_id')->unsigned();
+            $table->integer('preparation_receipt_id')->unsigned();
             $table->enum('year_multiplicity', ['первый раз', 'второй раз'])->default('первый раз');
             $table->enum('service_characteristics', ['первично', 'вторично'])->default('первично');
             $table->integer('count')->unsigned();

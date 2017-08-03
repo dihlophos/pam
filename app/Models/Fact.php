@@ -22,8 +22,8 @@ class Fact extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'basic_document_id', 'animal_id',
-                           'service_id', 'date'];
+    protected $fillable = ['object_id', 'executor_id', 'basic_document_id', 'animal_id',
+                           'service_id', 'date', 'comment'];
 
     public function object()
     {
@@ -48,5 +48,13 @@ class Fact extends Model
     public function diseases()
     {
         return $this->belongsToMany(Disease::class);
+    }
+    
+    public function prevention() {
+        return $this->hasOne(Prevention::class);
+    }
+    
+    public function diagnostic_test() {
+        return $this->hasOne(DiagnosticTest::class);
     }
 }

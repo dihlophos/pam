@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 	Поля:
 		Объект
         Факт
-		Исполнитель
         Код записи препарата
         Порядок применения
         Вид услуги
@@ -20,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
         Количество окончательных обработок
         Количество заболело (осложнения)
         Количество пало, вынуж./убит
-        Примечание
         Израсходовано доз (мл)
         Израсходовано контейнеров
         Уничтожено доз
@@ -32,10 +30,10 @@ class Prevention extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'fact_id', 'executor_id',
+    protected $fillable = ['object_id', 'fact_id',
                            'preparation_receipt_id', 'application_method_id',
                            'service_type', 'count', 'count_gz', 'count_final',
-                           'count_ill', 'count_rip', 'comment',
+                           'count_ill', 'count_rip',
                            'preparation_used_doses', 'preparation_used_containers',
                            'preparation_destroyed_doses'];
 
@@ -46,21 +44,21 @@ class Prevention extends Model
 
     public function fact()
     {
-        return $this->belongTo(Fact::class);
+        return $this->belongsTo(Fact::class);
     }
 
     public function executor()
     {
-        return $this->belongTo(Executor::class);
+        return $this->belongsTo(Executor::class);
     }
 
     public function preparation_receipt()
     {
-        return $this->belongTo(PreparationReceipt::class);
+        return $this->belongsTo(PreparationReceipt::class);
     }
 
     public function application_method()
     {
-        return $this->belongTo(ApplicationMethod::class);
+        return $this->belongsTo(ApplicationMethod::class);
     }
 }

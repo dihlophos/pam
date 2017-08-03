@@ -15,11 +15,11 @@ class CreatePreventionsTable extends Migration
     {
         Schema::create('preventions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('object_id')->index()->unsigned();
-            $table->integer('fact_id')->index()->unsigned();
-            $table->integer('executor_id')->index()->unsigned();
-            $table->integer('preparation_receipt_id')->index()->unsigned();
-            $table->integer('application_method_id')->index()->unsigned();
+            $table->integer('object_id')->unsigned();
+            $table->integer('fact_id')->unsigned();
+            $table->integer('executor_id')->unsigned();
+            $table->integer('preparation_receipt_id')->unsigned();
+            $table->integer('application_method_id')->unsigned();
             $table->enum('service_type', ['профилактическая', 'вынужденная'])->default('профилактическая');
             $table->integer('count')->unsigned();
             $table->integer('count_gz')->unsigned();

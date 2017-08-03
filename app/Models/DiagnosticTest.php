@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 	Поля:
 		Объект
         Факт
-		Исполнитель
         Код препарата
         Вид исследований
         Кратность услуги в текущем году
@@ -19,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
         Количество всего
         Количество по ГЗ
         Количество положительно
-        Примечание
         Дата и номер заклчения
         Израсходовано доз (мл)
         Израсходовано контейнеров
@@ -32,10 +30,10 @@ class DiagnosticTest extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'fact_id', 'executor_id', 'preparation_receipt_id',
+    protected $fillable = ['object_id', 'fact_id', 'preparation_receipt_id',
                            'research_type_id', 'year_multiplicity',
                            'service_characteristics', 'count', 'count_gz',
-                           'count_positive', 'comment', 'conclusion_num',
+                           'count_positive', 'conclusion_num',
                            'preparation_used_doses', 'preparation_used_containers',
                            'preparation_destroyed_doses'];
 
@@ -46,21 +44,21 @@ class DiagnosticTest extends Model
 
     public function fact()
     {
-        return $this->belongTo(Fact::class);
+        return $this->belongsTo(Fact::class);
     }
 
     public function executor()
     {
-        return $this->belongTo(Executor::class);
+        return $this->belongsTo(Executor::class);
     }
 
     public function preparation_receipt()
     {
-        return $this->belongTo(PreparationReceipt::class);
+        return $this->belongsTo(PreparationReceipt::class);
     }
 
     public function research_type()
     {
-        return $this->belongTo(ResearchType::class);
+        return $this->belongsTo(ResearchType::class);
     }
 }

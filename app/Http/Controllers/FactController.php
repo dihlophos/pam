@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Fact;
 use App\Models\Prevention;
 use App\Models\DiagnosticTest;
@@ -41,9 +42,8 @@ class FactController extends Controller
         $services = Service::orderBy('name')->get();
         $executors = Executor::orderBy('name')->get()->pluck('name', 'id');
         $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
-        $preparation_receipts = $object->subdivision->preparation_receipts()->with('preparation')->get();
         return view('facts.create',
-            compact(['object', 'basic_documents', 'animals', 'services', 'executors', 'preparation_receipts', 'research_types'])
+            compact(['object', 'basic_documents', 'animals', 'services', 'executors', 'research_types'])
         );
     }
 
@@ -99,9 +99,32 @@ class FactController extends Controller
     */
     public function edit(Object $object, Fact $fact)
     {
-        //TODO:
+        $basic_documents = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
+        $animals = $object->animals()->with('animalType')->get();
+        $services = Service::orderBy('name')->get();
+        $executors = Executor::orderBy('name')->get()->pluck('name', 'id');
+        $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
+        $preparation_receipts = [];
+         switch ($fact->service->tab_index)
+        {
+            case 1:
+                $preparation_receipts = 
+                                PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
+                                                  ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
+                                                  ->where('preparation_receipts.id', $fact->prevention->preparation_receipt->id)->get();
+                break;
+            case 2:
+                $preparation_receipts = 
+                                PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
+                                                  ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
+                                                  ->where('preparation_receipts.id', $fact->diagnostic_test->preparation_receipt->id)->get();
+                break;
+            case 3:
+                break;
+        }
+        
         return view('facts.edit',
-            compact(['fact', 'municipalities', 'cities'])
+            compact(['fact', 'object', 'basic_documents', 'animals', 'services', 'executors', 'preparation_receipts', 'research_types'])
         );
     }
 
@@ -118,6 +141,22 @@ class FactController extends Controller
         //$data = array_filter($request->all(), 'strlen');
         $data = $request->all();
         $fact->fill($data)->save();
+        if (isset($data['diseases']))
+        {
+            $fact->diseases()->sync($data['diseases']);
+        }
+        $data['fact_id'] = $fact->id;
+        switch ($fact->service->tab_index)
+        {
+            case 1:
+                $fact->prevention->fill($data)->save();
+                break;
+            case 2:
+                $fact->diagnostic_test->fill($data)->save();
+                break;
+            case 3:
+                break;
+        }
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('object.fact.index', $object);
     }

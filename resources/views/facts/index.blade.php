@@ -17,6 +17,7 @@
         <table class="table table-striped task-table">
 
             <thead>
+                <th> </th>
                 <th>Дата</th>
                 <th>Код записи сведений о животном</th>
                 <th>Услуга</th>
@@ -26,6 +27,11 @@
           <tbody>
             @foreach ($facts as $fact)
               <tr>
+                <td class="table-text">
+                  <a href="{{route('object.fact.edit', [$object->id, $fact->id])}}" class="btn btn-primary">
+                    {{ $fact->id }}
+                  </a>
+                </td>
                 <td class="table-text">
                     {{ $fact->date }}
                 </td>
@@ -42,7 +48,6 @@
 
                         <button class="btn btn-primary">
                             <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            Удалить
                         </button>
                     </form>
                 </td>
