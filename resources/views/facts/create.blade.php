@@ -148,11 +148,7 @@
         <div class="form-group">
             <label for="PreparationReceiptId">Код записи препарата</label>
             <select name="preparation_receipt_id" id="PreparationReceiptId" class="form-control">
-                <!--@foreach ($preparation_receipts as $preparation_receipt)
-                    <option value="{{$preparation_receipt->id}}" {{ old('preparation_receipt_id') == $preparation_receipt->id ? 'selected' : '' }}>
-                        {{ $preparation_receipt->id }}-{{ $preparation_receipt->preparation->name }} (серия: {{ $preparation_receipt->series }})
-                    </option>
-                @endforeach-->
+                <option value=""></option>
             </select>
         </div>
         <div class="form-group preventions_only">
