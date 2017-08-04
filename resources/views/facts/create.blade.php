@@ -34,9 +34,10 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group preventions_only diagnostic_tests_only">
             <label for="FactAnimalId">Код записи сведений о животном</label>
             <select name="animal_id" id="FactAnimalId" class="form-control">
+                    <option value="">Укажите животное</option>
                 @foreach ($animals as $animal)
                     <option value="{{$animal->id}}" {{ old('animal_id') == $animal->id ? 'selected' : '' }}>
                         {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
@@ -314,6 +315,7 @@ $(function () {
                     LoadReceipts(function(value) {});
                     break;
                 case 3:
+                    $('#FactAnimalId').prop('selectedIndex',0);
                     $('.sanitary_works_only').show();
                     break;
             }
