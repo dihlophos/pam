@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Measure;
 use App\Models\ServiceCategory;
+use App\Models\ServiceType;
 use App\Http\Requests\StoreService;
 
 class ServiceController extends Controller
@@ -20,10 +21,11 @@ class ServiceController extends Controller
         $services = Service::orderBy('name')->paginate(50);
         $measures = Measure::orderBy('name')->pluck('name', 'id');
         $service_categories = ServiceCategory::orderBy('name')->pluck('name', 'id');
+        $service_types = ServiceType::orderBy('name')->pluck('name', 'id');
         $tabs = Service::tabs();
         return view(
                     'lists.services.index',
-                    compact([ 'services', 'measures', 'tabs', 'service_categories'])
+                    compact([ 'services', 'measures', 'tabs', 'service_categories', 'service_types'])
                 );
     }
 
@@ -46,6 +48,7 @@ class ServiceController extends Controller
     public function store(StoreService $request)
     {
         $service = Service::create($request->all());
+        $service->service_types()->attach($request->service_types);
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
         return redirect()->route('service.index');
     }
