@@ -37,6 +37,10 @@ class Service extends Model
         return $this->belongsToMany(Preparation::class);
     }
 
+    public function service_types()
+    {
+        return $this->belongsToMany(ServiceType::class);
+    }
 
     public static function tabs()
     {

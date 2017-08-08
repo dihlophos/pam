@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('so_measure', App\Models\SOMeasure::class);
         Route::model('work_type', App\Models\WorkType::class);
         Route::model('service', App\Models\Service::class);
+        Route::model('service_type', App\Models\ServiceType::class);
         Route::model('application_method', App\Models\ApplicationMethod::class);
         Route::model('preparation', App\Models\Preparation::class);
         Route::model('region', App\Models\Region::class);

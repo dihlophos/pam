@@ -101,6 +101,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/service', 'ServiceController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
+            Route::resource('/service_type', 'ServiceTypeController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
             Route::resource('/application_method', 'ApplicationMethodController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
