@@ -56,15 +56,15 @@
                 </option>
             @endforeach
         </select>
-        <div class="form-group preventions_only">
-            <label for="PreventionServiceType">Вид услуги</label>
-            <select name="service_type" id="PreventionServiceType" class="form-control">
-                    <option value="профилактическая" {{$fact->prevention && $fact->prevention->service_type == 'профилактическая' ? 'selected' : '' }}>
+        <div class="form-group">
+            <label for="ServiceTypeId">Вид услуги</label>
+            <select name="service_type_id" id="ServiceTypeId" class="form-control">
+                    <!--option value="профилактическая" {{$fact->prevention && $fact->prevention->service_type == 'профилактическая' ? 'selected' : '' }}>
                         профилактическая
                     </option>
                     <option value="вынужденная" {{$fact->prevention && $fact->prevention->service_type == 'вынужденная' ? 'selected' : '' }}>
                         вынужденная
-                    </option>
+                    </option-->
             </select>
         </div>
         <div class="form-group diagnostic_tests_only">
@@ -203,11 +203,25 @@ $(function () {
     
     var tab_index;
 
-    var xhr_method, xhr_diseases, xhr_receipts;
+    var xhr_method, xhr_diseases, xhr_receipts, xhr_service_type;
 	var select_receipts, $select_receipts;
     var select_method, $select_method;
 	var select_diseases, $select_prev_diseases, $select_test_diseases;
 	var select_service, $select_service
+	var select_service_type, $select_service_type
+
+    $select_service_type = $('#ServiceTypeId').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите вид услуги'
+    });
+    
+    select_service_type = $select_service_type[0].selectize;
 
     $select_prev_diseases = $('#PreventionDiseases').selectize({
         valueField: 'id',
@@ -318,8 +332,8 @@ $(function () {
         select.setValue({!!$fact->diseases->pluck('id')!!});
     	@endif
     }
-	
-	var LoadPreventionDiseases = function(preparation_id, success) {
+
+    var LoadPreventionDiseases = function(preparation_id, success) {
 	    select_diseases.disable();
         select_diseases.clearOptions();
         select_diseases.load(function(callback) {
@@ -402,6 +416,26 @@ $(function () {
 		});
 	}
 	
+	var LoadServiceTypes = function(service_id, success) {
+	    select_service_type.disable();
+		select_service_type.clearOptions();
+		select_service_type.load(function(callback) {
+			xhr_service_type && xhr_service_type.abort();
+			xhr_service_type = $.ajax({
+			    type: 'get',
+				url: '/api/service/' + service_id + '/service_types',
+				success: function(results) {
+				    select_service_type.enable();
+					success(results);
+					callback(results);
+				},
+				error: function() {
+					callback();
+				}
+			})
+		});
+	}
+	
 	$select_service = $('#FactServiceId').selectize({
         create: false,
 		//persist: false,
@@ -417,7 +451,12 @@ $(function () {
             $('.preventions_only, .diagnostic_tests_only, .sanitary_works_only').hide();
             var selected_service = $.grep(services, function(e) { return e['id'] == value; })[0];
             tab_index = selected_service?selected_service['tab_index']:0;
-            console.log(tab_index);
+            LoadServiceTypes(this.selected_value, function(value) {
+                @if ($fact->service_type)
+                select_service_type.addOption({!!$fact->service_type!!});
+                select_service_type.setValue({!!$fact->service_type->id!!});
+                @endif
+            });
             switch (tab_index)
             {
                 case 1:

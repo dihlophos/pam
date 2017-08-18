@@ -3,3 +3,5 @@ codetasty.revision.2.0
 {"ts":1503037323,"restoring":false,"user_id":4164,"patch":[{"diffs":[[0,"tion service"],[-1,"C"],[1,"_c"],[0,"ategory()\n  "]],"start1":348,"start2":348,"length1":25,"length2":26}],"length":916}
 {"ts":1503037434,"restoring":false,"user_id":4164,"patch":[{"diffs":[[0,"->belong"],[-1,"s"],[0,"To(Servi"]],"start1":398,"start2":398,"length1":17,"length2":16}],"length":915}
 {"ts":1503037441,"restoring":false,"user_id":4164,"patch":[{"diffs":[[0,"->belong"],[1,"s"],[0,"To(Servi"]],"start1":398,"start2":398,"length1":16,"length2":17}],"length":916}
+{"ts":1503050994,"restoring":false,"user_id":4164,"patch":[{"diffs":[[0,"gory_id'"],[1,", 'service_type_id'"],[0,"];\n\n    "]],"start1":321,"start2":321,"length1":16,"length2":35}],"length":935}
+{"ts":1503051432,"restoring":false,"user_id":4164,"patch":[{"diffs":[[0,"_id'"],[-1,", 'service_type_id'"],[0,"];\n\n"]],"start1":325,"start2":325,"length1":27,"length2":8}],"length":916}

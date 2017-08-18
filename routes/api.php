@@ -37,3 +37,7 @@ Route::resource('subdivisions.municipalities', 'Api\MunicipalityController',  ['
 Route::resource('subdivisions.preparation_receipts', 'Api\PreparationReceiptController',  ['only' => [
     	'index'
 ]]);
+
+Route::resource('service.service_types', 'Api\ServiceTypeController',  ['only' => [
+    	'index'
+]]);
