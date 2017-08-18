@@ -38,8 +38,8 @@
         </div>
         <div class="form-group required">
             <select name="tab_index" id="service-tab_index" class="form-control" style="min-width:141px">
-                @foreach ($tabs as $idx => $tab_name)
-                    <option value="{{$idx}}">{{$tab_name}}</option>
+                @foreach ($tabs as $id => $tab_name)
+                    <option value="{{$id}}">{{$tab_name}}</option>
                 @endforeach
             </select>
         </div>
@@ -60,46 +60,32 @@
 
             <thead>
                 <th>Название</th>
+                <th>Категория</th>
+                <th>Виды услуги</th>
+                <th>Единица измерения</th>
+                <th>Раздел (закладка)</th>
                 <th>Удалить</th>
             </thead>
 
           <tbody>
             @foreach ($services as $service)
               <tr>
+                <td>
+                  <a class="table-text" href="{{ route('service.edit', $service->id) }}">{{ $service->name }}</a>
+                </td>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/service/{{ $service->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $service->name }}" maxlength="255" type="text" style="width:340px">
-                        </div>
-                        <div class="form-group required">
-                            <select name="service_category_id" id="service-service_category_id" class="form-control" style="width:243px">
-                                @foreach ($service_categories as $id => $category)
-                                    <option value="{{$id}}" {{$service->service_category_id == $id ? 'selected' : ''}}>{{$category}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <select name="measure_id" id="service-measure_id" class="form-control" style="width:197px">
-                                @foreach ($measures as $id => $measure)
-                                    <option value="{{$id}}" {{$service->measure_id == $id ? 'selected' : ''}}>{{$measure}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group required">
-                            <select name="tab_index" id="service-tab_index" class="form-control" style="width:141px">
-                                @foreach ($tabs as $idx => $tab_name)
-                                    <option value="{{$idx}}" {{$service->tab_index == $idx ? 'selected' : ''}}>{{$tab_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </form>
+                    {{ $service->service_category != null ? $service->service_category->name : '' }}
+                </td>
+                <td class="table-text">
+                    @foreach ($service->service_types as $service_type)
+                        {{ $service_type->name . ($service_type!=$service->service_types->last() ? ',' : '') }}
+                    @endforeach
+                </td>
+                <td class="table-text">
+                    {{ $service->measure != null ? $service->measure->name : '' }}
+                </td>
+                <td class="table-text">
+                    {{ $tabs[$service->tab_index] }}
                 </td>
                 <td>
                     <form action="/lists/service/{{ $service->id }}" method="POST">

@@ -22,7 +22,7 @@ class Service extends Model
     */
     protected $fillable = ['name', 'measure_id', 'tab_index', 'service_category_id'];
 
-    public function serviceCategory()
+    public function service_category()
     {
         return $this->belongsTo(ServiceCategory::class);
     }

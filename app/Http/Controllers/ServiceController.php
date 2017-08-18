@@ -70,9 +70,16 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        //
+        $measures = Measure::orderBy('name')->pluck('name', 'id');
+        $service_categories = ServiceCategory::orderBy('name')->pluck('name', 'id');
+        $service_types = ServiceType::orderBy('name')->pluck('name', 'id');
+        $tabs = Service::tabs();
+        return view(
+                    'lists.services.edit',
+                    compact([ 'service', 'measures', 'tabs', 'service_categories', 'service_types'])
+                );
     }
 
     /**
@@ -85,6 +92,7 @@ class ServiceController extends Controller
     public function update(StoreService $request, Service $service)
     {
         $service->fill($request->all())->save();
+        $service->service_types()->sync($request->service_types?$request->service_types:[]);
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('service.index');
     }
