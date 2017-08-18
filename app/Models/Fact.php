@@ -13,7 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 		Первичный документ
         Код записи сведений о животном
         Услуга
+        Вид услуги
         Дата
+        Коментарий
 */
 class Fact extends Model
 {
@@ -23,7 +25,7 @@ class Fact extends Model
     * @var array
     */
     protected $fillable = ['object_id', 'executor_id', 'basic_document_id', 'animal_id',
-                           'service_id', 'date', 'comment', 'service_type_id'];
+                           'service_id', 'service_type_id', 'date', 'comment'];
 
     public function object()
     {
