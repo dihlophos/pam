@@ -24,7 +24,7 @@ class StoreAgesex extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:agesexes,name,' . ($this->agesexes?$this->agesexes->id:0)
+            'name' => 'required|max:255|unique:agesexes,name,' . ($this->agesex?$this->agesex->id:0)
         ];
     }
 

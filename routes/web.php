@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
                 'create', 'show', 'edit'
             ]]);
             Route::resource('/agesex', 'AgesexController', ['except' => [
-                'create', 'show', 'edit'
+                'create', 'show'
             ]]);
             Route::resource('/service_category', 'ServiceCategoryController', ['except' => [
                 'create', 'show', 'edit'

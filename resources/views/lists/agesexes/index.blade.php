@@ -5,10 +5,17 @@
     @include('common.errors')
     @include('common.flash')
 
-    <form action="/lists/agesex" class="form-inline text-right" id="AgesexAddForm" method="POST" accept-charset="utf-8">
+    <form action="/lists/agesex" class="" id="AgesexAddForm" method="POST" accept-charset="utf-8">
         {{ csrf_field() }}
         <div class="form-group required">
             <input name="name" id="agesex-name" class="form-control" placeholder="Название..." maxlength="255" type="text" style="width:800px">
+        </div>
+        <div class="form-group">
+            <select name="animal_types[]" id="agesex-animal_type_id" class="form-control" multiple>
+                @foreach ($animal_types as $id => $animal_type)
+                    <option value="{{$id}}">{{$animal_type}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
@@ -29,25 +36,20 @@
 
           <thead>
             <th>Название</th>
+            <th>Виды животных</th>
             <th>Удалить</th>
           </thead>
 
           <tbody>
             @foreach ($agesexes as $agesex)
               <tr>
-                <td class="table-text">
-                    <form class="form-inline" action="/lists/agesex/{{ $agesex->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $agesex->name }}" maxlength="255" type="text" style="width:800px">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i> Сохранить
-                            </button>
-                        </div>
-                    </form>
+                <td>
+                  <a class="table-text" href="{{ route('agesex.edit', $agesex->id) }}">{{$agesex->name}}</a>
+                </td>
+                <td>
+                  @foreach ($agesex->animal_types as $animal_type)
+                    {{ $animal_type->name . ($animal_type!=$agesex->animal_types->last() ? ',' : '') }}
+                  @endforeach
                 </td>
                 <td>
                     <form action="/lists/agesex/{{ $agesex->id }}" method="POST">
@@ -68,4 +70,23 @@
       </div>
     </div>
    @endif
+@endsection
+
+@section('styles')
+<link href="{{ URL::asset('/css/selectize.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+@endsection
+
+@section('scripts')
+<script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
+<script type="text/javascript">
+$(function () {
+	$('select[name="animal_types[]"]').selectize({
+		create: false,
+		persist: false,
+		selectOnTab: true,
+        placeholder: 'виды животных'
+	});
+});
+</script>
 @endsection

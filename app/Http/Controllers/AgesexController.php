@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agesex;
+use App\Models\AnimalType;
 use App\Http\Requests\StoreAgesex;
 
 class AgesexController extends Controller
@@ -15,10 +16,12 @@ class AgesexController extends Controller
      */
     public function index()
     {
-        $agesexes = Agesex::orderBy('name')->paginate(50);
+        $agesexes = Agesex::orderBy('name')->with('animal_types')->paginate(50);
+        $animal_types = AnimalType::orderBy('name')->pluck('name', 'id');
 
         return view('lists.agesexes.index', [
             'agesexes' => $agesexes,
+            'animal_types' => $animal_types
         ]);
     }
 
@@ -41,6 +44,7 @@ class AgesexController extends Controller
     public function store(StoreAgesex $request)
     {
         $agesex = Agesex::create($request->all());
+        $agesex->animal_types()->attach($request->animal_types);
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
         return redirect()->route('agesex.index');
     }
@@ -62,9 +66,13 @@ class AgesexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Agesex $agesex)
     {
-        //
+        $animal_types = AnimalType::orderBy('name')->pluck('name', 'id');
+        return view(
+                    'lists.agesexes.edit',
+                    compact([ 'agesex', 'animal_types'])
+                );
     }
 
     /**
@@ -77,6 +85,7 @@ class AgesexController extends Controller
     public function update(StoreAgesex $request, Agesex $agesex)
     {
         $agesex->fill($request->all())->save();
+        $agesex->animal_types()->sync($request->animal_types?$request->animal_types:[]);
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('agesex.index');
     }

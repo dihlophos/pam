@@ -31,5 +31,10 @@ class AnimalType extends Model
   {
     return $this->belongsToMany(Disease::class);
   }
+  
+  public function agesexes()
+	{
+	    return $this->belongsToMany(Agesex::class);
+	}
 
 }

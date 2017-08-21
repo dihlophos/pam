@@ -20,5 +20,10 @@ class Agesex extends Model
    * @var array
    */
   protected $fillable = ['name'];
-
+	
+	public function animal_types()
+	{
+	    return $this->belongsToMany(AnimalType::class);
+	}
+	
 }
