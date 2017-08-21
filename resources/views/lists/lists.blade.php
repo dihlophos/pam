@@ -17,6 +17,7 @@
         <li><a href="{{ URL::action('PreparationController@index') }}">Препараты</a></li>
         <li><a href="{{ URL::action('AnimalCategoryController@index') }}">Категории животных</a></li>
         <li><a href="{{ URL::action('AnimalTypeController@index') }}">Виды животных</a></li>
+        <li><a href="{{ URL::action('AgesexController@index') }}">Половозрастные группы</a></li>
         <li><a href="{{ URL::action('BasicDocumentController@index') }}">Первичный документ</a></li>
         <li><a href="{{ URL::action('LabJurisdictionController@index') }}">Подведомственность лаборатории</a></li>
         <li><a href="{{ URL::action('ExecutorCategoryController@index') }}">Категория исполнителя</a></li>

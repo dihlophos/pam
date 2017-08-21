@@ -64,6 +64,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('/animal_type', 'AnimalTypeController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
+            Route::resource('/agesex', 'AgesexController', ['except' => [
+                'create', 'show', 'edit'
+            ]]);
             Route::resource('/service_category', 'ServiceCategoryController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
