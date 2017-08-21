@@ -58,6 +58,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('fact', App\Models\Fact::class);
         Route::model('prevention', App\Models\Prevention::class);
         Route::model('diagnostic_test', App\Models\DiagnosticTest::class);
+        Route::model('agesex', App\Models\Agesex::class);
     }
 
     /**

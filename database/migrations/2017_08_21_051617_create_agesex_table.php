@@ -13,7 +13,7 @@ class CreateAgesexTable extends Migration
      */
     public function up()
     {
-        Schema::create('agesex', function (Blueprint $table) {
+        Schema::create('agesexes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateAgesexTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agesex');
+        Schema::dropIfExists('agesexes');
     }
 }
