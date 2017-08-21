@@ -1,2 +1,0 @@
-codetasty.revision.2.0
-{"ts":1502195529,"restoring":false,"user_id":4164,"patch":[{"diffs":[[1,"<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\n/*\n\tТип:\n\t\tВид услуги\n\n\tПоля:\n\t\tНазвание\n*/\nclass ServiceType extends Model\n{\n\t/**\n\t* Массово присваиваемые атрибуты.\n\t*\n\t* @var array\n\t*/\n  \tprotected $fillable = ['name'];\n\n\tpublic function services()\n\t{\n\t    return $this->belongsToMany(Service::class);\n\t}\n}\n"]],"start1":0,"start2":0,"length1":0,"length2":332}],"length":332}

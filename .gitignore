@@ -8,6 +8,7 @@
 /config/github.php
 /vendor
 /.idea
+/.codetasty
 Homestead.json
 Homestead.yaml
 .env
