@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Model;
         Температкра
         Концентрация
         Расход на кв. м
-        
+
 */
-class Prevention extends Model
+class SanitaryWork extends Model
 {
     /**
     * Массово присваиваемые атрибуты.

@@ -46,7 +46,7 @@ class Fact extends Model
     {
         return $this->belongsTo(Service::class);
     }
-    
+
     public function service_type()
     {
         return $this->belongsTo(ServiceType::class);
@@ -56,12 +56,16 @@ class Fact extends Model
     {
         return $this->belongsToMany(Disease::class);
     }
-    
+
     public function prevention() {
         return $this->hasOne(Prevention::class);
     }
-    
+
     public function diagnostic_test() {
         return $this->hasOne(DiagnosticTest::class);
+    }
+
+    public function sanitary_work() {
+        return $this->hasOne(SanitaryWork::class);
     }
 }

@@ -34,9 +34,10 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group preventions_only diagnostic_tests_only">
             <label for="FactAnimalId">Код записи сведений о животном</label>
             <select name="animal_id" id="FactAnimalId" class="form-control">
+                <option value="">Укажите животное</option>
                 @foreach ($animals as $animal)
                     <option value="{{$animal->id}}" {{$fact->animal_id == $animal->id ? 'selected' : '' }}>
                         {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
@@ -59,12 +60,6 @@
         <div class="form-group">
             <label for="ServiceTypeId">Вид услуги</label>
             <select name="service_type_id" id="ServiceTypeId" class="form-control">
-                    <!--option value="профилактическая" {{$fact->prevention && $fact->prevention->service_type == 'профилактическая' ? 'selected' : '' }}>
-                        профилактическая
-                    </option>
-                    <option value="вынужденная" {{$fact->prevention && $fact->prevention->service_type == 'вынужденная' ? 'selected' : '' }}>
-                        вынужденная
-                    </option-->
             </select>
         </div>
         <div class="form-group diagnostic_tests_only">
@@ -101,26 +96,54 @@
     </fieldset>
     <fieldset>
         <legend>Количество</legend>
-        <div class="form-group preventions_only diagnostic_tests_only">
-            <label for="Count">Всего</label>
-            <input name="count" class="form-control" type="number" id="Count" 
-            	   value="{{$fact->prevention ? $fact->prevention->count :
-            	   			($fact->diagnostic_test ? $fact->diagnostic_test->count : 0)}}">
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkObjectsCount">Количество объектов</label>
+            <input name="objects_count" class="form-control" type="number" id="SanitaryWorkObjectsCount"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->objects_count :
+                           ($fact->sanitary_work ? $fact->sanitary_work->objects_count : 0)}}">
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
+            <label for="Count">Всего</label>
+            <input name="count" class="form-control" type="number" id="Count"
+            	   value="{{$fact->prevention ? $fact->prevention->count :
+            	   			    ($fact->diagnostic_test ? $fact->diagnostic_test->count :
+                                    ($fact->sanitary_work ? $fact->sanitary_work->count :0))}}">
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="CountGz">По ГЗ</label>
-            <input name="count_gz" class="form-control" type="number" id="CountGz" 
+            <input name="count_gz" class="form-control" type="number" id="CountGz"
                    value="{{$fact->prevention ? $fact->prevention->count_gz :
-            	   			($fact->diagnostic_test ? $fact->diagnostic_test->count_gz : 0)}}">
+            	   			($fact->diagnostic_test ? $fact->diagnostic_test->count_gz :
+                                ($fact->sanitary_work ? $fact->sanitary_work->count_gz :0))}}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkIndoorCount">Помещений всего (кв.м)</label>
+            <input name="indoor_count" class="form-control" type="number" id="SanitaryWorkIndoorCount"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->indoor_count : 0}}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkIndoorCountGz">Помещений по ГЗ (кв.м)</label>
+            <input name="indoor_count_gz" class="form-control" type="number" id="SanitaryWorkIndoorCountGz"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->indoor_count_gz : 0}}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkOutdoorCount">Территории всего (кв.м)</label>
+            <input name="outdoor_count" class="form-control" type="number" id="SanitaryWorkOutdoorCount"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->outdoor_count : 0}}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkOutdoorCountGz">Территории по ГЗ (кв.м)</label>
+            <input name="outdoor_count_gz" class="form-control" type="number" id="SanitaryWorkOutdoorCountGz"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->outdoor_count_gz : 0}}">
         </div>
         <div class="form-group preventions_only">
             <label for="PreventionCountFinal">Окончательных обработок</label>
-            <input name="count_final" class="form-control" type="number" id="PreventionCountFinal" 
+            <input name="count_final" class="form-control" type="number" id="PreventionCountFinal"
         		   value="{{$fact->prevention ? $fact->prevention->count_final : 0}}">
         </div>
         <div class="form-group preventions_only">
             <label for="PreventionCountIll">Заболело (осложнения)</label>
-            <input name="count_ill" class="form-control" type="number" id="PreventionCountIll" 
+            <input name="count_ill" class="form-control" type="number" id="PreventionCountIll"
             	   value="{{$fact->prevention ? $fact->prevention->count_ill : 0}}">
         </div>
         <div class="form-group preventions_only">
@@ -130,7 +153,7 @@
         </div>
         <div class="form-group diagnostic_tests_only">
             <label for="DiagnosticTestCountPositive">Положительно</label>
-            <input name="count_positive" class="form-control" type="number" id="DiagnosticTestCountPositive" 
+            <input name="count_positive" class="form-control" type="number" id="DiagnosticTestCountPositive"
             	   value="{{$fact->diagnostic_test ? $fact->diagnostic_test->count_positive : 0}}">
         </div>
         <div class="form-group">
@@ -141,12 +164,8 @@
                 @endforeach
             </select>
         </div>
-
-        <div class="sanitary_works_only" style="color:red">
-            вет.сан. работы: покачто нет формы
-        </div>
     </fieldset>
-    <fieldset class="preventions_only diagnostic_tests_only">
+    <fieldset class="preventions_only diagnostic_tests_only sanitary_works_only">
         <legend>Сведения об использованиии препаратов</legend>
         <div class="form-group diagnostic_tests_only">
             <label for="DiagnosticTestConclusionNum">Дата, номер заключения</label>
@@ -163,9 +182,9 @@
                 @endforeach-->
             </select>
         </div>
-        <div class="form-group preventions_only">
-            <label for="PreventionApplicationMethodId">Порядок применения</label>
-            <select name="application_method_id" class="form-control" id="PreventionApplicationMethodId">
+        <div class="form-group preventions_only sanitary_works_only">
+            <label for="ApplicationMethodId">Порядок применения</label>
+            <select name="application_method_id" class="form-control" id="ApplicationMethodId">
                 <option value=""></option>
             </select>
         </div>
@@ -175,14 +194,29 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
-            <label for="PreparationUsedDoses">Израсходовано доз (мл)</label>
-            <input name="preparation_used_doses" class="form-control" type="number"
-                   value="{{$fact->prevention ? $fact->prevention->preparation_used_doses : 
-                   			($fact->diagnostic_test ? $fact->diagnostic_test->preparation_used_doses : 0)}}"
-                   id="PreparationUsedDoses">
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkTemperature">Температкра</label>
+            <input name="temperature" class="form-control" type="number"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->temperature : 0}}" id="SanitaryWorkTemperature">
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkConcentration">Концентрация</label>
+            <input name="concentration" class="form-control" type="number"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->concentration : 0}}" id="SanitaryWorkConcentration">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkConsumption">Расход на кв. м</label>
+            <input name="сonsumption" class="form-control" type="number"
+                   value="{{$fact->sanitary_work ? $fact->sanitary_work->сonsumption : 0}}" id="SanitaryWorkConsumption">
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
+            <label for="PreparationUsedDoses">Израсходовано доз (мл)</label>
+            <input name="preparation_used_doses" class="form-control" type="number" id="PreparationUsedDoses"
+                   value="{{$fact->prevention ? $fact->prevention->preparation_used_doses :
+                   			($fact->diagnostic_test ? $fact->diagnostic_test->preparation_used_doses :
+                                ($fact->sanitary_work ? $fact->sanitary_work->preparation_used_doses : 0))}}">
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="Comment">Примечание</label>
             <input name="comment" class="form-control" maxlength="255" type="text"
                    value="{{$fact->comment?$fact->comment:'' }}" id="Comment">
@@ -200,7 +234,7 @@
 $(function () {
     var services = {!!(string)$services!!};
     var animals = {!!(string)$animals!!};
-    
+
     var tab_index;
 
     var xhr_method, xhr_diseases, xhr_receipts, xhr_service_type;
@@ -220,7 +254,7 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите вид услуги'
     });
-    
+
     select_service_type = $select_service_type[0].selectize;
 
     $select_prev_diseases = $('#PreventionDiseases').selectize({
@@ -233,7 +267,7 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите болезни'
     });
-    
+
     $select_test_diseases = $('#DiagnosticTestDiseases').selectize({
         valueField: 'id',
 		labelField: 'name',
@@ -245,7 +279,7 @@ $(function () {
         placeholder: 'Укажите болезни'
     });
 
-    $select_method = $('#PreventionApplicationMethodId').selectize({
+    $select_method = $('#ApplicationMethodId').selectize({
         valueField: 'id',
 		labelField: 'name',
 		searchField: ['name'],
@@ -255,7 +289,7 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите порядок применения'
     });
-    
+
     select_method = $select_method[0].selectize;
 
     $select_receipts = $('#PreparationReceiptId').selectize({
@@ -294,7 +328,7 @@ $(function () {
 			if (!value.length) return;
 			if (!this.options[value]) return;
             var preparation_id = this.options[value].preparation_id;
-            
+
             switch (tab_index)
             {
                 case 1:
@@ -308,6 +342,9 @@ $(function () {
                 case 2:
                     break;
                 case 3:
+                    LoadMethods(preparation_id, function(value) {
+                        SetOrDisableMethod();
+                    });
                     break;
             }
 		}
@@ -316,12 +353,15 @@ $(function () {
     select_receipts = $select_receipts[0].selectize;
 
 	var SetOrDisableMethod = function() {
-    	@if(!$fact->prevention || null==($fact->prevention->application_method_id))
-    	select_method.disable();
+    	@if ($fact->prevention && $fact->prevention->application_method_id != null)
+        	select_method.addOption({!!$fact->prevention->application_method!!});
+            select_method.setValue({!!$fact->prevention->application_method_id!!});
+        @elseif ($fact->sanitary_work && $fact->sanitary_work->application_method_id != null)
+            select_method.addOption({!!$fact->sanitary_work->application_method!!});
+            select_method.setValue({!!$fact->sanitary_work->application_method_id!!});
         @else
-        select_method.addOption({!!$fact->prevention->application_method!!});
-        select_method.setValue({!!$fact->prevention->application_method_id!!});
-    	@endif
+            select_method.disable();
+        @endif
 	}
 
     var SetOrDisableDiseases = function(select) {
@@ -354,7 +394,7 @@ $(function () {
             })
         });
 	}
-	
+
 	var LoadDiagnosticTestDiseases = function(service_id, success) {
 	    select_diseases.disable();
         select_diseases.clearOptions();
@@ -374,7 +414,7 @@ $(function () {
             })
         });
 	}
-	
+
 	var LoadMethods = function(preparation_id, success) {
 	    select_method.disable();
 		select_method.clearOptions();
@@ -415,7 +455,7 @@ $(function () {
 			})
 		});
 	}
-	
+
 	var LoadServiceTypes = function(service_id, success) {
 	    select_service_type.disable();
 		select_service_type.clearOptions();
@@ -435,7 +475,7 @@ $(function () {
 			})
 		});
 	}
-	
+
 	$select_service = $('#FactServiceId').selectize({
         create: false,
 		//persist: false,
@@ -470,7 +510,7 @@ $(function () {
                 case 2:
                     $('.diagnostic_tests_only').show();
                     select_diseases = $select_test_diseases[0].selectize;
-                    LoadDiagnosticTestDiseases(this.selected_value, function(value) { 
+                    LoadDiagnosticTestDiseases(this.selected_value, function(value) {
                         SetOrDisableDiseases(select_diseases);
                     });
                     LoadReceipts(this.selected_value, function(value) {
@@ -480,6 +520,10 @@ $(function () {
                     break;
                 case 3:
                     $('.sanitary_works_only').show();
+                    LoadReceipts(this.selected_value, function(value) {
+                        select_receipts.addOption({!!$preparation_receipts!!});
+                        select_receipts.setValue({!!$preparation_receipts->pluck('id')!!});
+                    });
                     break;
             }
         }

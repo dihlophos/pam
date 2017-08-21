@@ -57,15 +57,9 @@
                 </option>
             @endforeach
         </select>
-        <div class="form-group preventions_only">
-            <label for="PreventionServiceType">Вид услуги</label>
-            <select name="service_type" id="PreventionServiceType" class="form-control">
-                    <option value="профилактическая" {{ old('service_type') == 'профилактическая' ? 'selected' : '' }}>
-                        профилактическая
-                    </option>
-                    <option value="вынужденная" {{ old('service_type') == 'вынужденная' ? 'selected' : '' }}>
-                        вынужденная
-                    </option>
+        <div class="form-group">
+            <label for="ServiceTypeId">Вид услуги</label>
+            <select name="service_type_id" id="ServiceTypeId" class="form-control">
             </select>
         </div>
         <div class="form-group diagnostic_tests_only">
@@ -102,13 +96,33 @@
     </fieldset>
     <fieldset>
         <legend>Количество</legend>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkObjectsCount">Количество объектов</label>
+            <input name="objects_count" class="form-control" type="number" id="SanitaryWorkObjectsCount" value="{{ old('objects_count')?old('objects_count'):0 }}">
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="Count">Всего</label>
             <input name="count" class="form-control" type="number" id="Count" value="{{ old('count')?old('count'):0 }}">
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="CountGz">По ГЗ</label>
             <input name="count_gz" class="form-control" type="number" id="CountGz" value="{{ old('count_gz')?old('count_gz'):0 }}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkIndoorCount">Помещений всего (кв.м)</label>
+            <input name="indoor_count" class="form-control" type="number" id="SanitaryWorkIndoorCount" value="{{ old('indoor_count')?old('indoor_count'):0 }}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkIndoorCountGz">Помещений по ГЗ (кв.м)</label>
+            <input name="indoor_count_gz" class="form-control" type="number" id="SanitaryWorkIndoorCountGz" value="{{ old('indoor_count_gz')?old('indoor_count_gz'):0 }}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkOutdoorCount">Территории всего (кв.м)</label>
+            <input name="outdoor_count" class="form-control" type="number" id="SanitaryWorkOutdoorCount" value="{{ old('outdoor_count')?old('outdoor_count'):0 }}">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkOutdoorCountGz">Территории по ГЗ (кв.м)</label>
+            <input name="outdoor_count_gz" class="form-control" type="number" id="SanitaryWorkOutdoorCountGz" value="{{ old('outdoor_count_gz')?old('outdoor_count_gz'):0 }}">
         </div>
         <div class="form-group preventions_only">
             <label for="PreventionCountFinal">Окончательных обработок</label>
@@ -134,12 +148,8 @@
                 @endforeach
             </select>
         </div>
-
-        <div class="sanitary_works_only" style="color:red">
-            вет.сан. работы: покачто нет формы
-        </div>
     </fieldset>
-    <fieldset class="preventions_only diagnostic_tests_only">
+    <fieldset class="preventions_only diagnostic_tests_only sanitary_works_only">
         <legend>Сведения об использованиии препаратов</legend>
         <div class="form-group diagnostic_tests_only">
             <label for="DiagnosticTestConclusionNum">Дата, номер заключения</label>
@@ -152,9 +162,9 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group preventions_only">
-            <label for="PreventionApplicationMethodId">Порядок применения</label>
-            <select name="application_method_id" class="form-control" id="PreventionApplicationMethodId">
+        <div class="form-group preventions_only sanitary_works_only">
+            <label for="ApplicationMethodId">Порядок применения</label>
+            <select name="application_method_id" class="form-control" id="ApplicationMethodId">
                 <option value=""></option>
             </select>
         </div>
@@ -164,13 +174,28 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkTemperature">Температкра</label>
+            <input name="temperature" class="form-control" type="number"
+                   value="{{ old('temperature')?old('temperature'):0 }}" id="SanitaryWorkTemperature">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkConcentration">Концентрация</label>
+            <input name="concentration" class="form-control" type="number"
+                   value="{{ old('concentration')?old('concentration'):0 }}" id="SanitaryWorkConcentration">
+        </div>
+        <div class="form-group sanitary_works_only">
+            <label for="SanitaryWorkConsumption">Расход на кв. м</label>
+            <input name="сonsumption" class="form-control" type="number"
+                   value="{{ old('сonsumption')?old('сonsumption'):0 }}" id="SanitaryWorkConsumption">
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="PreparationUsedDoses">Израсходовано доз (мл)</label>
             <input name="preparation_used_doses" class="form-control" type="number"
                    value="{{ old('preparation_used_doses')?old('preparation_used_doses'):0 }}"
                    id="PreparationUsedDoses">
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
+        <div class="form-group preventions_only diagnostic_tests_only sanitary_works_only">
             <label for="Comment">Примечание</label>
             <input name="comment" class="form-control" maxlength="255" type="text"
                    value="{{ old('comment')?old('comment'):'' }}" id="Comment">
@@ -188,14 +213,28 @@
 $(function () {
     var services = {!!(string)$services!!};
     var animals = {!!(string)$animals!!};
-    
+
     var tab_index;
 
-    var xhr_method, xhr_diseases, xhr_receipts;
+    var xhr_method, xhr_diseases, xhr_receipts, xhr_service_type;
 	var select_receipts, $select_receipts;
     var select_method, $select_method;
 	var select_diseases, $select_prev_diseases, $select_test_diseases;
 	var select_service, $select_service
+	var select_service_type, $select_service_type
+
+    $select_service_type = $('#ServiceTypeId').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите вид услуги'
+    });
+
+    select_service_type = $select_service_type[0].selectize;
 
     $select_prev_diseases = $('#PreventionDiseases').selectize({
         valueField: 'id',
@@ -207,7 +246,7 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите болезни'
     });
-    
+
     $select_test_diseases = $('#DiagnosticTestDiseases').selectize({
         valueField: 'id',
 		labelField: 'name',
@@ -219,7 +258,7 @@ $(function () {
         placeholder: 'Укажите болезни'
     });
 
-    $select_method = $('#PreventionApplicationMethodId').selectize({
+    $select_method = $('#ApplicationMethodId').selectize({
         valueField: 'id',
 		labelField: 'name',
 		searchField: ['name'],
@@ -229,7 +268,7 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите порядок применения'
     });
-    
+
     select_method = $select_method[0].selectize;
 
     $select_receipts = $('#PreparationReceiptId').selectize({
@@ -268,7 +307,7 @@ $(function () {
 			if (!value.length) return;
 			if (!this.options[value]) return;
             var preparation_id = this.options[value].preparation_id;
-            
+
             switch (tab_index)
             {
                 case 1:
@@ -278,9 +317,10 @@ $(function () {
                 case 2:
                     break;
                 case 3:
+                    LoadMethods(preparation_id, function(value) {});
                     break;
             }
-            
+
 		}
     });
 
@@ -297,7 +337,7 @@ $(function () {
             $('.preventions_only, .diagnostic_tests_only, .sanitary_works_only').hide();
             var selected_service = $.grep(services, function(e) { return e['id'] == value; })[0];
             tab_index = selected_service?selected_service['tab_index']:0;
-            console.log(tab_index);
+            LoadServiceTypes(this.selected_value, function(value) { });
             switch (tab_index)
             {
                 case 1:
@@ -317,18 +357,19 @@ $(function () {
                 case 3:
                     $('#FactAnimalId').prop('selectedIndex',0);
                     $('.sanitary_works_only').show();
+                    LoadReceipts(function(value) {});
                     break;
             }
         }
 	});
-	
-	
+
+
 // 	$('#PreparationUsedDoses').change(function(event){
 // 	    LoadReceipts(function(value) {});
 // 	});
-	
+
 	select_service =  $select_service[0].selectize;
-	
+
 	var SetOrDisableMethod = function() {
     	@if(null==(old('application_method_id')))
     	select_method.disable();
@@ -344,7 +385,7 @@ $(function () {
         select_diseases.setValue({{old('diseases')}});
     	@endif
     }
-	
+
 	var LoadPreventionDiseases = function(preparation_id, success) {
 	    select_diseases.disable();
         select_diseases.clearOptions();
@@ -366,7 +407,7 @@ $(function () {
             })
         });
 	}
-	
+
 	var LoadDiagnosticTestDiseases = function(service_id, success) {
 	    select_diseases.disable();
         select_diseases.clearOptions();
@@ -386,7 +427,7 @@ $(function () {
             })
         });
 	}
-	
+
 	var LoadMethods = function(preparation_id, success) {
 	    select_method.disable();
 		select_method.clearOptions();
@@ -426,7 +467,27 @@ $(function () {
 					}
 				})
 			});
-		}
+	}
+
+    var LoadServiceTypes = function(service_id, success) {
+	    select_service_type.disable();
+		select_service_type.clearOptions();
+		select_service_type.load(function(callback) {
+			xhr_service_type && xhr_service_type.abort();
+			xhr_service_type = $.ajax({
+			    type: 'get',
+				url: '/api/service/' + service_id + '/service_types',
+				success: function(results) {
+				    select_service_type.enable();
+					success(results);
+					callback(results);
+				},
+				error: function() {
+					callback();
+				}
+			})
+		});
+	}
 
 });
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Fact;
 use App\Models\Prevention;
 use App\Models\DiagnosticTest;
+use App\Models\SanitaryWork;
 use App\Models\Object;
 use App\Models\BasicDocument;
 use App\Models\Animal;
@@ -59,6 +60,7 @@ class FactController extends Controller
         //$data = array_filter($request->all(), 'strlen');
         $data = $request->all();
         //TODO:
+        if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
         $fact = Fact::create($data);
         if (isset($data['diseases']))
         {
@@ -74,6 +76,7 @@ class FactController extends Controller
                 $diagnostic_test = DiagnosticTest::create($data);
                 break;
             case 3:
+                $sanitary_work = SanitaryWork::create($data);
                 break;
         }
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
@@ -108,21 +111,25 @@ class FactController extends Controller
          switch ($fact->service->tab_index)
         {
             case 1:
-                $preparation_receipts = 
+                $preparation_receipts =
                                 PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
                                                   ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
                                                   ->where('preparation_receipts.id', $fact->prevention->preparation_receipt->id)->get();
                 break;
             case 2:
-                $preparation_receipts = 
+                $preparation_receipts =
                                 PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
                                                   ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
                                                   ->where('preparation_receipts.id', $fact->diagnostic_test->preparation_receipt->id)->get();
                 break;
             case 3:
+                $preparation_receipts =
+                            PreparationReceipt::select(DB::raw('*, preparation_receipts.id as id'))
+                                              ->join('preparations', 'preparation_receipts.preparation_id', '=', 'preparations.id')
+                                              ->where('preparation_receipts.id', $fact->sanitary_work->preparation_receipt->id)->get();
                 break;
         }
-        
+
         return view('facts.edit',
             compact(['fact', 'object', 'basic_documents', 'animals', 'services', 'executors', 'preparation_receipts', 'research_types'])
         );
@@ -140,6 +147,7 @@ class FactController extends Controller
         //array_filter setting empty field to null; for strings only
         //$data = array_filter($request->all(), 'strlen');
         $data = $request->all();
+        if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
         $fact->fill($data)->save();
         if (isset($data['diseases']))
         {
@@ -155,6 +163,7 @@ class FactController extends Controller
                 $fact->diagnostic_test->fill($data)->save();
                 break;
             case 3:
+                $fact->sanitary_work->fill($data)->save();
                 break;
         }
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
