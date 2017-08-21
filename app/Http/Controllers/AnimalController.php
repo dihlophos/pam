@@ -11,8 +11,8 @@ class AnimalController extends Controller
 {
     public function index(Object $object)
     {
-        $animal_groups = $object->animals()->with('animalType')->where('count','>', '1')->orderBy('name')->paginate(20, ['*'], 'groups_page');
-        $animal_individuals = $object->animals()->with('animalType')->where('count','<=', '1')->orderBy('name')->paginate(20, ['*'], 'individuals_page');
+        $animal_groups = $object->animals()->with('animalType','agesex')->where('count','>', '1')->orderBy('name')->paginate(20, ['*'], 'groups_page');
+        $animal_individuals = $object->animals()->with('animalType','agesex')->where('count','<=', '1')->orderBy('name')->paginate(20, ['*'], 'individuals_page');
         return view('animals.index',
             compact(['animal_groups','animal_individuals','object'])
         );

@@ -41,3 +41,7 @@ Route::resource('subdivisions.preparation_receipts', 'Api\PreparationReceiptCont
 Route::resource('service.service_types', 'Api\ServiceTypeController',  ['only' => [
     	'index'
 ]]);
+
+Route::resource('animal_types.agesexes', 'Api\AgesexController',  ['only' => [
+    	'index', 'show'
+]]);

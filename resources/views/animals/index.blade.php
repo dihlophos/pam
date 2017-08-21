@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <th>Вид</th>
-                    <th>Возраст</th>
+                    <th>Половозрастная группа</th>
                     <th>Количество</th>
                     <th>Удалить</th>
                 </tr>
@@ -30,7 +30,7 @@
                         </a>
                     </td>
                     <td>
-                        {{ $animal->age }}
+                        {{ $animal->agesex->name }}
                     </td>
                     <td>
                         {{ $animal->count }}
@@ -65,7 +65,7 @@
             <thead>
                 <tr>
                     <th>Вид</th>
-                    <th>Возраст</th>
+                    <th>Половозрастная группа</th>
                     <th>Кличка</th>
                     <th>Пол, порода, окрас, особые приметы</th>
                     <th>Удалить</th>
@@ -80,7 +80,7 @@
                         </a>
                     </td>
                     <td>
-                        {{ $animal->age }}
+                        {{ $animal->agesex? $animal->agesex->name : '' }}
                     </td>
                     <td>
                         {{ $animal->name }}

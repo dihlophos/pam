@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 		Животное
 
 	Поля:
-		Объект, Вид животного, Возраст на 1 января т.г., Количество,
+		Объект, Вид животного, Возраст на 1 января т.г., Половозростная группа, Количество,
         Регистрационный номер, Кличка, Дата рождения, Пол, порода, окрас, особые приметы,
         № чипа татуировки
 */
@@ -20,7 +20,7 @@ class Animal extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'animal_type_id', 'age', 'count',
+    protected $fillable = ['object_id', 'animal_type_id', 'age', 'agesex_id', 'count',
                            'regnum', 'name', 'birthday', 'marks', 'chipnum'];
 
     public function animalType()
@@ -33,5 +33,9 @@ class Animal extends Model
         return $this->belongsTo(Object::class);
     }
 
+    public function agesex()
+    {
+        return $this->belongsTo(Agesex::class);
+    }
 
 }

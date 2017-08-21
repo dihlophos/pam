@@ -30,6 +30,11 @@
             <input name="age" class="form-control" type="number" id="AnimalAge" value="{{ $animal->age }}" min="0" max="999">
         </div>
         <div class="form-group">
+            <label for="AnimalAgesexId">Половозрастная группа</label>
+            <select name="agesex_id" class="form-control" id="AnimalAgesexId">
+            </select>
+        </div>
+        <div class="form-group">
             <label for="AnimalCount">Количество</label>
             <input name="count" class="form-control" type="number" id="AnimalCount" value="{{ $animal->count }}" min="0" max="99999">
         </div>
@@ -66,13 +71,60 @@
 <script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
 <script type="text/javascript">
 $(function () {
-
+    
+    var xhr_agesex;
+	var select_agesex, $select_agesex;
+	
+	$select_agesex = $('#AnimalAgesexId').selectize({
+	    valueField: 'id',
+		labelField: 'name',
+        create: false,
+		selectOnTab: true,
+        placeholder: 'Укажите половозрастную группу'
+	});
+	
+	select_agesex = $select_agesex[0].selectize;
+	
+	var LoadAgesex = function(animal_type_id, success) {
+	    select_agesex.disable();
+        select_agesex.clearOptions();
+        select_agesex.load(function(callback) {
+            xhr_agesex && xhr_agesex.abort();
+            xhr_agesex = $.ajax({
+                type: 'get',
+                url: '/api/animal_types/' + animal_type_id + '/agesexes',
+                success: function(results) {
+                    select_agesex.enable();
+					success(results);
+                    callback(results);
+                },
+                error: function() {
+                    callback();
+                }
+            })
+        });
+	}
+	
 	$('#AnimalAnimalTypeId').selectize({
         create: false,
 		persist: false,
 		selectOnTab: true,
-        placeholder: 'Укажите вид животного'
+        placeholder: 'Укажите вид животного',
+        onInitialize: function() {
+            this.selected_value = this.getValue();
+            this.trigger( "change" );
+        },
+        onChange: function(value) {
+            LoadAgesex(this.getValue(), function(value) {
+                @if ($animal->agesex)
+                    select_agesex.addOption({!!$animal->agesex!!});
+                    select_agesex.setValue({!!$animal->agesex_id!!});
+                @endif
+            });
+		}
 	});
+	
+	
 
 });
 

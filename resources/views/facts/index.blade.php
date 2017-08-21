@@ -37,7 +37,7 @@
                 </td>
                 <td class="table-text">
                   @if ($fact->animal)
-                    {{ $fact->animal->id }} - {{ $fact->animal->animalType->name }}{{$fact->animal->name?' | '.$fact->animal->name:''}} (возраст: {{$fact->animal->age}})
+                    {{ $fact->animal->id }} - {{ $fact->animal->animalType->name }}{{$fact->animal->name?' | '.$fact->animal->name:''}} ({{$fact->animal->agesex->name}})
                   @endif
                 </td>
                 <td class="table-text">
