@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Reports;
 use App\Http\Controllers\Controller;
 use App\Models\Subdivision;
+use App\Models\Institution;
 
 class ReportsController extends Controller
 {
@@ -17,10 +18,11 @@ class ReportsController extends Controller
         switch ($model) {
             case 'subdivision':
                 $reports = new SubdivisionReports();
-                $title = Subdivision::find($id)->name;
+                $title = 'по подразделению: ' . Subdivision::find($id)->name;
                 break;
             case 'institution':
-                //TODO:
+                $reports = new InstitutionReports();
+                $title = 'по учреждению: ' . Institution::find($id)->name;
                 break;
             case 'organ':
                 //TODO:
@@ -35,7 +37,7 @@ class ReportsController extends Controller
                 case 'fact':
                     $data = $reports->getFact($id);
                     $view = 'reports.fact';
-                    $title =  'Факт по подразделению: '.$title;
+                    $title =  'Факт ' . $title;
                     break;
                 default:
                     # code...

@@ -14,7 +14,16 @@
             <ul>
             @foreach ($organ['institutions'] as $name => $institution)
                 <li>
-                    <p><span>{{$name}}</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p> <!--({{$institution['id']}})-->
+                    <p>
+                        <span>{{$name}}</span>
+                        <font>
+                            Препараты
+                            | <a href="reports/institution/{{ $institution['id'] }}/fact">Факт</a> 
+                            | План
+                            | Сведения о животных
+                            | Отчеты
+                        </font>
+                    </p> <!--({{$institution['id']}})-->
                     <ul>
                     @foreach ($institution['subdivisions'] as $name => $subdivision)
                         <li>
