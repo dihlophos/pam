@@ -13,7 +13,7 @@
             <p>
                 <span>{{$name}}</span>
                 <font>
-                    Препараты
+                    <a href="reports/organ/{{ $organ['id'] }}/preparation_receipts">Препараты</a>
                     | <a href="reports/organ/{{ $organ['id'] }}/fact">Факт</a>
                     | План
                     | <a href="reports/organ/{{ $organ['id'] }}/animals">Сведения о животных</a>
@@ -26,7 +26,7 @@
                     <p>
                         <span>{{$name}}</span>
                         <font>
-                            Препараты
+                            <a href="reports/institution/{{ $institution['id'] }}/preparation_receipts">Препараты</a>
                             | <a href="reports/institution/{{ $institution['id'] }}/fact">Факт</a>
                             | План
                             | <a href="reports/institution/{{ $institution['id'] }}/animals">Сведения о животных</a>

@@ -46,6 +46,11 @@ class ReportsController extends Controller
                     $view = 'reports.animals';
                     $title = 'Сведения о животных ' . $title;
                     break;
+                case 'preparation_receipts':
+                    $data = $reports->getPreparationReceipts($id);
+                    $view = 'reports.preparation_receipts';
+                    $title = 'Препараты ' . $title;
+                    break;
                 default:
                     //TODO: throw smth
                     break;

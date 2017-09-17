@@ -20,7 +20,7 @@ class InstitutionReports implements ReportsFactory
 
     public function getAnimals($id)
     {
-        return DB::select('SELECT atp.name AS animal_type, ax.name AS agesex, COUNT(a.count) AS `count` FROM animals AS a
+        return DB::select('SELECT atp.name AS animal_type, ax.name AS agesex, SUM(a.count) AS `count` FROM animals AS a
                                 LEFT JOIN objects AS o on a.object_id = o.id
                             	LEFT JOIN animal_types AS atp on a.animal_type_id = atp.id
                                 LEFT JOIN agesexes AS ax on a.agesex_id = ax.id
@@ -31,6 +31,11 @@ class InstitutionReports implements ReportsFactory
 
     public function getPreparationReceipts($id)
     {
-
+        return DB::select('SELECT p.name AS preparation, SUM(pr.count_containers) AS count_containers FROM preparation_receipts AS pr
+                            	LEFT JOIN subdivisions AS sd ON pr.subdivision_id = sd.id
+                                LEFT JOIN preparations as p ON pr.preparation_id = p.id
+                            WHERE sd.institution_id = ?
+                            GROUP BY p.name
+                            ORDER BY p.name', [$id]);
     }
 }
