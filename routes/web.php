@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('object.fact', 'FactController');
 
+    Route::get('reports/{model}/{id}/{report}', 'Reports\ReportsController@index');
+
     Route::group(
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],

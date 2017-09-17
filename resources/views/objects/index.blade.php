@@ -10,19 +10,19 @@
 @foreach ($organs as $name => $organ)
     <ul class="pem-tree">
         <li>
-            <p><span>{{$name}} ({{$organ['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
+            <p><span>{{$name}}</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p> <!--({{$organ['id']}})-->
             <ul>
             @foreach ($organ['institutions'] as $name => $institution)
                 <li>
-                    <p><span>{{$name}} ({{$institution['id']}})</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p>
+                    <p><span>{{$name}}</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p> <!--({{$institution['id']}})-->
                     <ul>
                     @foreach ($institution['subdivisions'] as $name => $subdivision)
                         <li>
                             <p>
-                                <span>{{$name}} ({{$subdivision['id']}})</span>
+                                <span>{{$name}}</span> <!--({{$subdivision['id']}})-->
                                 <font>
                                     <a href="subdivision/{{ $subdivision['id'] }}/preparation_receipt">Препараты</a>
-                                    | Факт
+                                    | <a href="reports/subdivision/{{ $subdivision['id'] }}/fact">Факт</a>
                                     | План
                                     | Сведения о животных
                                     | Отчеты
