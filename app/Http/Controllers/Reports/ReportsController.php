@@ -41,8 +41,13 @@ class ReportsController extends Controller
                     $view = 'reports.fact';
                     $title =  'Факт ' . $title;
                     break;
+                case 'animals':
+                    $data = $reports->getAnimals($id);
+                    $view = 'reports.animals';
+                    $title = 'Сведения о животных ' . $title;
+                    break;
                 default:
-                    # code...
+                    //TODO: throw smth
                     break;
             }
         }

@@ -16,7 +16,7 @@
                     Препараты
                     | <a href="reports/organ/{{ $organ['id'] }}/fact">Факт</a>
                     | План
-                    | Сведения о животных
+                    | <a href="reports/organ/{{ $organ['id'] }}/animals">Сведения о животных</a>
                     | Отчеты
                 </font>
             </p> <!--({{$organ['id']}})-->
@@ -29,7 +29,7 @@
                             Препараты
                             | <a href="reports/institution/{{ $institution['id'] }}/fact">Факт</a>
                             | План
-                            | Сведения о животных
+                            | <a href="reports/institution/{{ $institution['id'] }}/animals">Сведения о животных</a>
                             | Отчеты
                         </font>
                     </p> <!--({{$institution['id']}})-->
@@ -42,7 +42,7 @@
                                     <a href="subdivision/{{ $subdivision['id'] }}/preparation_receipt">Препараты</a>
                                     | <a href="reports/subdivision/{{ $subdivision['id'] }}/fact">Факт</a>
                                     | План
-                                    | Сведения о животных
+                                    | <a href="reports/subdivision/{{ $subdivision['id'] }}/animals">Сведения о животных</a>
                                     | Отчеты
                                 </font>
                             </p>

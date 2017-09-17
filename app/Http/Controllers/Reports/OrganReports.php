@@ -20,7 +20,13 @@ class OrganReports implements ReportsFactory
 
     public function getAnimals($id)
     {
-
+        return DB::select('SELECT atp.name AS animal_type, ax.name AS agesex, COUNT(a.count) AS `count` FROM animals AS a
+                                LEFT JOIN objects AS o on a.object_id = o.id
+                            	LEFT JOIN animal_types AS atp on a.animal_type_id = atp.id
+                                LEFT JOIN agesexes AS ax on a.agesex_id = ax.id
+                            WHERE o.organ_id = ?
+                            GROUP BY atp.name, ax.name
+                            ORDER BY atp.name, ax.name', [$id]);
     }
 
     public function getPreparationReceipts($id)
