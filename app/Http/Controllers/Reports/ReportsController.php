@@ -8,6 +8,7 @@ use App\Http\Controllers\Reports;
 use App\Http\Controllers\Controller;
 use App\Models\Subdivision;
 use App\Models\Institution;
+use App\Models\Organ;
 
 class ReportsController extends Controller
 {
@@ -25,7 +26,8 @@ class ReportsController extends Controller
                 $title = 'по учреждению: ' . Institution::find($id)->name;
                 break;
             case 'organ':
-                //TODO:
+                $reports = new OrganReports();
+                $title = 'по органу: ' . Organ::find($id)->name;
                 break;
             default:
                 throw new ModelNotFoundException();

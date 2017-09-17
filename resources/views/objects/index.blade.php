@@ -10,7 +10,16 @@
 @foreach ($organs as $name => $organ)
     <ul class="pem-tree">
         <li>
-            <p><span>{{$name}}</span><font>Препараты | Факт | План | Сведения о животных | Отчеты</font></p> <!--({{$organ['id']}})-->
+            <p>
+                <span>{{$name}}</span>
+                <font>
+                    Препараты
+                    | <a href="reports/organ/{{ $organ['id'] }}/fact">Факт</a>
+                    | План
+                    | Сведения о животных
+                    | Отчеты
+                </font>
+            </p> <!--({{$organ['id']}})-->
             <ul>
             @foreach ($organ['institutions'] as $name => $institution)
                 <li>
@@ -18,7 +27,7 @@
                         <span>{{$name}}</span>
                         <font>
                             Препараты
-                            | <a href="reports/institution/{{ $institution['id'] }}/fact">Факт</a> 
+                            | <a href="reports/institution/{{ $institution['id'] }}/fact">Факт</a>
                             | План
                             | Сведения о животных
                             | Отчеты
