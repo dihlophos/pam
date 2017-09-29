@@ -4,6 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Observers\DiagnosticTestObserver;
+use App\Observers\PreventionObserver;
+use App\Observers\SanitaryWorkObserver;
+use App\Models\DiagnosticTest;
+use App\Models\Prevention;
+use App\Models\SanitaryWork;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,7 +33,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
+        DiagnosticTest::observe(DiagnosticTestObserver::class);
+        Prevention::observe(PreventionObserver::class);
+        SanitaryWork::observe(SanitaryWorkObserver::class);
     }
 }
