@@ -26,7 +26,8 @@ class StoreUser extends FormRequest
         return [
              'username' => 'required|max:255|unique:users,username,'.($this->user?$this->user->id:0),
              'displayname' => 'required|max:255|unique:users,displayname,'.($this->user?$this->user->id:0),
-             'email' => 'email'
+             'email' => 'email',
+             'password' => 'same:password_confirm',
         ];
     }
 
@@ -35,7 +36,8 @@ class StoreUser extends FormRequest
         return [
             'username.required' => 'Не указан логин',
             'displayname.required' => 'Не указано ФИО',
-            'email.email'=>'Не верно указан адрес электронной почты'
+            'email.email' => 'Не верно указан адрес электронной почты',
+            'password.same' => 'Второй раз пароль указан неверно'
         ];
     }
 }

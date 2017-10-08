@@ -10,4 +10,16 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function SetEmptyKeysToNull($keys, &$array) 
+    {
+        foreach ($keys as $key)
+        {
+            if ( !array_key_exists($key, $array) || $array[$key] === "") 
+            {
+                $array[$key] = null;
+            }
+        }
+    }
+    
 }

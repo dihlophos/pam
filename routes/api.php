@@ -17,11 +17,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::resource('organ.institutions', 'Api\InstitutionController',  ['only' => [
+Route::resource('organs.institutions', 'Api\InstitutionController',  ['only' => [
     	'index'
 ]]);
 
-Route::resource('institution.subdivisions', 'Api\SubdivisionController',  ['only' => [
+Route::resource('institutions.subdivisions', 'Api\SubdivisionController',  ['only' => [
     	'index'
 ]]);
 
