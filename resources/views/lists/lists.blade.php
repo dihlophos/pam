@@ -6,6 +6,7 @@
     @include('common.flash')
     <h1>Справочники</h1>
     <ul>
+        <li><a href="{{ URL::action('UserController@index') }}">Пользователи</a></li>
         <li><a href="{{ URL::action('OrganController@index') }}">Органы/учреждения/подразделения</a></li>
         <li><a href="{{ URL::action('RegionController@index') }}">Регионы/районы/муниципальные образования/населенные пункты</a></li>
         <li><a href="{{ URL::action('DiseaseTypeController@index') }}">Виды болезней</a></li>

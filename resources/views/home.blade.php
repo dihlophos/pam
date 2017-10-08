@@ -7,7 +7,6 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p>Hi, {{ Auth::user()->displayname }}!</p>
-                    <p>Role: {{ Auth::user()->role->name }}</p>
                     <p>Admin: {{ Auth::user()->isAdmin()?"Yes":"No" }}</p>
                 </div>
             </div>

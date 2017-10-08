@@ -15,7 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'displayname', 'email', 'password',
+        'username', 'displayname', 'email', 'password', 'is_admin',
+        'role_id', 'organ_id', 'institution_id', 'subdivision_id'
     ];
 
     /**
@@ -31,10 +32,25 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    
+    public function organ()
+    {
+        return $this->belongsTo(Organ::class);
+    }
+    
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
+    
+    public function subdivision()
+    {
+        return $this->belongsTo(Subdivision::class);
+    }
 
     public function isAdmin()
     {
-        return ($this->role->name === "Администратор");
+        return ($this->is_admin);
     }
 
     public function scopeByUserName($query, $username)

@@ -47,9 +47,15 @@ Route::group(['middleware' => 'auth'], function () {
     	['middleware' => 'can:access-lists',
     	'prefix' => 'lists'],
     	function () {
+    	    
     		Route::get('/',
     			['as' => 'lists-index',
     			'uses' => function() { return view('lists/lists'); }]);
+    			
+			Route::resource('user', 'UserController', ['except' => [
+                'show'
+            ]]);
+    			
     		Route::resource('/disease_type', 'DiseaseTypeController', ['except' => [
                 'create', 'show', 'edit'
             ]]);
