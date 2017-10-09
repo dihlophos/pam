@@ -25,7 +25,7 @@ class PreparationReceipt extends Model
     protected $fillable = ['preparation_id', 'subdivision_id', 'date', 'doc_date',
                          'doc_num', 'basic_document_id', 'series', 'container_doses',
                          'count_containers', 'used_containers', 'expire_date',
-                         'purchase_type', 'unit_price', 'comment' ];
+                         'purchase_type', 'unit_price', 'comment', 'pack_date', 'prod_date' ];
 
     public function preparation()
     {

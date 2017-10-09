@@ -63,6 +63,14 @@
             <input name="count_containers" class="form-control" type="number" step="1" id="PreparationReceiptCountContainers" value="{{ old('count_containers') }}">
         </div>
         <div class="form-group">
+            <label for="PreparationReceiptProdDate">Дата выработки</label>
+            <input name="prod_date" type="date" class="form-control" id="PreparationReceiptExpireDate" value="{{ old('prod_date') }}">
+        </div>
+        <div class="form-group">
+            <label for="PreparationReceiptPackDate">Дата расфасовки</label>
+            <input name="pack_date" type="date" class="form-control" id="PreparationReceiptExpireDate" value="{{ old('pack_date') }}">
+        </div>
+        <div class="form-group">
             <label for="PreparationReceiptExpireDate">Срок годности до</label>
             <input name="expire_date" type="date" class="form-control" id="PreparationReceiptExpireDate" value="{{ old('expire_date') }}">
         </div>
