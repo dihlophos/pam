@@ -25,6 +25,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+        Route::model('user', App\Models\User::class);
         Route::model('disease_type', App\Models\DiseaseType::class);
         Route::model('disease', App\Models\Disease::class);
         Route::model('animal_category', App\Models\AnimalCategory::class);
