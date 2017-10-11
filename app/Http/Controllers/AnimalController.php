@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use App\Models\Object;
 use App\Models\AnimalType;
 use App\Models\BasicDocument;
@@ -52,10 +53,10 @@ class AnimalController extends Controller
         return redirect()->route('object.animal.index', $object);
     }
 
-    public function destroy(Request $request, Animal $animal)
+    public function destroy(Request $request, Object $object, Animal $animal)
     {
         $animal->delete();
         $request->session()->flash('alert-success', 'Запись успешно удалена!');
-        return redirect()->route('fact.index');
+        return redirect()->route('object.animal.index', $object);
     }
 }
