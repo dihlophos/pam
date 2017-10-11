@@ -12,17 +12,18 @@ class AnimalController extends Controller
 {
     public function index(Object $object)
     {
-        $animal_groups = $object->animals()->with('animalType','agesex')->where('count','>', '1')->orderBy('name')->paginate(20, ['*'], 'groups_page');
-        $animal_individuals = $object->animals()->with('animalType','agesex')->where('count','<=', '1')->orderBy('name')->paginate(20, ['*'], 'individuals_page');
+        $animal_groups = $object->animals()->with('animalType','agesex')->where('individual','=', '0')->orderBy('name')->paginate(20, ['*'], 'groups_page');
+        $animal_individuals = $object->animals()->with('animalType','agesex')->where('individual','=', '1')->orderBy('name')->paginate(20, ['*'], 'individuals_page');
         return view('animals.index',
             compact(['animal_groups','animal_individuals','object'])
         );
     }
 
-    public function create(Object $object)
+    public function create(Request $request, Object $object)
     {
         $animalTypes = AnimalType::orderBy('name')->get()->pluck('name', 'id');
-        return view('animals.create',
+        $view = $request->input('individual')?'animals.individual_create':'animals.group_create';
+        return view($view,
             compact(['animalTypes', 'object'])
         );
     }
@@ -39,7 +40,8 @@ class AnimalController extends Controller
     public function edit(Object $object, Animal $animal)
     {
         $animalTypes = AnimalType::orderBy('name')->get()->pluck('name', 'id');
-        return view('animals.edit',
+        $view =  $animal->individual?'animals.individual_edit':'animals.group_edit';
+        return view($view,
             compact(['animalTypes', 'object', 'animal'])
         );
     }

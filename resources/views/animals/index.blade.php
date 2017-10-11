@@ -57,7 +57,7 @@
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
         <h1 class="panel-title pull-left" style="padding-top: 7.5px;">{{ $object->name }} > Индивидуальный учет</h1>
-        <a href="/object/{{ $object->id }}/animal/create" class="btn btn-default pull-right ">Добавить</a>
+        <a href="/object/{{ $object->id }}/animal/create?individual=1" class="btn btn-default pull-right ">Добавить</a>
     </div>
     <div class="panel-body">
         {{$animal_individuals->appends('groups_page', request('groups_page'))->links()}}

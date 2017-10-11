@@ -21,7 +21,7 @@ class Animal extends Model
     * @var array
     */
     protected $fillable = ['object_id', 'animal_type_id', 'age', 'agesex_id', 'count',
-                           'regnum', 'name', 'birthday', 'marks', 'chipnum'];
+                           'regnum', 'name', 'birthday', 'marks', 'chipnum', 'individual'];
 
     public function animalType()
     {
