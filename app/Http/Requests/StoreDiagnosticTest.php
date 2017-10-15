@@ -24,7 +24,7 @@ class StoreDiagnosticTest extends FormRequest
     public function rules()
     {
         return [
-            'object_id' => 'required'
+            'object_id' => 'required',
             'fact_id' => 'required'
         ];
     }
