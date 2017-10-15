@@ -17,16 +17,14 @@ class ObjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $objects = Object::with('subdivision', 'institution', 'organ')
+                            ->byUser($request->user())
                             ->orderBy('organ_id')
                             ->orderBy('institution_id')
                             ->orderBy('subdivision_id')
                             ->orderBy('name');
-        //TODO: Add auth filters depending on user role
-        //Example:
-        //$objects = $objects->where('subdivision_id', $user->subdivision_id);
         $objects = $objects->paginate(50);
         //transforming flat objects into tree structure
         $grouped_objects = $objects->groupBy('organ.name')->transform(function($item, $k) {

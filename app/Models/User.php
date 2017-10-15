@@ -48,9 +48,109 @@ class User extends Authenticatable
         return $this->belongsTo(Subdivision::class);
     }
 
+    public function hasAccessToObject(Object $object)
+    {
+        if ($this->isAdmin)
+        {
+            return true;
+        }
+
+        if ($this->attachedToSubdivision() && $this->subdivision->id == $object->subdivision->id)
+        {
+            return true;
+        }
+
+        if ($this->attachedToInstitution() && $this->institution->id == $object->institution->id)
+        {
+            return true;
+        }
+
+        if ($this->attachedToOrgan() && $this->organ->id == $object->organ->id)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasAccessToSubdivision(Subdivision $subdivision)
+    {
+        if ($this->isAdmin)
+        {
+            return true;
+        }
+
+        if ($this->attachedToSubdivision() && $this->subdivision->id == $subdivision->id)
+        {
+            return true;
+        }
+
+        if ($this->attachedToInstitution() && $this->institution->id == $subdivision->institution->id)
+        {
+            return true;
+        }
+
+        if ($this->attachedToOrgan() && $this->organ->id == $subdivision->institution->organ->id)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasAccessToInstitution(Institution $institution)
+    {
+        if ($this->isAdmin)
+        {
+            return true;
+        }
+
+        if ($this->institution->id == $institution->id)
+        {
+            return true;
+        }
+
+        if ($this->attachedToOrgan() && $this->organ->id == $institution->organ->id)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasAccessToOrgan(Institution $organ)
+    {
+        if ($this->isAdmin)
+        {
+            return true;
+        }
+
+        if ($this->organ->id == $organ->id)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public function isAdmin()
     {
         return ($this->is_admin);
+    }
+
+    public function attachedToOrgan()
+    {
+        return $this->organ != null;
+    }
+
+    public function attachedToInstitution()
+    {
+        return $this->institution != null;
+    }
+
+    public function attachedToSubdivision()
+    {
+        return $this->subdivision != null;
     }
 
     public function scopeByUserName($query, $username)

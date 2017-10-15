@@ -69,4 +69,27 @@ class Object extends Model
     {
         return $this->hasMany(Fact::class);
     }
+
+    public function scopeByUser($query, $user)
+    {
+        if ($user->isAdmin())
+        {
+            return $query;
+        }
+
+        if ($user->attachedToSubdivision())
+        {
+           return $query->where('subdivision_id', $user->subdivision->id);
+        }
+
+        if ($user->attachedToInstitution())
+        {
+           return $query->where('institution_id', $user->institution->id);
+        }
+
+        if ($user->attachedToOrgan())
+        {
+           return $query->where('organ_id', $user->organ->id);
+        }
+    }
 }
