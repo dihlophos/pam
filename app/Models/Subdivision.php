@@ -38,5 +38,34 @@ class Subdivision extends Model
     public function preparation_receipts()
 	{
 	    return $this->hasMany(PreparationReceipt::class);
+    }
+    
+    public function scopeByUser($query, $user)
+	{
+	    if ($user->isAdmin())
+        {
+            return $query;
+        }
+
+        if ($user->attachedToSubdivision())
+        {
+           return $query->where('id', $user->subdivision->id);
+        }
+
+        if ($user->attachedToInstitution())
+        {
+           return $query->where('institution_id', $user->institution->id);
+        }
+
+        if ($user->attachedToOrgan())
+        {
+           $saved_query = clone $query;
+           $institution_ids = $query
+              ->join('institutions', 'institutions.id', '=', 'subdivisions.institution_id')
+              ->where('organ_id', $user->organ->id)
+              ->pluck('institution_id')
+              ->toArray();
+           return $saved_query->whereIn('institution_id', $institution_ids);
+        }
 	}
 }
