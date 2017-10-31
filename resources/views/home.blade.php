@@ -8,6 +8,7 @@
                 <div class="panel-body">
                     <p>Hi, {{ Auth::user()->displayname }}!</p>
                     <p>Admin: {{ Auth::user()->isAdmin()?"Yes":"No" }}</p>
+                    <my-component></my-component>
                 </div>
             </div>
         </div>
