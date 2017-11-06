@@ -27,7 +27,7 @@ class Subdivision extends Model
 
     public function objects()
     {
-        return $this->hasMany(Objects::class);
+        return $this->hasMany(Object::class);
     }
 
     public function municipalities()

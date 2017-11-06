@@ -12,3 +12,5 @@
 Homestead.json
 Homestead.yaml
 .env
+resource_build.sh
+docker.sh

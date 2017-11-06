@@ -37,12 +37,15 @@ Route::resource('diseases', 'Api\DiseaseController',  ['only' => [
     	'index', 'show'
 ]]);
 
-
 Route::resource('subdivisions.municipalities', 'Api\MunicipalityController',  ['only' => [
     	'index', 'show'
 ]]);
 
 Route::resource('subdivisions.preparation_receipts', 'Api\PreparationReceiptController',  ['only' => [
+    	'index'
+]]);
+
+Route::resource('subdivisions.objects', 'Api\ObjectController',  ['only' => [
     	'index'
 ]]);
 
