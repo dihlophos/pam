@@ -7,3 +7,38 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+/**********PEM CUSTOMS************/
+ul.pem-tree {
+  width:1000px;
+  box-sizing:border-box;
+}
+ul.pem-tree li{
+  width:100%;
+  padding:0;
+}
+ul.pem-tree li p {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: -20px 0 0;
+}
+ul.pem-tree li p:hover {
+    background-color:#d5e9f5;
+}
+
+ul.pem-tree li p font{
+    display: block;
+    text-align: left;
+    flex-basis: 400px;
+    float: right;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+ul.pem-tree li p span{
+  flex-shrink: 9999;
+}
