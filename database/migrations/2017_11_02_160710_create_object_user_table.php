@@ -13,7 +13,7 @@ class CreateObjectUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('object_table', function (Blueprint $table) {
+        Schema::create('object_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('object_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -22,7 +22,7 @@ class CreateObjectUserTable extends Migration
         
         Schema::disableForeignKeyConstraints();
         
-        Schema::table('object_table', function (Blueprint $table) {
+        Schema::table('object_user', function (Blueprint $table) {
             $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

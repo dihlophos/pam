@@ -47,6 +47,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subdivision::class);
     }
+    
+    public function objects()
+    {
+        return $this->belongsToMany(Object::class);
+    }
 
     public function hasAccessToObject(Object $object)
     {

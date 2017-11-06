@@ -57,6 +57,7 @@ class UserController extends Controller
         if (!array_key_exists('is_admin', $data)) $data['is_admin'] = 0;
         $this->SetEmptyKeysToNull(['organ_id', 'institution_id', 'subdivision_id'], $data);
         $user = User::create($data);
+        $user->objects()->attach($request->objects);
         $request->session()->flash('alert-success', 'Запись успешно добавлена!');
         return redirect()->route('user.index');
     }
@@ -72,9 +73,9 @@ class UserController extends Controller
         $organs = Organ::orderBy('name', 'asc')->pluck('name', 'id');
         $institutions = $user->organ!=null?$user->organ->institutions()->orderBy('name', 'asc')->pluck('name', 'id'):[];
         $subdivisions = $user->institution!=null?$user->institution->subdivisions()->orderBy('name', 'asc')->pluck('name', 'id'):[];
-
+        $objects = $user->subdivision!=null?$user->subdivision->objects()->orderBy('name', 'asc')->pluck('name', 'id'):[];
         return view('lists.users.edit', compact(
-            'user', 'organs', 'institutions', 'subdivisions')
+            'user', 'organs', 'institutions', 'subdivisions', 'objects')
         );
     }
 
@@ -95,6 +96,7 @@ class UserController extends Controller
         if (!array_key_exists('is_admin', $data)) $data['is_admin'] = 0;
         $this->SetEmptyKeysToNull(['organ_id', 'institution_id', 'subdivision_id'], $data);
         $user->fill($data)->save();
+        $user->objects()->sync($request->objects);
         $request->session()->flash('alert-success', 'Запись успешно обновлена!');
         return redirect()->route('user.index');
     }

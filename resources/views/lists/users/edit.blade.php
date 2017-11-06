@@ -76,6 +76,15 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="user-object">Объекты</label>
+            <select name="objects[]" id="user-object" class="form-control" multiple>
+                <option value=""></option>
+                @foreach ($objects as $id => $object)
+                    <option value="{{$id}}" {{$user->objects->contains($id) ? 'selected' : ''}}>{{$object}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <input class="btn btn-default" type="submit" value="Сохранить">
         </div>
     </fieldset>
@@ -91,6 +100,7 @@ $(function () {
 	var select_organ, $select_organ;
 	var select_institution, $select_institution;
 	var select_subdivision, $select_subdivision;
+	var select_objects, $select_objects;
 	
 	$('#user-change_password').change(function() {
 	    if($(this).is(":checked")) {
@@ -114,6 +124,16 @@ $(function () {
 	         select_organ.enable();
 	     }
 	})
+	
+	$select_objects = $('#user-object').selectize({
+		valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+		create: false,
+		selectOnTab: true,
+		onInitialize: function() {this.selected_value = this.getValue();},
+		onChange: function(value) {value=value==0?this.selected_value:value;this.selected_value=value;},
+	});
 
     $select_organ = $('#user-organ_id').selectize({
 		create: false,
@@ -193,12 +213,38 @@ $(function () {
 		create: false,
 		selectOnTab: true,
 		onInitialize: function() {this.selected_value = this.getValue();},
-		onChange: function(value) {value=value==0?this.selected_value:value;this.selected_value=value;},
+		onDropdownClose: function($dropdown) {
+			if(this.getValue()==0) {
+				select_objects.disable();
+			    select_objects.clearOptions();
+			}
+		},
+		onChange: function(value) {
+			value=(!value || value==0)?this.selected_value:value;this.selected_value=value;
+			if (!value.length) return;
+			select_objects.disable();
+			select_objects.clearOptions();
+			select_objects.load(function(callback) {
+				xhr && xhr.abort();
+				xhr = $.ajax({
+					type: 'get',
+					url: '/api/subdivisions/' + select_subdivision.selected_value + '/objects',
+					success: function(results) {
+						select_objects.enable();
+						callback(results);
+					},
+					error: function() {
+						callback();
+					}
+				})
+			});
+		}
 	});
 
     select_organ = $select_organ[0].selectize;
 	select_subdivision = $select_subdivision[0].selectize;
 	select_institution = $select_institution[0].selectize;
+	select_objects = $select_objects[0].selectize;
 	@if($user->is_admin)
 	select_organ.disable();
 	@endif
@@ -207,6 +253,9 @@ $(function () {
 	@endif
 	@if(null==($user->institution_id))
 	select_subdivision.disable();
+	@endif
+	@if(null==($user->subdivision_id))
+	select_objects.disable();
 	@endif
 });
 </script>
