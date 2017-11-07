@@ -60,6 +60,11 @@ class User extends Authenticatable
             return true;
         }
 
+        if ($this->attachedToOrgans() && $this->organs->contains('id', $object->id))
+        {
+            return true;
+        }
+
         if ($this->attachedToSubdivision() && $this->subdivision->id == $object->subdivision->id)
         {
             return true;
@@ -143,7 +148,7 @@ class User extends Authenticatable
         return ($this->is_admin);
     }
 
-    public function attachedToOrgan()
+    public function attachedToOrgans()
     {
         return $this->organ != null;
     }
@@ -156,6 +161,11 @@ class User extends Authenticatable
     public function attachedToSubdivision()
     {
         return $this->subdivision != null;
+    }
+
+    public function attachedToObjects()
+    {
+        return $this->objects->count() > 0;
     }
 
     public function scopeByUserName($query, $username)

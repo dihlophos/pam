@@ -77,6 +77,11 @@ class Object extends Model
             return $query;
         }
 
+        if ($user->attachedToOrgans())
+        {
+           return $query->whereIn('id', $user->objects->pluck('id'));
+        }
+
         if ($user->attachedToSubdivision())
         {
            return $query->where('subdivision_id', $user->subdivision->id);
