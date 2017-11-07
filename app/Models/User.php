@@ -60,7 +60,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($this->attachedToOrgans() && $this->organs->contains('id', $object->id))
+        if ($this->attachedToObjects() && $this->objects->contains('id', $object->id))
         {
             return true;
         }
@@ -148,7 +148,7 @@ class User extends Authenticatable
         return ($this->is_admin);
     }
 
-    public function attachedToOrgans()
+    public function attachedToOrgan()
     {
         return $this->organ != null;
     }

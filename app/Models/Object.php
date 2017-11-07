@@ -77,7 +77,7 @@ class Object extends Model
             return $query;
         }
 
-        if ($user->attachedToOrgans())
+        if ($user->attachedToObjects())
         {
            return $query->whereIn('id', $user->objects->pluck('id'));
         }
