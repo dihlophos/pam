@@ -30,8 +30,6 @@ class ObjectController extends Controller
      */
     public function create(Request $request)
     {
-        //TODO: probably we could get subdivision_id from authenticated user
-        //Y?
         $subdivision_id = intval($request->subdivision);
         $subdivision = Subdivision::find($subdivision_id);
         $municipalities = [];

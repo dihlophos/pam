@@ -47,6 +47,7 @@
         <div class="form-group">
             <label for="ObjectMunicipalityId">Муниципальное образование</label>
             <select name="municipality_id" id="ObjectMunicipalityId" class="form-control">
+            	<option value="" selected="selected"></option>
                 @foreach ($municipalities as $id => $municipality)
                     <option value="{{$id}}" {{ old('municipality_id') == $id ? 'selected' : '' }}>{{ $municipality }}</option>
                 @endforeach
