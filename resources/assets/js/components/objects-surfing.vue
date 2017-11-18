@@ -58,7 +58,13 @@
                         v-bind:href="'#'">Отчеты</a> 
                 </div>
             </div>
-            
+            <div class="row">
+                <div class="col-md-12">
+                    <a v-bind:href="'/object/create' + (subdivisions.value ? '?subdivision=' + subdivisions.value : '')" class="btn btn-info">
+                      Добавить объект
+                    </a>
+                </div>
+            </div>
             <datatable ref="objects_table" v-bind="$data" />
         </div>
         

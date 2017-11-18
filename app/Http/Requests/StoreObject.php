@@ -24,7 +24,7 @@ class StoreObject extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:objects,name,' . ($this->object?$this->object->id:0),
+            'name' => 'required|max:255',
             'subdivision_id' => 'required'
         ];
     }
