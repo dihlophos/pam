@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "scripts": {
+    "prod": "LD_LIBRARY_PATH=\"/opt/gcc49/lib64\" gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "gulp": "^3.9.1",
+    "jquery": "^3.2.1",
+    "laravel-elixir": "^6.0.0-11",
+    "laravel-elixir-vue-2": "^0.2.0",
+    "laravel-elixir-webpack-official": "^1.0.2",
+    "lodash": "^4.16.2",
+    "node-sass": "^4.5.3",
+    "vue": "^2.0.1",
+    "vue-resource": "^1.0.3"
+  },
+  "dependencies": {
+    "vue2-datatable-component": "^2.1.18",
+    "vue2-selectize": "^1.1.4"
+  }
+}

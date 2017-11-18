@@ -17,6 +17,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::resource('organs', 'Api\OrganController',  ['only' => [
+    	'index'
+]]);
+
 Route::resource('organs.institutions', 'Api\InstitutionController',  ['only' => [
     	'index'
 ]]);

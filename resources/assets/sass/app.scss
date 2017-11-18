@@ -6,7 +6,10 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// selectize.js theme
+@import "~selectize/dist/css/selectize.bootstrap3.css";
 
 
 /**********PEM CUSTOMS************/

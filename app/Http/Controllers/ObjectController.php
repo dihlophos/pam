@@ -19,35 +19,7 @@ class ObjectController extends Controller
      */
     public function index(Request $request)
     {
-        $objects = Object::with('subdivision', 'institution', 'organ')
-                            ->byUser($request->user())
-                            ->orderBy('organ_id')
-                            ->orderBy('institution_id')
-                            ->orderBy('subdivision_id')
-                            ->orderBy('name');
-        $objects = $objects->paginate(50);
-        //transforming flat objects into tree structure
-        $grouped_objects = $objects->groupBy('organ.name')->transform(function($item, $k) {
-            return [
-                'id' => $item[0]->organ_id,
-                'institutions' => $item->groupBy('institution.name')->transform(function($item, $k) {
-                    return [
-                        'id' => $item[0]->institution_id,
-                        'subdivisions' => $item->groupBy('subdivision.name')->transform(function($item, $k) {
-                            return [
-                                'id' => $item[0]->subdivision_id,
-                                'objects' => $item
-                            ];
-                        })
-                    ];
-                })
-            ];
-        });
-        
-        return view('objects.index', [
-            'organs' => $grouped_objects,
-            'objects' => $objects
-        ]);
+        return view('objects.index');
     }
 
     /**

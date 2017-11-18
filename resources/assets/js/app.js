@@ -7,13 +7,23 @@
 
 require('./bootstrap');
 
+window.Vue = require('vue');
+window.VueCookie = require('vue-cookie');
+
+Vue.use(VueCookie);
+
+import Datatable from 'vue2-datatable-component'
+import locale from './locale/ru-ru'
+//import locale from 'vue2-datatable-component/locale/ru-ru'
+Vue.use(Datatable, { locale })
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('objects-surfing', require('./components/objects-surfing.vue'));
 
 const app = new Vue({
     el: '#app'

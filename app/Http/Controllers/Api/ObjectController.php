@@ -14,8 +14,18 @@ class ObjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Subdivision $subdivision)
+    public function index(Subdivision $subdivision, Request $request)
     {
-        return $subdivision->objects()->orderBy('name')->get();
+        $sort = $request->sort;
+        $order = $request->order;
+        $object_name = $request->object_name;
+        $objects = $subdivision->objects();
+        if ($sort && $order) {
+            $objects->orderBy($sort, $order);
+        }
+        if ($object_name) {
+            $objects->where('name', 'LIKE', "%$object_name%");
+        }
+        return $objects->jsonPaginate();
     }
 }
