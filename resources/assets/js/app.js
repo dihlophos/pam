@@ -12,9 +12,9 @@ window.VueCookie = require('vue-cookie');
 
 Vue.use(VueCookie);
 
-import Datatable from 'vue2-datatable-component'
+import Datatable from 'vue2-datatable-component/dist/min.js'
 import locale from './locale/ru-ru'
-//import locale from 'vue2-datatable-component/locale/ru-ru'
+
 Vue.use(Datatable, { locale })
 
 /**

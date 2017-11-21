@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ URL::asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/vue2-datatable-component.css') }}" rel="stylesheet">
     @yield('styles')
 
     <!-- Scripts -->
@@ -91,6 +92,8 @@
     </div>
 
     <!-- Scripts -->
+    <script src="{{ URL::asset('/js/manifest.js') }}"></script>
+    <script src="{{ URL::asset('/js/vendor.js') }}"></script>
     <script src="{{ URL::asset('/js/app.js') }}"></script>
     @yield('scripts')
 </body>

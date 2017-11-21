@@ -82,7 +82,6 @@
             this.institutions_selectize = this.$refs.institutions.$el.selectize;
             this.subdivisions_selectize = this.$refs.subdivisions.$el.selectize;
             this.organs_selectize = this.$refs.organs.$el.selectize;
-            window.console.log(this);
         },
         created () {
             this.xprops.eventbus.$on('OBJECT_NAME_FILTER', object_name => {
@@ -137,7 +136,7 @@
                     var number = this.query.offset/this.query.limit+1;
                     var size = this.query.limit;
                     var sortQuery = this.query.sort?'&sort='+this.query.sort+'&order='+this.query.order:"";
-                    axios.get(`/api/subdivisions/${subdivision_id}/objects?page[number]=${number}&page[size]=${size}${sortQuery}&object_name=${this.object_name}`)
+                    axios.get(`/api/subdivisions/${subdivision_id}/objects?page[number]=${number}&page[size]=${size}${sortQuery}&object_name=${encodeURIComponent(this.object_name)}`)
                         .then(resp => {
                             this.data = resp.data.data;
                             this.total = resp.data.total;

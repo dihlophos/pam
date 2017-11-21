@@ -1,7 +1,7 @@
 <template>
   <div class="th-name-filter-comp">
       <label for="obj_name">Имя объекта:</label>
-      <input v-model.lazy="object_name" type="text" class="form-control" id="obj_name" placeholder="имя объекта"/>
+      <input v-model="object_name" type="text" class="form-control" id="obj_name" placeholder="имя объекта"/>
   </div>
 </template>
 <script>
@@ -26,5 +26,6 @@ export default {
   display: inline-block;
   width: 150px;
   height: 26px;
+  padding: 0 12px;
 }
 </style>

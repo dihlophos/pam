@@ -50,3 +50,6 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+
+import 'babel-polyfill'
