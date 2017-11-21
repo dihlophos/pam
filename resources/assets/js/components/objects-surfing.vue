@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-6">
                     <a class="btn btn-default" v-bind:class="{ disabled: !subdivisions.value }" 
-                        v-bind:href="'/reports/subdivision/' + subdivisions.value + '/preparation_receipts'">Препараты</a> 
+                        v-bind:href="'/subdivision/' + subdivisions.value + '/preparation_receipt'">Препараты</a> 
                     <a class="btn btn-default" v-bind:class="{ disabled: !subdivisions.value }" 
                         v-bind:href="'/reports/subdivision/' + subdivisions.value + '/fact'">Факт</a> 
                     <a class="btn btn-default" v-bind:class="{ disabled: true }" 
