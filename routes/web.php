@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
                 'create', 'show', 'edit'
             ]]);
             Route::resource('/executor', 'ExecutorController', ['except' => [
-                'create', 'show', 'edit'
+                'create', 'show'
             ]]);
             Route::resource('/executor_category', 'ExecutorCategoryController', ['except' => [
                 'create', 'show', 'edit'

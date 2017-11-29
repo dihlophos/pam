@@ -17,6 +17,14 @@
                 @endforeach
             </select>
         </div>
+        <div class="form-group required text-left">
+        	<label for="executor-institution_id">Учреждение</label>
+            <select name="institution_id" id="executor-institution_id" class="form-control" style="width:750px">
+                @foreach ($institutions as $id => $institution)
+                    <option value="{{ $id }}">{{ $institution }}</option>
+                @endforeach
+            </select>
+        </div> 
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </button>
@@ -34,6 +42,8 @@
 
             <thead>
                 <th>Название</th>
+                <th>Категория</th>
+                <th>Учреждение</th>
                 <th>Удалить</th>
             </thead>
 
@@ -41,26 +51,10 @@
             @foreach ($executors as $executor)
               <tr>
                 <td class="table-text">
-                    <form class="form-inline" action="/lists/executor/{{ $executor->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <div class="form-group required">
-                            <input name="name" class="form-control" value="{{ $executor->name }}" maxlength="255" type="text" style="width:520px">
-                        </div>
-                        <div class="form-group required">
-                            <select name="executor_category_id" id="executor-executor_category_id" class="form-control" style="width:330px">
-                                @foreach ($executor_categories as $id => $category)
-                                    <option value="{{$id}}" {{$executor->executor_category_id == $id ? 'selected' : ''}}>{{$category}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i> Сохранить
-                            </button>
-                        </div>
-                    </form>
-                </td>
+                    <a href="/lists/executor/{{ $executor->id }}/edit">{{ $executor->name }}</a>
+                </td class="table-text">
+                <td>{{ $executor->executorCategory->name }}</td>
+                <td>{{ $executor->institution ? $executor->institution->name : "-" }}</td>
                 <td>
                     <form action="/lists/executor/{{ $executor->id }}" method="POST">
                         {{ csrf_field() }}
@@ -75,9 +69,24 @@
               </tr>
             @endforeach
           </tbody>
+          
         </table>
         {{$executors->links()}}
       </div>
     </div>
    @endif
+@endsection
+
+@section('scripts')
+<script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
+<script type="text/javascript">
+$(function () {
+	$('#executor-institution_id').selectize({
+		create: false,
+		persist: false,
+		selectOnTab: true,
+        placeholder: 'учреждение'
+	});
+});
+</script>
 @endsection

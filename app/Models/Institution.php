@@ -33,5 +33,10 @@ class Institution extends Model
     public function districts()
 	{
 	    return $this->belongsToMany(District::class);
-	}
+    }
+    
+    public function executors()
+    {
+        return $this->hasMany(Executor::class);
+    }
 }

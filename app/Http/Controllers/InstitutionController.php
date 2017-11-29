@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Institution;
+use App\Models\Executor;
 use App\Http\Requests\StoreInstitution;
 
 class InstitutionController extends Controller

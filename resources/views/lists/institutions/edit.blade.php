@@ -93,7 +93,7 @@
 <script src="{{ URL::asset('/js/selectize.min.js') }}"></script>
 <script type="text/javascript">
 $(function () {
-	$('select[name="districts[]"]').selectize({
+	$('#institution-district_id').selectize({
 		create: false,
 		persist: false,
 		selectOnTab: true,
