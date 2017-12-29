@@ -244,6 +244,18 @@ $(function () {
 	var select_service, $select_service
 	var select_service_type, $select_service_type
 
+	
+	$('#FactAnimalId').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'укажите животное'
+    });
+	
     $select_service_type = $('#ServiceTypeId').selectize({
         valueField: 'id',
 		labelField: 'name',
