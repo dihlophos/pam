@@ -39,7 +39,7 @@ class ReportsController extends Controller
                 case 'fact':
                     $data = $reports->getFact($id);
                     $view = 'reports.fact';
-                    $title =  'Факт ' . $title;
+                    $title = 'Факт ' . $title;
                     break;
                 case 'animals':
                     $data = $reports->getAnimals($id);
@@ -56,7 +56,7 @@ class ReportsController extends Controller
                     break;
             }
         }
-
+        
         return view($view, [
             'data' => $data,
             'title' => $title

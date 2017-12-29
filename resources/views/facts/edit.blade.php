@@ -34,17 +34,6 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group preventions_only diagnostic_tests_only">
-            <label for="FactAnimalId">Код записи сведений о животном</label>
-            <select name="animal_id" id="FactAnimalId" class="form-control">
-                <option value="">Укажите животное</option>
-                @foreach ($animals as $animal)
-                    <option value="{{$animal->id}}" {{$fact->animal_id == $animal->id ? 'selected' : '' }}>
-                        {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
-                    </option>
-                @endforeach
-            </select>
-        </div>
     </fieldset>
     <fieldset>
 		<legend>Сведения об услуге</legend>
@@ -71,6 +60,17 @@
                     {{ $research_type }}
                 </option>
             @endforeach
+            </select>
+        </div>
+        <div class="form-group preventions_only diagnostic_tests_only">
+            <label for="FactAnimalId">Код записи сведений о животном</label>
+            <select name="animal_id" id="FactAnimalId" class="form-control">
+                <option value="">Укажите животное</option>
+                @foreach ($animals as $animal)
+                    <option value="{{$animal->id}}" {{$fact->animal_id == $animal->id ? 'selected' : '' }}>
+                        {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
+                    </option>
+                @endforeach
             </select>
         </div>
         <div class="form-group diagnostic_tests_only">

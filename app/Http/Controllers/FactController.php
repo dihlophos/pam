@@ -41,7 +41,7 @@ class FactController extends Controller
         $basic_documents = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
         $animals = $object->animals()->with('animalType')->get();
         $services = Service::orderBy('name')->get();
-        $executors = Executor::orderBy('name')->get()->pluck('name', 'id');
+        $executors = Executor::where('institution_id', $object->institution->id)->orderBy('name')->get()->pluck('name', 'id');
         $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
         return view('facts.create',
             compact(['object', 'basic_documents', 'animals', 'services', 'executors', 'research_types'])
@@ -105,7 +105,7 @@ class FactController extends Controller
         $basic_documents = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
         $animals = $object->animals()->with('animalType')->get();
         $services = Service::orderBy('name')->get();
-        $executors = Executor::orderBy('name')->get()->pluck('name', 'id');
+        $executors = Executor::where('institution_id', $object->institution->id)->orderBy('name')->get()->pluck('name', 'id');
         $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
         $preparation_receipts = [];
          switch ($fact->service->tab_index)
