@@ -83,13 +83,13 @@
             </select>
         </div>
 		<div class="form-group preventions_only diagnostic_tests_only">
-            <label for="FactAnimalId">Код записи сведений о животном</label>
-            <select name="animal_id" id="FactAnimalId" class="form-control">
-                    <option value="">Укажите животное</option>
+            <label for="FactAnimals">Код записи сведений о животном</label>
+            <select name="animals[]" id="FactAnimals" class="form-control" multiple="multiple">
+                    <option value="">Укажите животных</option>
                 @foreach ($animals as $animal)
-                    <option value="{{$animal->id}}" {{ old('animal_id') == $animal->id ? 'selected' : '' }}>
-                        {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
-                    </option>
+                    <option value="{{$animal->id}}" {{ old('animal_id') == $animal->id ? 'selected' : '' }}>{{ $animal->individual ?
+                        $animal->animalType->name.' - Рег. номер: '.$animal->regnum.' -  Кличка: '.$animal->name :
+                        $animal->animalType->name.' - Возраст: '.$animal->age.' - Кол-во: '.$animal->count  }}</option>
                 @endforeach
             </select>
         </div>
@@ -220,6 +220,7 @@ $(function () {
 	var select_receipts, $select_receipts;
     var select_method, $select_method;
 	var select_diseases, $select_prev_diseases, $select_test_diseases;
+    var select_fact_animals, $select_fact_animals;
 	var select_service, $select_service
 	var select_service_type, $select_service_type
 
@@ -257,6 +258,19 @@ $(function () {
         plugins: ['restore_on_backspace'],
         placeholder: 'Укажите болезни'
     });
+
+    $select_fact_animals = $('#FactAnimals').selectize({
+        valueField: 'id',
+		labelField: 'name',
+		searchField: ['name'],
+        create: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите животных'
+    });
+
+    select_fact_animals = $select_fact_animals[0].selectize;
 
     $select_method = $('#ApplicationMethodId').selectize({
         valueField: 'id',
@@ -355,7 +369,7 @@ $(function () {
                     LoadReceipts(function(value) {});
                     break;
                 case 3:
-                    $('#FactAnimalId').prop('selectedIndex',0);
+                    $('#FactAnimals').prop('selectedIndex',0);
                     $('.sanitary_works_only').show();
                     LoadReceipts(function(value) {});
                     break;
@@ -390,7 +404,7 @@ $(function () {
 	    select_diseases.disable();
         select_diseases.clearOptions();
         select_diseases.load(function(callback) {
-            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimalId').val(); })[0];
+            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimals').val(); })[0];
             console.log('animal_type_id:' + selected_animal.animal_type_id);
             xhr_diseases && xhr_diseases.abort();
             xhr_diseases = $.ajax({

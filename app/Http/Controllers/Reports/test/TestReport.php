@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Reports;
 
-interface Report
+interface TestReport
 {
 	public function getFact();
 	public function getAnimals();

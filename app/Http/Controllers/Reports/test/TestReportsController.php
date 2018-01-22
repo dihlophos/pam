@@ -9,8 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Subdivision;
 use App\Models\Institution;
 use App\Models\Organ;
+use App\Http\Controllers\test\SubdivisionReports;
+use App\Http\Controllers\test\InstitutionReports;
+use App\Http\Controllers\test\OrganReports;
 
-class ReportsController extends Controller
+class TestReportsController extends Controller
 {
     public function index($model, $id, $report)
     {
@@ -18,13 +21,13 @@ class ReportsController extends Controller
         $title = '';
         switch ($model) {
             case 'subdivision':
-                $reports = new SubdivisionReports($id, $report);
+                $reports = new TestSubdivisionReports($id, $report);
                 break;
             case 'institution':
-                $reports = new InstitutionReports($id, $report);
+                $reports = new TestInstitutionReports($id, $report);
                 break;
             case 'organ':
-                $reports = new OrganReports($id, $report);
+                $reports = new TestOrganReports($id, $report);
                 break;
             default:
                 throw new ModelNotFoundException();

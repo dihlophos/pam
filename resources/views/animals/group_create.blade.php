@@ -60,10 +60,14 @@ $(function () {
 		selectOnTab: true,
         placeholder: 'Укажите вид животного',
         onChange: function(value) {
-            LoadAgesex(this.getValue(), function(value) {});
+            LoadAgesex(this.getValue(), function(value) {
+                var defaultValue = {id:'', name:'Автоматически по возрасту'};
+                select_agesex.addOption(defaultValue);
+                select_agesex.setValue(defaultValue.id);
+            });
 		}
 	});
-	
+
 	$select_agesex = $('#AnimalAgesexId').selectize({
 	    valueField: 'id',
 		labelField: 'name',
@@ -71,8 +75,8 @@ $(function () {
 		selectOnTab: true,
         placeholder: 'Укажите половозрастную группу'
 	});
-	
-	var LoadAgesex = function(animal_type_id, success) {
+
+	function LoadAgesex(animal_type_id, success) {
 	    select_agesex.disable();
         select_agesex.clearOptions();
         select_agesex.load(function(callback) {
@@ -81,19 +85,21 @@ $(function () {
                 type: 'get',
                 url: '/api/animal_types/' + animal_type_id + '/agesexes',
                 success: function(results) {
-                    select_agesex.enable();
-					success(results);
                     callback(results);
                 },
                 error: function() {
                     callback();
                 }
-            })
+            });
+            xhr_agesex.then(function(results) {
+                select_agesex.enable();
+                success(results);
+            });
         });
 	}
-	
+
 	select_agesex = $select_agesex[0].selectize;
-	
+
 	select_agesex.disable();
 
 });

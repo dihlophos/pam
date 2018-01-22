@@ -63,13 +63,13 @@
             </select>
         </div>
         <div class="form-group preventions_only diagnostic_tests_only">
-            <label for="FactAnimalId">Код записи сведений о животном</label>
-            <select name="animal_id" id="FactAnimalId" class="form-control">
-                <option value="">Укажите животное</option>
+            <label for="FactAnimals">Код записи сведений о животном</label>
+            <select name="animals[]" id="FactAnimals" class="form-control" multiple="multiple">
+                <option value="">Укажите животных</option>
                 @foreach ($animals as $animal)
-                    <option value="{{$animal->id}}" {{$fact->animal_id == $animal->id ? 'selected' : '' }}>
-                        {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} - (возраст: {{$animal->age}})
-                    </option>
+                    <option value="{{$animal->id}}" >{{ $animal->individual ?
+                                                            $animal->animalType->name.' - Рег. номер: '.$animal->regnum.' -  Кличка: '.$animal->name :
+                                                            $animal->animalType->name.' - Возраст: '.$animal->age.' - Кол-во: '.$animal->count  }}</option>
                 @endforeach
             </select>
         </div>
@@ -243,9 +243,9 @@ $(function () {
 	var select_diseases, $select_prev_diseases, $select_test_diseases;
 	var select_service, $select_service
 	var select_service_type, $select_service_type
+    var select_fact_animals, $select_fact_animals;
 
-	
-	$('#FactAnimalId').selectize({
+	$select_fact_animals = $('#FactAnimals').selectize({
         valueField: 'id',
 		labelField: 'name',
 		searchField: ['name'],
@@ -253,9 +253,11 @@ $(function () {
 		//persist: false,
 		selectOnTab: true,
         plugins: ['restore_on_backspace'],
-        placeholder: 'укажите животное'
+        placeholder: 'укажите животных'
     });
-	
+    select_fact_animals = $select_fact_animals[0].selectize;
+    SetOrDisableAnimals(select_fact_animals);
+
     $select_service_type = $('#ServiceTypeId').selectize({
         valueField: 'id',
 		labelField: 'name',
@@ -385,11 +387,18 @@ $(function () {
     	@endif
     }
 
+    function SetOrDisableAnimals (select) {
+        @if($fact->animals != null)
+            select.addOption({!!$fact->animals!!});
+            select.setValue({!!$fact->animals->pluck('id')!!});
+    	@endif
+    }
+
     var LoadPreventionDiseases = function(preparation_id, success) {
 	    select_diseases.disable();
         select_diseases.clearOptions();
         select_diseases.load(function(callback) {
-            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimalId').val(); })[0];
+            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimals').val(); })[0];
             console.log('animal_type_id:' + selected_animal.animal_type_id);
             xhr_diseases && xhr_diseases.abort();
             xhr_diseases = $.ajax({

@@ -18,8 +18,7 @@ class AgesexController extends Controller
     {
         $agesexes = Agesex::orderBy('name');
         //selecting anymal_type specific agesex groups and all nonspecific
-        $agesexes->whereRaw('agesexes.id IN (SELECT agesex_id FROM agesex_animal_type WHERE animal_type_id ='.$animal_type->id.')
-                             OR NOT EXISTS (SELECT * FROM agesex_animal_type WHERE agesex_id = agesexes.id)');
+        $agesexes->whereRaw('agesexes.id IN (SELECT agesex_id FROM agesex_animal_type WHERE animal_type_id ='.$animal_type->id.')');
         return $agesexes->get();
     }
 

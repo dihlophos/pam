@@ -36,8 +36,10 @@
                     {{ $fact->date }}
                 </td>
                 <td class="table-text">
-                  @if ($fact->animal)
-                    {{ $fact->animal->id }} - {{ $fact->animal->animalType->name }}{{$fact->animal->name?' | '.$fact->animal->name:''}} ({{$fact->animal->agesex->name}})
+                  @if ($fact->animals)
+                    @foreach ($fact->animals as $animal)
+                        {{ $animal->id }} - {{ $animal->animalType->name }}{{$animal->name?' | '.$animal->name:''}} ({{$animal->agesex->name}}) <br/>
+                    @endforeach
                   @endif
                 </td>
                 <td class="table-text">

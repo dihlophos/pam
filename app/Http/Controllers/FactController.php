@@ -26,7 +26,7 @@ class FactController extends Controller
     */
     public function index(Object $object)
     {
-        $facts = $object->facts()->with(['service', 'animal', 'animal.animalType', 'animal.agesex'])->orderBy('created_at', 'DESC')->paginate(50);
+        $facts = $object->facts()->with(['service', 'animals', 'animals.animalType', 'animals.agesex'])->orderBy('created_at', 'DESC')->paginate(50);
         return view('facts.index', compact(['facts', 'object']));
     }
 
@@ -60,11 +60,15 @@ class FactController extends Controller
         //$data = array_filter($request->all(), 'strlen');
         $data = $request->all();
         //TODO:
-        if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
+        //if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
         $fact = Fact::create($data);
         if (isset($data['diseases']))
         {
             $fact->diseases()->attach($data['diseases']);
+        }
+        if (isset($data['animals']))
+        {
+            $fact->animals()->attach($data['animals']);
         }
         $data['fact_id'] = $fact->id;
         switch ($fact->service->tab_index)
@@ -147,11 +151,15 @@ class FactController extends Controller
         //array_filter setting empty field to null; for strings only
         //$data = array_filter($request->all(), 'strlen');
         $data = $request->all();
-        if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
+        //if (!$data['animal_id']) unset($data['animal_id']); //sanitary_work doesnt have animal_id
         $fact->fill($data)->save();
         if (isset($data['diseases']))
         {
             $fact->diseases()->sync($data['diseases']);
+        }
+        if (isset($data['animals']))
+        {
+            $fact->animals()->sync($data['animals']);
         }
         $data['fact_id'] = $fact->id;
         switch ($fact->service->tab_index)

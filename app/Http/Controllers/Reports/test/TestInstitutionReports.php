@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Reports;
 
 use Illuminate\Support\Facades\DB;
 
-class InstitutionReports implements ReportsFactory
+class TestInstitutionReports implements ReportsFactory
 {
     public function getFact($id)
     {

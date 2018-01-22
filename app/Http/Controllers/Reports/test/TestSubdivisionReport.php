@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Reports;
 use App\Models\Subdivision;
 use Illuminate\Support\Facades\DB;
 
-class SubdivisionReport implements Report
+class TestSubdivisionReport implements Report
 {
 	private $id;
 	public $title;
@@ -13,7 +13,7 @@ class SubdivisionReport implements Report
 	public function __construct($id, $report) {
 		$this->id = $id;
 		$this->title = 'по подразделению: ' . Subdivision::find($id)->name;
-		
+
 		if ($reports) {
             switch ($report) {
                 case 'fact':
@@ -34,8 +34,8 @@ class SubdivisionReport implements Report
             }
         }
 	}
-	
-	public function getData() 
+
+	public function getData()
 	{
 		if ($reports) {
             switch ($report) {
@@ -54,7 +54,7 @@ class SubdivisionReport implements Report
             }
         }
 	}
-	
+
 	private function getFact()
 	{
 		return DB::select('SELECT s.name AS service, atp.name AS animal_type, ax.name AS agesex, count(f.id) as `count` FROM facts as f
@@ -67,7 +67,7 @@ class SubdivisionReport implements Report
                             GROUP BY s.name, atp.name, ax.name
                             ORDER by s.name, atp.name, ax.name', [$this->id]);
 	}
-	
+
 	private function getAnimals()
 	{
         return DB::select('SELECT atp.name AS animal_type, ax.name AS agesex, SUM(a.count) AS `count` FROM animals AS a
@@ -78,7 +78,7 @@ class SubdivisionReport implements Report
                             GROUP BY atp.name, ax.name
                             ORDER BY atp.name, ax.name', [$this->$id]);
     }
-    
+
 	private function getPreparationReceipts()
 	{
         return DB::select('SELECT p.name AS preparation, SUM(pr.count_containers) AS count_containers FROM preparation_receipts AS pr

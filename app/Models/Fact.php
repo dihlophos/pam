@@ -24,7 +24,7 @@ class Fact extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'executor_id', 'basic_document_id', 'animal_id',
+    protected $fillable = ['object_id', 'executor_id', 'basic_document_id',
                            'service_id', 'service_type_id', 'date', 'comment'];
 
     public function object()
@@ -37,9 +37,9 @@ class Fact extends Model
         return $this->belongsTo(BasicDocument::class);
     }
 
-    public function animal()
+    public function animals()
     {
-        return $this->belongsTo(Animal::class);
+        return $this->belongsToMany(Animal::class);
     }
 
     public function service()

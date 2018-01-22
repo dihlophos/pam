@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Reports;
 
-interface ReportsCreator
+interface TestReportsCreator
 {
     public function GetReport();
 }
