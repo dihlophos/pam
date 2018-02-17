@@ -38,7 +38,9 @@ class ObjectPolicy
      */
     public function create(User $user)
     {
-        //
+        // if ($user->hasAccessToObject($object)) { return true; }
+        // return false;
+        return true;
     }
 
     /**
@@ -50,7 +52,8 @@ class ObjectPolicy
      */
     public function update(User $user, Object $object)
     {
-        //
+        if ($user->hasAccessToObject($object)) { return true; }
+        return false;
     }
 
     /**
@@ -62,6 +65,7 @@ class ObjectPolicy
      */
     public function delete(User $user, Object $object)
     {
-        //
+        if ($user->hasAccessToObject($object)) { return true; }
+        return false;
     }
 }

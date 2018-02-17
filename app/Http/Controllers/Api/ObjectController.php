@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Subdivision;
 use App\Models\Object;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ObjectController extends Controller
 {
@@ -20,6 +21,7 @@ class ObjectController extends Controller
         $order = $request->order;
         $object_name = $request->object_name;
         $objects = $subdivision->objects();
+        //$objects->byUser(Auth::user());
         if ($sort && $order) {
             $objects->orderBy($sort, $order);
         }

@@ -8,6 +8,10 @@ use App\Models\Organ;
 use App\Models\Institution;
 use App\Models\Subdivision;
 use App\Models\Object;
+use App\Policies\ObjectPolicy;
+use App\Policies\OrganPolicy;
+use App\Policies\InstitutionPolicy;
+use App\Policies\SubdivisionPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,8 +23,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         Organ::class => OrganPolicy::class,
-        Institution::class => Institution::class,
-        Subdivision::class => Subdivision::class,
+        Institution::class => InstitutionPolicy::class,
+        Subdivision::class => SubdivisionPolicy::class,
         Object::class => ObjectPolicy::class,
     ];
 

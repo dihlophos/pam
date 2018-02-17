@@ -32,22 +32,22 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-    
+
     public function organ()
     {
         return $this->belongsTo(Organ::class);
     }
-    
+
     public function institution()
     {
         return $this->belongsTo(Institution::class);
     }
-    
+
     public function subdivision()
     {
         return $this->belongsTo(Subdivision::class);
     }
-    
+
     public function objects()
     {
         return $this->belongsToMany(Object::class);
@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function hasAccessToObject(Object $object)
     {
-        if ($this->isAdmin)
+        if ($this->isAdmin())
         {
             return true;
         }
@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function hasAccessToSubdivision(Subdivision $subdivision)
     {
-        if ($this->isAdmin)
+        if ($this->isAdmin())
         {
             return true;
         }
@@ -110,7 +110,7 @@ class User extends Authenticatable
 
     public function hasAccessToInstitution(Institution $institution)
     {
-        if ($this->isAdmin)
+        if ($this->isAdmin())
         {
             return true;
         }
@@ -130,7 +130,7 @@ class User extends Authenticatable
 
     public function hasAccessToOrgan(Institution $organ)
     {
-        if ($this->isAdmin)
+        if ($this->isAdmin())
         {
             return true;
         }

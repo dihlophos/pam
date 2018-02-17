@@ -12,6 +12,11 @@ use App\Http\Requests\StoreObject;
 
 class ObjectController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Object::class);
+    }
     /**
      * Display a listing of the resource.
      *
