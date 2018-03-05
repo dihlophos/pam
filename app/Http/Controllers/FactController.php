@@ -12,9 +12,9 @@ use App\Models\Object;
 use App\Models\BasicDocument;
 use App\Models\Animal;
 use App\Models\Service;
-use App\Models\Executor;
 use App\Models\PreparationReceipt;
 use App\Models\ResearchType;
+use App\Models\User;
 use App\Http\Requests\StoreFact;
 
 class FactController extends Controller
@@ -33,7 +33,7 @@ class FactController extends Controller
     /**
     * Show the form for creating a new resource.
     *
-    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Object $object
     * @return \Illuminate\Http\Response
     */
     public function create(Object $object)
@@ -41,17 +41,18 @@ class FactController extends Controller
         $basic_documents = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
         $animals = $object->animals()->with('animalType')->get();
         $services = Service::orderBy('name')->get();
-        $executors = Executor::where('institution_id', $object->institution->id)->orderBy('name')->get()->pluck('name', 'id');
+        $users = User::where('subdivision_id', $object->subdivision_id)->get()->pluck('displayname', 'id');
         $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
         return view('facts.create',
-            compact(['object', 'basic_documents', 'animals', 'services', 'executors', 'research_types'])
+            compact(['object', 'basic_documents', 'animals', 'services', 'research_types', 'users'])
         );
     }
 
     /**
     * Store a newly created resource in storage.
     *
-    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Object $object
+    * @param  \App\Http\Requests\StoreFact $request
     * @return \Illuminate\Http\Response
     */
     public function store(Object $object, StoreFact $request)
@@ -69,6 +70,10 @@ class FactController extends Controller
         if (isset($data['animals']))
         {
             $fact->animals()->attach($data['animals']);
+        }
+        if (isset($data['users']))
+        {
+            $fact->users()->attach($data['users']);
         }
         $data['fact_id'] = $fact->id;
         switch ($fact->service->tab_index)
@@ -101,7 +106,8 @@ class FactController extends Controller
     /**
     * Show the form for editing the specified resource.
     *
-    * @param  int  $id
+    * @param  \App\Models\Object $object
+    * @param  \App\Models\Fact $fact
     * @return \Illuminate\Http\Response
     */
     public function edit(Object $object, Fact $fact)
@@ -109,8 +115,8 @@ class FactController extends Controller
         $basic_documents = BasicDocument::orderBy('name')->get()->pluck('name', 'id');
         $animals = $object->animals()->with('animalType')->get();
         $services = Service::orderBy('name')->get();
-        $executors = Executor::where('institution_id', $object->institution->id)->orderBy('name')->get()->pluck('name', 'id');
         $research_types = ResearchType::orderBy('name')->get()->pluck('name', 'id');
+        $users = User::where('subdivision_id', $object->subdivision_id)->get()->pluck('displayname', 'id');
         $preparation_receipts = [];
          switch ($fact->service->tab_index)
         {
@@ -135,15 +141,16 @@ class FactController extends Controller
         }
 
         return view('facts.edit',
-            compact(['fact', 'object', 'basic_documents', 'animals', 'services', 'executors', 'preparation_receipts', 'research_types'])
+            compact(['fact', 'object', 'basic_documents', 'animals', 'services', 'preparation_receipts', 'research_types', 'users'])
         );
     }
 
     /**
     * Update the specified resource in storage.
     *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
+    * @param  \App\Models\Object $object
+    * @param  \App\Http\Requests\StoreFact $request
+    * @param  \App\Models\Fact $fact
     * @return \Illuminate\Http\Response
     */
     public function update(Object $object, StoreFact $request, Fact $fact)
@@ -160,6 +167,10 @@ class FactController extends Controller
         if (isset($data['animals']))
         {
             $fact->animals()->sync($data['animals']);
+        }
+        if (isset($data['users']))
+        {
+            $fact->users()->sync($data['users']);
         }
         $data['fact_id'] = $fact->id;
         switch ($fact->service->tab_index)
@@ -181,7 +192,9 @@ class FactController extends Controller
     /**
     * Remove the specified resource from storage.
     *
-    * @param  int  $id
+    * @param  \App\Models\Object $object
+    * @param  \Illuminate\Http\Request $request
+    * @param  \App\Models\Fact $fact
     * @return \Illuminate\Http\Response
     */
     public function destroy(Object $object, Request $request, Fact $fact)

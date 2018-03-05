@@ -40,6 +40,11 @@ class Subdivision extends Model
 	    return $this->hasMany(PreparationReceipt::class);
     }
     
+    public function users()
+	{
+	    return $this->hasMany(User::class);
+    }
+    
     public function scopeByUser($query, $user)
 	{
 	    if ($user->isAdmin())

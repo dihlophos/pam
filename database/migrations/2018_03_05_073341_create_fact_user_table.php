@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMunicipalitySubdivisionTable extends Migration
+class CreateFactUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMunicipalitySubdivisionTable extends Migration
      */
     public function up()
     {
-        Schema::create('municipality_subdivision', function (Blueprint $table) {
+        Schema::create('fact_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('municipality_id')->index()->unsigned();
-            $table->integer('subdivision_id')->index()->unsigned();
+            $table->integer('fact_id')->index()->unsigned();
+            $table->integer('user_id')->index()->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMunicipalitySubdivisionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('municipality_subdivision');
+        Schema::dropIfExists('fact_user');
     }
 }

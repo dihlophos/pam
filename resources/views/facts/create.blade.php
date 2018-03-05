@@ -141,10 +141,11 @@
             <input name="count_positive" class="form-control" type="number" id="DiagnosticTestCountPositive" value="{{ old('count_positive')?old('count_positive'):0 }}">
         </div>
         <div class="form-group">
-            <label for="PreventionExecutorId">Исполнитель</label>
-            <select name="executor_id" class="form-control" id="PreventionExecutorId">
-                @foreach ($executors as $id => $executor)
-                <option value="{{$id}}" {{ old('executor_id') == $id ? 'selected' : '' }}>{{ $executor }}</option>
+            <label for="PreventionUserId">Исполнитель</label>
+            <select name="users[]" class="form-control" id="PreventionUserId"  multiple="multiple">
+                <option value="">Укажите исполнителей</option>
+                @foreach ($users as $id => $user)
+                    <option value="{{$id}}" {{ (old('users')!=null && in_array($id, old('users'))) ? 'selected' : '' }}>{{ $user }}</option>
                 @endforeach
             </select>
         </div>
@@ -221,8 +222,19 @@ $(function () {
     var select_method, $select_method;
 	var select_diseases, $select_prev_diseases, $select_test_diseases;
     var select_fact_animals, $select_fact_animals;
-	var select_service, $select_service
-	var select_service_type, $select_service_type
+	var select_service, $select_service;
+	var select_service_type, $select_service_type;
+	var select_user, $select_user;
+
+    $select_user = $('#PreventionUserId').selectize({
+        create: false,
+		//persist: false,
+		selectOnTab: true,
+        plugins: ['restore_on_backspace'],
+        placeholder: 'Укажите исполнителей'
+    });
+    
+    select_user = $select_user[0].selectize;
 
     $select_service_type = $('#ServiceTypeId').selectize({
         valueField: 'id',
@@ -404,9 +416,7 @@ $(function () {
 	    select_diseases.disable();
         select_diseases.clearOptions();
         select_diseases.load(function(callback) {
-            console.log($('#FactAnimals').val());
             var selected_animal = $.grep(animals, function(e) { return $.inArray(e['id'], $('#FactAnimals').val()); })[0];
-            console.log('animal_type_id:' + selected_animal.animal_type_id);
             xhr_diseases && xhr_diseases.abort();
             xhr_diseases = $.ajax({
                 type: 'get',

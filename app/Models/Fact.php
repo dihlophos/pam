@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
         Услуга
         Вид услуги
         Дата
+        Исполнители
         Коментарий
 */
 class Fact extends Model
@@ -24,7 +25,7 @@ class Fact extends Model
     *
     * @var array
     */
-    protected $fillable = ['object_id', 'executor_id', 'basic_document_id',
+    protected $fillable = ['object_id', 'basic_document_id',
                            'service_id', 'service_type_id', 'date', 'comment'];
 
     public function object()
@@ -40,6 +41,11 @@ class Fact extends Model
     public function animals()
     {
         return $this->belongsToMany(Animal::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function service()
