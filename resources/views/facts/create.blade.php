@@ -404,7 +404,8 @@ $(function () {
 	    select_diseases.disable();
         select_diseases.clearOptions();
         select_diseases.load(function(callback) {
-            var selected_animal = $.grep(animals, function(e) { return e['id'] == $('#FactAnimals').val(); })[0];
+            console.log($('#FactAnimals').val());
+            var selected_animal = $.grep(animals, function(e) { return $.inArray(e['id'], $('#FactAnimals').val()); })[0];
             console.log('animal_type_id:' + selected_animal.animal_type_id);
             xhr_diseases && xhr_diseases.abort();
             xhr_diseases = $.ajax({
